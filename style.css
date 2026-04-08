@@ -64,9 +64,24 @@ header {
 }
 
 .typing {
-  font-size: 18px;
+  font-size: 20px;
   margin-top: 10px;
   color: #ddd;
+
+  min-height: 25px;
+  letter-spacing: 1px;
+}
+
+/* Cursor effect */
+.typing::after {
+  content: "...";
+  margin-left: 5px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 /* BUTTON */
