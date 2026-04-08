@@ -6,6 +6,7 @@
   <title>Evan Portfolio</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <!-- NAVBAR -->
@@ -13,7 +14,7 @@
   <h2>Evan.</h2>
   <ul>
     <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
+    <li><a href="#skills">Skills</a></li> <!-- FIXED -->
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -23,7 +24,7 @@
 <header>
   <img src="profile.jpg" class="profile">
   <h1>Md. Shahriar Nafiz Evan</h1>
-  <p>Aspiring Software Engineer | Cybersecurity Enthusiast</p>
+  <p class="typing"></p> <!-- FIXED -->
   <a href="Evan_CV.pdf" class="btn" download>Download CV</a>
 </header>
 
@@ -31,57 +32,153 @@
 <section id="about" class="card">
   <h2>About Me</h2>
   <p>
-    I am a Computer Science student at INTI, Malaysia 🇲🇾. Passionate about software development,
-    cybersecurity, and building real-world projects. I aim to become a professional full stack developer.
+    I am a passionate Computer Science student at INTI International University, Malaysia 🇲🇾 
+focused on building a career in software engineering and cybersecurity.
+
+I enjoy creating modern, responsive web applications and continuously improving my technical skills. 
+Currently, I am working with HTML, CSS, JavaScript, and GitHub to build real-world projects.
+
+I am driven by curiosity, problem-solving, and a strong desire to grow as a developer. 
+My goal is to become a professional full stack developer and work on impactful global projects.
+I believe in learning by building and improving every day.
   </p>
 </section>
 
 <!-- SKILLS -->
-<section id="skills" class="card">
+<section id="skills" class="card"> <!-- FIXED -->
   <h2>Skills</h2>
   <div class="skills">
     <span>HTML</span>
     <span>CSS</span>
     <span>JavaScript</span>
+    <span>Git & GitHub</span>
+    <span>Responsive Design</span>
+    <span>Problem Solving</span>
+    <span>Web Development</span>
+    <span>Cybersecurity Fundamentals</span>
   </div>
 </section>
 
 <!-- PROJECTS -->
 <section id="projects" class="card">
-  <h2>Projects</h2>
+  <h2>🚀 My Projects</h2>
 
-  <div class="project">
-    <h3>🌐 Portfolio Website</h3>
-    <p>Personal portfolio built using HTML, CSS, and deployed on GitHub Pages.</p>
-    <a href="https://github.com/shahriar-evan/portfolio-website" target="_blank">View Code</a>
+  <div class="projects-container">
+
+    <div class="project">
+      <h3>🌐 Portfolio Website</h3>
+      <p>Modern personal portfolio built with HTML, CSS and deployed on GitHub Pages.</p>
+
+      <div class="buttons">
+        <a href="https://github.com/shahriar-evan/portfolio-website" target="_blank">💻 Code</a>
+        <a href="https://shahriarevan.com" target="_blank">🌍 Live</a>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>📝 To-Do App</h3>
+      <p>Task manager with add, delete & local storage support (JavaScript).</p>
+
+      <div class="buttons">
+        <a href="#">💻 Code</a>
+        <a href="#">🌍 Live</a>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>🧮 Calculator</h3>
+      <p>Simple responsive calculator using HTML, CSS & JavaScript.</p>
+
+      <div class="buttons">
+        <a href="#">💻 Code</a>
+        <a href="#">🌍 Live</a>
+      </div>
+    </div>
+
   </div>
+</section>
 
-  <div class="project">
-    <h3>📝 To-Do App (Coming Soon)</h3>
-    <p>A task management app using JavaScript.</p>
-    <a href="#">Coming Soon</a>
+<!-- EXPERIENCE -->
+<section id="experience" class="card">
+  <h2>💼 Experience</h2>
+
+  <div class="exp-item">
+    <h3>💻 Aspiring Developer</h3>
+    <p>Building projects and learning web development & cybersecurity.</p>
+    <span>Self Learning</span>
   </div>
+</section>
 
-  <div class="project">
-    <h3>🧮 Calculator (Coming Soon)</h3>
-    <p>Simple calculator using HTML, CSS, and JavaScript.</p>
-    <a href="#">Coming Soon</a>
+<section id="education" class="card">
+  <h2>🎓 Education</h2>
+
+  <div class="exp-item">
+    <h3>Computer Science</h3>
+    <p>INTI International University, Malaysia</p>
+    <span>2024 - Present</span>
   </div>
-
 </section>
 
 <!-- CONTACT -->
 <section id="contact" class="card">
-  <h2>Contact</h2>
-  <p>Email: <a href="mailto:shahriarevan545@gmail.com">shahriarevan545@gmail.com</a></p>
-  <p>WhatsApp: <a href="https://wa.me/601112502597">+601112502597
-    +8801770849168</a></p>
-  <p>Location: Jalan SS15, Subang Jaya 47500, Malaysia</p>
+  <h2>📬 Contact Me</h2>
+
+  <div class="contact-links">
+    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=shahriarevan545@gmail.com" target="_blank">
+  📧 Email</a>
+    <a href="https://github.com/shahriar-evan" target="_blank">💻 GitHub</a>
+    <a href="https://www.linkedin.com/in/tech-evan-b374382b6/" target="_blank">🔗 LinkedIn</a>
+    <a href="https://wa.me/8801770849168" target="_blank">💬 WhatsApp</a> <!-- FIXED -->
+  </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <p>© 2026 Evan | All Rights Reserved</p>
 </footer>
+
+<!-- JS -->
+<script>
+const text = ["Software Engineer", "Web Developer", "Cybersecurity Enthusiast"];
+let i = 0, j = 0;
+let currentText = "", isDeleting = false;
+
+function type() {
+  if (i < text.length) {
+    if (!isDeleting && j <= text[i].length) {
+      currentText = text[i].substring(0, j++);
+    } else if (isDeleting && j >= 0) {
+      currentText = text[i].substring(0, j--);
+    }
+
+    document.querySelector(".typing").textContent = currentText;
+
+    if (j === text[i].length) {
+      isDeleting = true;
+      setTimeout(type, 1000);
+      return;
+    }
+
+    if (j === 0) {
+      isDeleting = false;
+      i++;
+    }
+  } else {
+    i = 0;
+  }
+
+  setTimeout(type, isDeleting ? 50 : 100);
+}
+type();
+
+// Dark Mode
+function toggleMode() {
+  document.body.classList.toggle("light");
+}
+</script>
+
+<!-- BUTTON -->
+<button onclick="toggleMode()" style="position:fixed;bottom:20px;right:20px;">🌙</button>
 
 </body>
 </html>
