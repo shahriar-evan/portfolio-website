@@ -4,8 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Evan Portfolio</title>
+
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 
+  <!-- Font Awesome (ADD HERE) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0PWDJ5GKZQ"></script>
 <script>
@@ -207,8 +211,10 @@ I believe in learning by building and improving every day.
 <!-- FOOTER -->
 <footer>
   <p>© 2026 Evan | All Rights Reserved</p>
-  <p>👀 Visitors:</p>
-  <img src="https://visitor-badge.laobi.icu/badge?page_id=shahriar-evan.portfolio" />
+
+  <div class="visitor-box">
+    <img src="https://visitor-badge.laobi.icu/badge?page_id=shahriar-evan.portfolio" />
+  </div>
 </footer>
 
 <!-- JS -->
@@ -256,6 +262,33 @@ function toggleMode() {
 
 <!-- BUTTON -->
 <button onclick="toggleMode()" style="position:fixed;bottom:20px;right:20px;">🌙</button>
+
+<script>
+  const btn = document.getElementById("toggleVisitor");
+  const box = document.getElementById("visitorBox");
+
+  btn.addEventListener("click", () => {
+    if (!box.classList.contains("show")) {
+      box.classList.add("show");
+
+      // Show icon
+      btn.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
+          <path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12a5 5 0 110-10 5 5 0 010 10z"/>
+        </svg>
+      `;
+    } else {
+      box.classList.remove("show");
+
+      // Hide icon
+      btn.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
+          <path d="M12 5c-7 0-11 7-11 7s2 3.5 5.5 5.5l-1.5 1.5 1.5 1.5 14-14-1.5-1.5-3 3C14.5 6 13.3 5 12 5z"/>
+        </svg>
+      `;
+    }
+  });
+</script>
 
 </body>
 </html>
