@@ -263,3 +263,8 @@ body:not(.light) .contact-links a {
   background: rgba(255,255,255,0.1);
   color: white;
 }
+/* TEXT SPACING */
+.exp-item p {
+  line-height: 1.6;
+  margin-top: 8px;
+}
