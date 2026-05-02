@@ -1,158 +1,402 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Portfolio Case Study</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Portfolio Website — Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg:      #0a0714;
+    --bg2:     #0f0d1e;
+    --surface: rgba(255,255,255,0.04);
+    --border:  rgba(255,255,255,0.08);
+    --text:    #e8e4f0;
+    --muted:   rgba(232,228,240,0.45);
+    --purple:  #8b5cf6;
+    --pink:    #ec4899;
+    --grad:    linear-gradient(135deg, #8b5cf6, #ec4899);
+  }
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: #e2e8f0;
-      line-height: 1.6;
-    }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
 
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 40px 20px;
-    }
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+  * { position: relative; z-index: 1; }
 
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-      color: #38bdf8;
-    }
+  #progress-bar { position: fixed; top: 0; left: 0; height: 2px; width: 0%; background: var(--grad); z-index: 9999; transition: width 0.08s linear; }
 
-    h2 {
-      margin-top: 30px;
-      color: #22c55e;
-    }
+  .back-btn {
+    position: fixed; top: 24px; left: 28px; z-index: 999;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+    border: 1px solid var(--border); background: rgba(10,7,20,0.7);
+    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); padding: 9px 16px; text-decoration: none; border-radius: 4px; transition: all 0.2s;
+  }
+  .back-btn:hover { color: #fff; border-color: var(--purple); box-shadow: 0 0 20px rgba(139,92,246,0.25); }
+  .back-btn svg { width: 11px; height: 11px; }
 
-    p {
-      margin: 10px 0;
-    }
+  .sidebar { position: fixed; left: 28px; top: 50%; transform: translateY(-50%); z-index: 100; display: flex; flex-direction: column; gap: 8px; }
+  .sidebar-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); cursor: pointer; transition: all 0.3s; display: block; text-decoration: none; }
+  .sidebar-dot.active, .sidebar-dot:hover { background: var(--purple); box-shadow: 0 0 10px rgba(139,92,246,0.6); transform: scale(1.5); }
 
-    ul {
-      margin: 10px 0;
-      padding-left: 20px;
-    }
+  /* HERO */
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 120px 120px 80px; border-bottom: 1px solid var(--border); overflow: hidden; }
+  .hero-bg-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'Syne', sans-serif; font-size: clamp(100px,18vw,200px); font-weight: 800; letter-spacing: -0.05em; color: rgba(255,255,255,0.02); white-space: nowrap; pointer-events: none; -webkit-user-select: none; user-select: none; }
 
-    li {
-      margin-bottom: 8px;
-    }
+  /* DARK MODE TOGGLE */
+  .dm-toggle {
+    position: fixed; top: 24px; right: 28px; z-index: 999;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); border: 1px solid var(--border);
+    background: rgba(10,7,20,0.7); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    padding: 9px 14px; border-radius: 4px; cursor: pointer; transition: all 0.2s;
+  }
+  .dm-toggle:hover { color: #fff; border-color: var(--purple); box-shadow: 0 0 20px rgba(139,92,246,0.25); }
 
-    .section {
-      margin-bottom: 30px;
-    }
+  /* LIGHT MODE */
+  body.light { --bg: #f4f2ff; --bg2: #ede9ff; --border: rgba(79,53,210,0.12); --text: #1a0f3c; --muted: rgba(26,15,60,0.55); }
+  body.light .back-btn { background: rgba(244,242,255,0.85); color: #4f35d2; }
+  body.light .dm-toggle { background: rgba(244,242,255,0.85); }
+  .hero-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--purple); margin-bottom: 28px; display: flex; align-items: center; gap: 12px; animation: fadeUp 0.8s ease both; }
+  .hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--purple); }
+  .hero-title { font-family: 'Syne', sans-serif; font-size: clamp(3.5rem,8vw,8rem); font-weight: 800; line-height: 0.9; letter-spacing: -0.04em; margin-bottom: 40px; animation: fadeUp 0.8s 0.1s ease both; }
+  .grad-text { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; animation: fadeUp 0.8s 0.2s ease both; }
+  .hero-desc { font-size: 1.05rem; color: var(--muted); line-height: 1.75; max-width: 520px; }
+  .hero-stats { display: flex; gap: 40px; flex-shrink: 0; }
+  .h-stat { text-align: right; }
+  .h-stat-num { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: block; line-height: 1; }
+  .h-stat-lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 4px; display: block; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
 
-    .card {
-      background: #1e293b;
-      padding: 20px;
-      border-radius: 12px;
-      margin-top: 15px;
-    }
+  /* SECTIONS */
+  .sec { padding: 120px 120px 0; }
+  .sec-hdr { display: flex; align-items: baseline; gap: 24px; margin-bottom: 64px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  .sec-num { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; color: var(--purple); }
+  .sec-title { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem,3vw,2.6rem); font-weight: 800; letter-spacing: -0.03em; }
+  .sec-sub { font-size: 1rem; color: var(--muted); line-height: 1.75; max-width: 580px; margin-bottom: 48px; }
 
-    .highlight {
-      color: #38bdf8;
-      font-weight: bold;
-    }
+  /* OVERVIEW 2x2 */
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+  .ov-card { background: var(--bg2); padding: 40px 36px; transition: background 0.2s; }
+  .ov-card:hover { background: rgba(139,92,246,0.07); }
+  .ov-icon { width: 40px; height: 40px; border-radius: 8px; background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.25); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-bottom: 20px; }
+  .ov-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+  .ov-text { font-size: 0.875rem; color: var(--muted); line-height: 1.7; }
 
-    .footer {
-      text-align: center;
-      margin-top: 50px;
-      font-size: 14px;
-      color: #94a3b8;
-    }
+  /* TECH ROW */
+  .t-row { display: flex; flex-direction: column; gap: 1px; background: var(--border); }
+  .t-line { background: var(--bg2); padding: 24px 32px; display: grid; grid-template-columns: 200px 1fr auto; align-items: center; gap: 32px; transition: background 0.2s; }
+  .t-line:hover { background: rgba(139,92,246,0.06); }
+  .t-name { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+  .t-name em { font-style: normal; font-size: 1.1rem; }
+  .t-desc { font-size: 0.85rem; color: var(--muted); }
+  .t-pill { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border: 1px solid var(--border); border-radius: 2px; color: var(--purple); white-space: nowrap; }
 
-  </style>
+  /* FEATURES 3-col */
+  .g3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); }
+  .feat-card { background: var(--bg2); padding: 36px 28px; transition: background 0.2s; cursor: default; }
+  .feat-card:hover { background: rgba(139,92,246,0.07); }
+  .feat-num { font-family: 'Syne', sans-serif; font-size: 3.5rem; font-weight: 800; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; opacity: 0.55; line-height: 1; margin-bottom: 16px; }
+  .feat-title { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; }
+  .feat-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+
+  /* PS SPLIT */
+  .ps-split { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+  .ps-col { background: var(--bg2); padding: 48px 40px; }
+  .ps-col.lit { background: linear-gradient(135deg,rgba(139,92,246,0.12),rgba(236,72,153,0.06)); border:1px solid rgba(139,92,246,0.15); }
+  .ps-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--pink); margin-bottom: 20px; display: block; }
+  .ps-col.lit .ps-tag { color: var(--purple); }
+  .ps-heading { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; margin-bottom: 14px; line-height: 1.3; }
+  .ps-body { font-size: 0.875rem; color: var(--muted); line-height: 1.75; margin-bottom: 24px; }
+  .ps-list { list-style: none; }
+  .ps-list li { font-size: 0.82rem; color: var(--muted); padding: 12px 0 12px 20px; border-bottom: 1px solid var(--border); position: relative; }
+  .ps-list li::before { content: '×'; position: absolute; left: 0; color: var(--pink); font-weight: 700; }
+  .ps-col.lit .ps-list li::before { content: '✓'; color: var(--purple); }
+
+  /* CHALLENGES */
+  .ch-stack { display: flex; flex-direction: column; gap: 1px; background: var(--border); }
+  .ch-row { background: var(--bg2); padding: 40px 36px; display: grid; grid-template-columns: 60px 1fr 1fr; gap: 40px; align-items: start; }
+  .ch-n { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; padding-top: 4px; min-width: 60px; }
+  .ch-lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--pink); margin-bottom: 10px; display: block; }
+  .ch-lbl.ok { color: #4ade80; }
+  .ch-title { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 10px; line-height: 1.35; }
+  .ch-text { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+
+  /* LESSONS */
+  .les-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+  .les-card { background: var(--bg2); padding: 40px 36px; transition: background 0.2s; }
+  .les-card:hover { background: rgba(236,72,153,0.06); }
+  .les-icon { font-size: 1.5rem; margin-bottom: 16px; display: block; }
+  .les-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+  .les-text { font-size: 0.875rem; color: var(--muted); line-height: 1.7; }
+
+  /* OUTCOME */
+  .outcome-band { margin: 0 120px 120px; background: var(--bg2); border: 1px solid var(--border); display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background-color: var(--border); }
+  .out-item { text-align: center; padding: 56px 40px; background: var(--bg2); transition: background 0.2s; }
+  .out-item:hover { background: rgba(139,92,246,0.08); }
+  .out-big { font-family: 'Syne', sans-serif; font-size: 5rem; font-weight: 800; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: block; line-height: 1; margin-bottom: 20px; }
+  .out-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple); display: block; margin-bottom: 12px; }
+  .out-title { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; }
+  .out-text { font-size: 0.85rem; color: var(--muted); line-height: 1.75; max-width: 240px; margin: 0 auto; }
+
+  /* FOOTER */
+  footer { padding: 72px 120px; border-top: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0; }
+  .footer-brand { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; margin-bottom: 6px; }
+  .footer-brand span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .footer-credit { font-size: 0.8rem; color: var(--muted); margin-bottom: 2rem; }
+  .footer-links { display: flex; flex-direction: row; gap: 28px; text-align: center; justify-content: center; margin-top: 1rem; }
+  .footer-links a { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.06em; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--purple); }
+  .cta-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--grad); color: #fff; padding: 14px 28px; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: opacity 0.2s; white-space: nowrap; }
+  .cta-btn:hover { opacity: 0.85; }
+
+  .sec-no-pb { padding-bottom: 0; }
+  .sec-pb { padding-bottom: 80px; }
+  .cta-btn-footer { margin: 1.8rem 0 1.2rem; }
+  .reveal { opacity: 0; transform: translateY(24px); transition: all 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .hero { padding: 100px 48px 64px; }
+    .sec { padding: 80px 48px 0; }
+    .outcome-band { margin: 0 48px 80px; }
+    footer { padding: 48px; }
+    .sidebar { display: none; }
+    .back-btn { left: 16px; top: 16px; }
+  }
+  @media (max-width: 768px) {
+    .hero { padding: 80px 24px 48px; }
+    .hero-bottom { flex-direction: column; align-items: flex-start; }
+    .hero-stats { gap: 24px; }
+    .h-stat { text-align: left; }
+    .sec { padding: 60px 24px 0; }
+    .g2, .ps-split, .les-grid { grid-template-columns: 1fr; }
+    .g3 { grid-template-columns: 1fr 1fr; }
+    .ch-row { grid-template-columns: 1fr; gap: 16px; }
+    .t-line { grid-template-columns: 1fr; gap: 8px; }
+    .outcome-band { margin: 0 24px 60px; grid-template-columns: 1fr; }
+    footer { padding: 40px 24px; }
+    .footer-links { flex-direction: column; gap: 12px; }
+  }
+</style>
 </head>
-
 <body>
 
-<div class="container">
+<div id="progress-bar"></div>
 
-  <h1>Portfolio Case Study</h1>
-  <p>This page explains the process, design decisions, and goals behind my portfolio website.</p>
+<a href="index.html" class="back-btn">
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>
+  Back
+</a>
 
-  <div class="section">
-    <h2>🧠 Overview</h2>
-    <div class="card">
-      <p>This portfolio website showcases my projects, skills, and development journey as a web developer. It is designed to present my work in a clean, modern, and professional way.</p>
+<button class="dm-toggle" id="dmToggle" onclick="document.body.classList.toggle('light'); this.textContent = document.body.classList.contains('light') ? '☀ Light' : '☾ Dark'">☾ Dark</button>
+
+<nav class="sidebar">
+  <a class="sidebar-dot active" href="#hero" title="Intro"></a>
+  <a class="sidebar-dot" href="#overview" title="Overview"></a>
+  <a class="sidebar-dot" href="#problem" title="Problem"></a>
+  <a class="sidebar-dot" href="#stack" title="Stack"></a>
+  <a class="sidebar-dot" href="#features" title="Features"></a>
+  <a class="sidebar-dot" href="#challenges" title="Challenges"></a>
+  <a class="sidebar-dot" href="#lessons" title="Lessons"></a>
+  <a class="sidebar-dot" href="#outcome" title="Outcome"></a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg-text">PORTFOLIO</div>
+  <div class="hero-eyebrow">Case Study · 2026</div>
+  <h1 class="hero-title">My Portfolio<br><span class="grad-text">Website.</span></h1>
+  <div class="hero-bottom">
+    <p class="hero-desc">A zero-framework personal portfolio — built from scratch with pure HTML, CSS, and JavaScript — featuring glassmorphism, 6 live themes, SaaS product showcase, and custom animations.</p>
+    <div class="hero-stats">
+      <div class="h-stat"><span class="h-stat-num">6</span><span class="h-stat-lbl">Themes</span></div>
+      <div class="h-stat"><span class="h-stat-num">0</span><span class="h-stat-lbl">Frameworks</span></div>
+      <div class="h-stat"><span class="h-stat-num">Live</span><span class="h-stat-lbl">Status</span></div>
     </div>
   </div>
+</section>
 
-  <div class="section">
-    <h2>🎯 Goal</h2>
-    <div class="card">
-      <p>The goal was to build a personal portfolio that highlights my skills and projects clearly, helping me attract opportunities and present myself professionally.</p>
-    </div>
+<!-- OVERVIEW -->
+<section class="sec" id="overview">
+  <div class="sec-hdr"><span class="sec-num">01</span><h2 class="sec-title">Overview</h2></div>
+  <p class="sec-sub">A personal brand site that doubles as proof-of-skill — every design decision is a deliberate showcase of frontend capability.</p>
+  <div class="g2 reveal">
+    <div class="ov-card"><div class="ov-icon">🎯</div><div class="ov-title">The Goal</div><p class="ov-text">Build a portfolio that doesn't look like a template — one that demonstrates real design and frontend skill while presenting projects, experience, and a live SaaS product professionally.</p></div>
+    <div class="ov-card"><div class="ov-icon">👤</div><div class="ov-title">Target Audience</div><p class="ov-text">Recruiters, potential clients, and fellow developers who want to understand who Evan is, what he builds, and whether he's capable of going beyond tutorial-level work.</p></div>
+    <div class="ov-card"><div class="ov-icon">✦</div><div class="ov-title">Design Direction</div><p class="ov-text">Dark glassmorphism with purple as the signature accent. Clean spatial hierarchy, generous white space, and purposeful micro-animations — nothing decorative without function.</p></div>
+    <div class="ov-card"><div class="ov-icon">🚀</div><div class="ov-title">Key Differentiator</div><p class="ov-text">A dedicated SaaS Products section for WritexNova — a real commercial product with Stripe payments — sets this apart from every standard projects portfolio page.</p></div>
   </div>
+</section>
 
-  <div class="section">
-    <h2>🎨 Design Approach</h2>
-    <div class="card">
-      <ul>
-        <li>Minimal and modern UI</li>
-        <li>Dark theme for premium feel</li>
-        <li>Clean layout and spacing</li>
-        <li>Easy navigation</li>
+<!-- PROBLEM -->
+<section class="sec" id="problem">
+  <div class="sec-hdr"><span class="sec-num">02</span><h2 class="sec-title">Problem & Solution</h2></div>
+  <p class="sec-sub">Most portfolios fail because they look identical. The challenge was to build something genuinely personal and memorable.</p>
+  <div class="ps-split reveal">
+    <div class="ps-col">
+      <span class="ps-tag">The Problem</span>
+      <h3 class="ps-heading">Template portfolios blend into the noise</h3>
+      <p class="ps-body">Recruiters see hundreds of Bootstrap and Tailwind portfolios daily. If yours looks the same, it communicates that you can follow instructions — not that you can create original things.</p>
+      <ul class="ps-list">
+        <li>Identical layouts across thousands of developers</li>
+        <li>No real demonstration of CSS architecture skill</li>
+        <li>Hard to customize without fighting the framework</li>
+        <li>Side projects only — no real commercial products</li>
+      </ul>
+    </div>
+    <div class="ps-col lit">
+      <span class="ps-tag">The Solution</span>
+      <h3 class="ps-heading">Build every line of CSS by hand</h3>
+      <p class="ps-body">Zero frameworks. Every component designed and coded from scratch — the portfolio itself is proof of the skill it claims to demonstrate.</p>
+      <ul class="ps-list">
+        <li>6 switchable themes via CSS custom properties</li>
+        <li>Hand-coded glassmorphism + 3D card effects</li>
+        <li>Custom cursor, typing animation, scroll reveals</li>
+        <li>Live SaaS product section, not just demos</li>
       </ul>
     </div>
   </div>
+</section>
 
-  <div class="section">
-    <h2>⚙️ Features</h2>
-    <div class="card">
-      <ul>
-        <li>Responsive design (mobile + desktop)</li>
-        <li>Project showcase section</li>
-        <li>Contact form</li>
-        <li>Smooth scrolling</li>
-      </ul>
+<!-- TECH STACK -->
+<section class="sec" id="stack">
+  <div class="sec-hdr"><span class="sec-num">03</span><h2 class="sec-title">Tech Stack</h2></div>
+  <p class="sec-sub">Deliberately chosen for full control — no abstraction layers between the code and the browser.</p>
+  <div class="t-row reveal">
+    <div class="t-line"><div class="t-name"><em>🌐</em> HTML5</div><div class="t-desc">Semantic markup, accessible structure, SEO-optimized headings and meta</div><div class="t-pill">Markup</div></div>
+    <div class="t-line"><div class="t-name"><em>🎨</em> CSS3</div><div class="t-desc">Custom properties, glassmorphism, grid, flexbox, keyframe animations, backdrop-filter</div><div class="t-pill">Styling</div></div>
+    <div class="t-line"><div class="t-name"><em>⚡</em> Vanilla JS</div><div class="t-desc">Theme switcher, typing animation, IntersectionObserver reveals, custom cursor</div><div class="t-pill">Behaviour</div></div>
+    <div class="t-line"><div class="t-name"><em>🐙</em> GitHub Pages</div><div class="t-desc">Free static hosting, auto-deploy on git push, CNAME support for custom domain</div><div class="t-pill">Hosting</div></div>
+    <div class="t-line"><div class="t-name"><em>🌍</em> Namecheap</div><div class="t-desc">CNAME record → shahriarevan.com routed to GitHub Pages infrastructure</div><div class="t-pill">Domain</div></div>
+    <div class="t-line"><div class="t-name"><em>📧</em> Formspree</div><div class="t-desc">Serverless contact form backend — email delivery without a server</div><div class="t-pill">Forms</div></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="sec" id="features">
+  <div class="sec-hdr"><span class="sec-num">04</span><h2 class="sec-title">Features Built</h2></div>
+  <p class="sec-sub">Every feature was designed to serve a purpose — showcase skill, improve UX, or present content more effectively.</p>
+  <div class="g3 reveal">
+    <div class="feat-card"><div class="feat-num">01</div><div class="feat-title">6-Theme System</div><div class="feat-desc">Purple, Blue, Green, Orange, Rose, Cyan — all driven by CSS variables. Full palette switch in one click.</div></div>
+    <div class="feat-card"><div class="feat-num">02</div><div class="feat-title">Glassmorphism Cards</div><div class="feat-desc">Backdrop blur, semi-transparent backgrounds, 3D hover tilt, and gradient glow — all pure CSS.</div></div>
+    <div class="feat-card"><div class="feat-num">03</div><div class="feat-title">Typing Animation</div><div class="feat-desc">Hero types and deletes role titles in a loop — creating immediate engagement on arrival.</div></div>
+    <div class="feat-card"><div class="feat-num">04</div><div class="feat-title">Custom Cursor</div><div class="feat-desc">Dot + ring cursor with spring delay and hover expand — a premium signature detail.</div></div>
+    <div class="feat-card"><div class="feat-num">05</div><div class="feat-title">Scroll Reveals</div><div class="feat-desc">IntersectionObserver staggered fade-ups on every section as you scroll through.</div></div>
+    <div class="feat-card"><div class="feat-num">06</div><div class="feat-title">SaaS Products Section</div><div class="feat-desc">Dedicated section for WritexNova — a live, monetized product separate from demo projects.</div></div>
+    <div class="feat-card"><div class="feat-num">07</div><div class="feat-title">Dark / Light Mode</div><div class="feat-desc">Full dark and light support across all 6 themes — toggled and persisted across visits.</div></div>
+    <div class="feat-card"><div class="feat-num">08</div><div class="feat-title">Expand / Collapse</div><div class="feat-desc">Featured items shown by default, more hidden behind View More — clean by default, deep on demand.</div></div>
+    <div class="feat-card"><div class="feat-num">09</div><div class="feat-title">Fully Responsive</div><div class="feat-desc">320px mobile to 4K desktop — hamburger nav, grid reflow, touch-friendly throughout.</div></div>
+  </div>
+</section>
+
+<!-- CHALLENGES -->
+<section class="sec" id="challenges">
+  <div class="sec-hdr"><span class="sec-num">05</span><h2 class="sec-title">Challenges Solved</h2></div>
+  <p class="sec-sub">No framework means solving problems frameworks handle automatically. Here's what came up.</p>
+  <div class="ch-stack reveal">
+    <div class="ch-row">
+      <div class="ch-n">1</div>
+      <div><span class="ch-lbl">Challenge</span><h4 class="ch-title">6 themes without duplicating CSS</h4><p class="ch-text">Supporting 6 color themes and dark/light mode without maintaining 12 separate stylesheets was an upfront architecture challenge.</p></div>
+      <div><span class="ch-lbl ok">Solved</span><h4 class="ch-title">CSS custom properties + data-theme on html</h4><p class="ch-text">All colors as CSS variables. Theme switching updates one data-theme attribute, cascading all changes instantly with zero per-element JS.</p></div>
+    </div>
+    <div class="ch-row">
+      <div class="ch-n">2</div>
+      <div><span class="ch-lbl">Challenge</span><h4 class="ch-title">3D card tilt without performance drops</h4><p class="ch-text">Cards needed smooth perspective tilt on hover without layout thrashing or jank on lower-end devices.</p></div>
+      <div><span class="ch-lbl ok">Solved</span><h4 class="ch-title">CSS transform + rAF throttle</h4><p class="ch-text">perspective() rotateX/Y driven by mouse-to-card offset, with mousemove throttled via requestAnimationFrame to maintain 60fps.</p></div>
+    </div>
+    <div class="ch-row">
+      <div class="ch-n">3</div>
+      <div><span class="ch-lbl">Challenge</span><h4 class="ch-title">backdrop-filter cross-browser gaps</h4><p class="ch-text">The glassmorphism blur requires backdrop-filter which isn't uniformly supported, especially in older Firefox.</p></div>
+      <div><span class="ch-lbl ok">Solved</span><h4 class="ch-title">Progressive enhancement fallback</h4><p class="ch-text">-webkit-backdrop-filter prefix for Safari. Semi-transparent solid background fallback — cards remain readable in all environments.</p></div>
     </div>
   </div>
+</section>
 
-  <div class="section">
-    <h2>🛠️ Tech Stack</h2>
-    <div class="card">
-      <p><span class="highlight">HTML</span>, <span class="highlight">CSS</span>, <span class="highlight">JavaScript</span></p>
-    </div>
+<!-- LESSONS -->
+<section class="sec sec-no-pb" id="lessons">
+  <div class="sec-hdr"><span class="sec-num">06</span><h2 class="sec-title">Lessons Learned</h2></div>
+  <p class="sec-sub">No framework safety net means no hiding from the fundamentals.</p>
+  <div class="les-grid reveal">
+    <div class="les-card"><span class="les-icon">🏗️</span><div class="les-title">CSS architecture is underrated</div><p class="les-text">Managing 1200+ lines of hand-written CSS requires deliberate naming and section structure. BEM-inspired class names and clear comments kept the codebase navigable as it grew.</p></div>
+    <div class="les-card"><span class="les-icon">🎭</span><div class="les-title">Design is a technical skill</div><p class="les-text">Spacing, hierarchy, and color balance aren't aesthetic preferences — they affect readability and trust. Getting them right required iteration, not intuition alone.</p></div>
+    <div class="les-card"><span class="les-icon">📱</span><div class="les-title">Mobile-first prevents rework</div><p class="les-text">Desktop-first sections needed heavy rewrites for mobile. Switching to mobile-first mid-project on later sections saved significant debugging time.</p></div>
+    <div class="les-card"><span class="les-icon">🔄</span><div class="les-title">A portfolio is never finished</div><p class="les-text">Started as 4 sections. Grew to include SaaS products, games, and case studies. Treating it as a living document — not a one-time build — is the correct mindset.</p></div>
   </div>
+</section>
 
-  <div class="section">
-    <h2>🚧 Challenges</h2>
-    <div class="card">
-      <p>Ensuring responsiveness across different devices was challenging. Adjusting layout, spacing, and structure for mobile screens required careful testing.</p>
-    </div>
+<!-- OUTCOME -->
+<section class="sec sec-pb" id="outcome">
+  <div class="sec-hdr"><span class="sec-num">07</span><h2 class="sec-title">Outcome</h2></div>
+  <p class="sec-sub">A fully handcrafted portfolio — live at a custom domain with a real SaaS product that no template can replicate.</p>
+</section>
+
+<div class="outcome-band reveal">
+  <div class="out-item">
+    <span class="out-big">6</span>
+    <span class="out-label">Color Themes</span>
+    <div class="out-title">Live & Switchable</div>
+    <p class="out-text">Purple, Blue, Green, Orange, Rose, Cyan — all driven by CSS variables. Full dark/light mode support across every theme, toggled in one click.</p>
   </div>
-
-  <div class="section">
-    <h2>🚀 Future Improvements</h2>
-    <div class="card">
-      <ul>
-        <li>Add AI chatbot integration</li>
-        <li>Improve animations</li>
-        <li>Add backend features</li>
-        <li>Enhance performance</li>
-      </ul>
-    </div>
+  <div class="out-item">
+    <span class="out-big">0</span>
+    <span class="out-label">Frameworks Used</span>
+    <div class="out-title">100% Handwritten</div>
+    <p class="out-text">Pure HTML, CSS, and JavaScript throughout. Every animation, every card, every interaction — coded from scratch. The portfolio itself is the proof of skill.</p>
   </div>
-
-  <div class="section">
-    <h2>✅ Result</h2>
-    <div class="card">
-      <p>The final result is a clean, modern, and responsive portfolio that effectively showcases my work and skills.</p>
-    </div>
+  <div class="out-item">
+    <span class="out-big">🟢</span>
+    <span class="out-label">Deployment Status</span>
+    <div class="out-title">Live at Custom Domain</div>
+    <p class="out-text">shahriarevan.com — deployed via GitHub Pages with Namecheap CNAME DNS configuration. Auto-deploys on every git push.</p>
   </div>
-
-  <div class="footer">
-   <p>© 2026 <strong>shahriarevan.com</strong> | All Rights Reserved</p>
-  </div>
-
 </div>
 
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Evan<span>.</span></div>
+  <div class="footer-credit">Built by Md. Shahriar Nafiz Evan · 2026</div>
+  <a href="https://shahriarevan.com" target="_blank" rel="noopener noreferrer" class="cta-btn cta-btn-footer">Visit Portfolio ↗</a>
+  <div class="footer-links">
+    <a href="index.html">← Back to Home</a>
+    <a href="writexnova-casestudy.html">WritexNova Case Study ↗</a>
+  </div>
+</footer>
+
+<script>
+  const bar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    bar.style.width = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100) + '%';
+  });
+
+  const sections = ['hero','overview','problem','stack','features','challenges','lessons','outcome'];
+  const dots = document.querySelectorAll('.sidebar-dot');
+  const sio = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const i = sections.indexOf(e.target.id);
+        dots.forEach((d,j) => d.classList.toggle('active', i === j));
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(id => { const el = document.getElementById(id); if(el) sio.observe(el); });
+
+  const rev = document.querySelectorAll('.reveal');
+  const rio = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); rio.unobserve(e.target); }});
+  }, { threshold: 0.1 });
+  rev.forEach(r => rio.observe(r));
+</script>
 </body>
 </html>

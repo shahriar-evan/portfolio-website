@@ -23,7 +23,7 @@
     color: #4f35d2; background: rgba(255,255,255,0.85);
     border: 1px solid rgba(79,53,210,0.25); border-radius: 2px;
     padding: 8px 14px; text-decoration: none;
-    backdrop-filter: blur(8px); transition: all 0.2s;
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: all 0.2s;
   }
   .back-btn:hover { background: #4f35d2; color: #fff; border-color: #4f35d2; }
   .back-btn svg { width: 12px; height: 12px; }
@@ -807,6 +807,20 @@
     font-family: 'DM Mono', monospace;
   }
 
+  .footer-tagline {
+    color: rgba(255,255,255,0.45); font-size: 0.9rem;
+    margin-bottom: 1.5rem; max-width: 480px; text-align: center; line-height: 1.6;
+  }
+
+  .footer-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg,#4f35d2,#e8455a); color: #fff;
+    padding: 14px 32px; border-radius: 4px; font-family: 'DM Mono', monospace;
+    font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none; margin-bottom: 2.5rem; transition: opacity 0.2s;
+  }
+  .footer-cta:hover { opacity: 0.85; }
+
   /* ── ANIMATIONS ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
@@ -1288,8 +1302,8 @@
 <!-- ═══════════════════ FOOTER ═══════════════════ -->
 <footer class="case-footer">
   <div class="footer-brand">Writex<span>Nova</span></div>
-  <p style="color:rgba(255,255,255,0.45); font-size:0.9rem; margin-bottom:1.5rem; max-width:480px; text-align:center; line-height:1.6;">A full-stack AI SaaS — built solo, deployed to production, and open for users. Try it free.</p>
-  <a href="https://writexnova.vercel.app" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,#4f35d2,#e8455a); color:#fff; padding:14px 32px; border-radius:4px; font-family:'DM Mono',monospace; font-size:0.8rem; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; margin-bottom:2.5rem; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Visit WritexNova ↗</a>
+  <p class="footer-tagline">A full-stack AI SaaS — built solo, deployed to production, and open for users. Try it free.</p>
+  <a href="https://writexnova.vercel.app" target="_blank" rel="noopener noreferrer" class="footer-cta">Visit WritexNova ↗</a>
   <ul class="footer-links">
     <li><a href="index.html">← Portfolio</a></li>
     <li><a href="https://writexnova.vercel.app" target="_blank" rel="noopener noreferrer">Live Site ↗</a></li>
