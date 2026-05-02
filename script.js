@@ -114,6 +114,8 @@ hamburger.addEventListener('click', () => {
     navLinks.classList.toggle('active');
     overlay.classList.toggle('active');
 });
+
+document.getElementById('navCloseBtn').addEventListener('click', closeMenu);
  
 document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', closeMenu);
