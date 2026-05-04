@@ -505,10 +505,12 @@ footer p { font-size: 0.9rem; }
 
 /* ===== SAAS SECTION ===== */
 .saas-featured-card {
-    max-width: 680px; margin: 0 auto;
     border: 1px solid rgba(139, 92, 246, 0.35);
     position: relative; overflow: visible;
+    display: flex; flex-direction: column;
+    height: 100%;
 }
+.saas-featured-card .project-card p { flex: 1; }
 .saas-featured-card::after {
     content: ''; position: absolute; inset: -1px; border-radius: inherit;
     background: linear-gradient(135deg, var(--primary), var(--accent));
@@ -563,4 +565,14 @@ footer p { font-size: 0.9rem; }
     .btn, .hamburger, .theme-switcher-btn, .dark-mode-btn,
     .theme-option, .close-palette, .contact-btn, .skill-badge,
     .tech-icon-item, .expand-btn { cursor: auto; }
+}
+
+/* SaaS grid equal height cards */
+#saas .projects-grid {
+    align-items: stretch;
+}
+#saas .projects-grid > * {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
