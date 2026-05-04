@@ -74,6 +74,7 @@
     display: flex; align-items: center; justify-content: space-between;
     background: rgba(8,8,16,0.7);
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
   }
   .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; color: var(--white); }
@@ -269,6 +270,44 @@
     .cta-block { padding: 48px 24px; }
     .cta-h2 { font-size: 28px; }
   }
+
+  /* ── Utility classes ── */
+  .pt-0 { padding-top: 0; }
+  .pb-0 { padding-bottom: 0; }
+  .pb-120 { padding-bottom: 120px; }
+  .mt-48 { margin-top: 48px; }
+  .mt-60 { margin-top: 60px; }
+  .p-0 { padding: 0; }
+
+  /* Tech dot colors */
+  .td-white   { background: #ffffff; }
+  .td-sky     { background: #38bdf8; }
+  .td-orange  { background: #f97316; }
+  .td-yellow  { background: #facc15; }
+  .td-indigo  { background: #635bff; }
+  .td-green   { background: #00a67e; }
+  .td-violet  { background: #4f46e5; }
+  .td-pink    { background: #e879f9; }
+  .td-rose    { background: #f43f5e; }
+  .td-emerald { background: #10b981; }
+  .td-blue    { background: #3b82f6; }
+  .td-purple  { background: #8b5cf6; }
+
+  /* CTA footer */
+  .cta-footer { border-radius: 24px 24px 0 0; border-bottom: none; padding-bottom: 60px; }
+  .cta-brand-title { font-size: 28px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 900; }
+  .cta-brand-sub { font-size: 15px; margin-bottom: 36px; }
+  .btn-visit { font-family: 'DM Mono', monospace; letter-spacing: 0.08em; font-size: 13px; text-transform: uppercase; padding: 16px 40px; }
+  .grad-text { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  /* Case study footer */
+  .case-footer { background: var(--surface); border-top: 1px solid var(--border); padding: 28px 0; position: relative; z-index: 10; }
+  .footer-col { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+  .footer-links { display: flex; gap: 32px; font-family: 'DM Mono', monospace; font-size: 12px; }
+  .footer-link { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .footer-link:hover { color: var(--white); }
+  .footer-credit { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
+
 </style>
 </head>
 <body>
@@ -280,8 +319,8 @@
 <!-- Nav -->
 <nav>
   <div class="nav-logo">AIX<span>Nova</span></div>
-  <div class="nav-tag">CASE STUDY · 2025</div>
-  <a href="https://aixnova.vercel.app" target="_blank" class="nav-cta">Visit Platform ↗</a>
+  <div class="nav-tag">CASE STUDY · 2026</div>
+  <a href="https://aixnova.vercel.app" target="_blank" rel="noopener noreferrer" class="nav-cta">Visit Platform ↗</a>
 </nav>
 
 <!-- Hero -->
@@ -345,7 +384,7 @@
 </section>
 
 <!-- Problem / Solution -->
-<section style="padding-top: 0;">
+<section class="pt-0">
   <div class="container">
     <div class="section-label">02 — Problem & Solution</div>
     <h2 class="section-h2">Why build this?</h2>
@@ -378,28 +417,28 @@
 </section>
 
 <!-- Tech Stack -->
-<section style="padding-top: 0;">
+<section class="pt-0">
   <div class="container">
     <div class="section-label">03 — Tech Stack</div>
     <h2 class="section-h2">Built with modern tools.</h2>
     <p class="section-p">A fully serverless Next.js architecture — no separate backend needed. Every API route, auth flow, and AI call lives within the same codebase.</p>
 
     <div class="tech-grid">
-      <div class="tech-pill"><span class="tech-dot" style="background:#ffffff"></span>Next.js 14</div>
-      <div class="tech-pill"><span class="tech-dot" style="background:#38bdf8"></span>Tailwind CSS</div>
-      <div class="tech-pill"><span class="tech-dot" style="background:#f97316"></span>MongoDB Atlas</div>
-      <div class="tech-pill"><span class="tech-dot" style="background:#facc15"></span>Firebase Auth</div>
-      <div class="tech-pill"><span class="tech-dot" style="background:#635bff"></span>Lemon Squeezy</div>
-      <div class="tech-pill"><span class="tech-dot" style="background:#00a67e"></span>OpenAI API</div>
-      <div class="tech-pill"><span class="tech-dot" style="background:#4f46e5"></span>Google OAuth</div>
-      <div class="tech-pill"><span class="tech-dot" style="background:#e879f9"></span>Vercel Deploy</div>
-      <div class="tech-pill"><span class="tech-dot" style="background:#f43f5e"></span>Framer Motion</div>
-      <div class="tech-pill"><span class="tech-dot" style="background:#10b981"></span>shadcn/ui</div>
-      <div class="tech-pill"><span class="tech-dot" style="background:#3b82f6"></span>Lucide Icons</div>
-      <div class="tech-pill"><span class="tech-dot" style="background:#8b5cf6"></span>Sonner Toasts</div>
+      <div class="tech-pill"><span class="tech-dot td-white"></span>Next.js 14</div>
+      <div class="tech-pill"><span class="tech-dot td-sky"></span>Tailwind CSS</div>
+      <div class="tech-pill"><span class="tech-dot td-orange"></span>MongoDB Atlas</div>
+      <div class="tech-pill"><span class="tech-dot td-yellow"></span>Firebase Auth</div>
+      <div class="tech-pill"><span class="tech-dot td-indigo"></span>Lemon Squeezy</div>
+      <div class="tech-pill"><span class="tech-dot td-green"></span>OpenAI API</div>
+      <div class="tech-pill"><span class="tech-dot td-violet"></span>Google OAuth</div>
+      <div class="tech-pill"><span class="tech-dot td-pink"></span>Vercel Deploy</div>
+      <div class="tech-pill"><span class="tech-dot td-rose"></span>Framer Motion</div>
+      <div class="tech-pill"><span class="tech-dot td-emerald"></span>shadcn/ui</div>
+      <div class="tech-pill"><span class="tech-dot td-blue"></span>Lucide Icons</div>
+      <div class="tech-pill"><span class="tech-dot td-purple"></span>Sonner Toasts</div>
     </div>
 
-    <div class="quote-block" style="margin-top: 48px;">
+    <div class="quote-block mt-48">
       <div class="quote-text">"The entire platform — frontend, API routes, auth, payments, and AI integrations — runs as a single Next.js app on Vercel. No separate backend server needed."</div>
       <div class="quote-author">— Architecture decision note</div>
     </div>
@@ -407,14 +446,14 @@
 </section>
 
 <!-- Features -->
-<section style="padding-top: 0;">
+<section class="pt-0">
   <div class="container-wide">
-    <div class="container" style="padding: 0;">
+    <div class="container p-0">
       <div class="section-label">04 — Features</div>
       <h2 class="section-h2">Everything in one dashboard.</h2>
     </div>
 
-    <div class="features-grid" style="margin-top: 60px;">
+    <div class="features-grid mt-60">
       <div class="feature-card">
         <div class="feature-num">01</div>
         <div class="feature-title">Multi-Model AI Chat</div>
@@ -474,7 +513,7 @@
 </section>
 
 <!-- Metrics -->
-<section style="padding-top: 0;">
+<section class="pt-0">
   <div class="container">
     <div class="section-label">05 — By The Numbers</div>
     <h2 class="section-h2">What got built.</h2>
@@ -490,7 +529,7 @@
 </section>
 
 <!-- Build Timeline -->
-<section style="padding-top: 0;">
+<section class="pt-0">
   <div class="container">
     <div class="section-label">06 — Build Journey</div>
     <h2 class="section-h2">How it came together.</h2>
@@ -545,12 +584,12 @@
 </section>
 
 <!-- Learnings -->
-<section style="padding-top: 0;">
+<section class="pt-0">
   <div class="container">
     <div class="section-label">07 — Key Learnings</div>
     <h2 class="section-h2">What this project taught.</h2>
 
-    <div class="two-col" style="margin-top: 48px;">
+    <div class="two-col mt-48">
       <div class="col-card">
         <div class="col-label">Technical</div>
         <div class="col-h3">Architecture decisions</div>
@@ -576,26 +615,26 @@
 </section>
 
 <!-- Final CTA / Footer -->
-<section style="padding-top: 0; padding-bottom: 0;">
+<section class="pt-0 pb-0">
   <div class="container">
-    <div class="cta-block" style="border-radius: 24px 24px 0 0; border-bottom: none; padding-bottom: 60px;">
-      <h2 class="cta-h2" style="font-size: 28px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 900;">AIX<span style="background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;">Nova</span></h2>
-      <p class="cta-p" style="font-size: 15px; margin-bottom: 36px;">100 free credits · No credit card · Every tool from day one.</p>
-      <a href="https://aixnova.vercel.app" target="_blank" class="btn-primary" style="font-family: 'DM Mono', monospace; letter-spacing: 0.08em; font-size: 13px; text-transform: uppercase; padding: 16px 40px;">
+    <div class="cta-block cta-footer">
+      <h2 class="cta-h2 cta-brand-title">AIX<span class="grad-text">Nova</span></h2>
+      <p class="cta-p cta-brand-sub">100 free credits · No credit card · Every tool from day one.</p>
+      <a href="https://aixnova.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-primary btn-visit">
         VISIT AIXNOVA ↗
       </a>
     </div>
   </div>
 </section>
 
-<footer style="background: var(--surface); border-top: 1px solid var(--border); padding: 28px 0; position: relative; z-index: 10;">
+<footer class="case-footer">
   <div class="container">
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center;">
-      <div style="display: flex; gap: 32px; font-family: 'DM Mono', monospace; font-size: 12px;">
-        <a href="https://shahriar-evan.com" style="color: var(--muted); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color=''">← Portfolio</a>
-        <a href="https://aixnova.vercel.app" target="_blank" style="color: var(--muted); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color=''">Live Site ↗</a>
+    <div class="footer-col">
+      <div class="footer-links">
+        <a href="https://shahriar-evan.com" class="footer-link">← Portfolio</a>
+        <a href="https://aixnova.vercel.app" target="_blank" rel="noopener noreferrer" class="footer-link">Live Site ↗</a>
       </div>
-      <p style="font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted);">Built by Md. Shahriar Nafiz Evan · 2026</p>
+      <p class="footer-credit">Built by Md. Shahriar Nafiz Evan · 2026</p>
     </div>
   </div>
 </footer>
