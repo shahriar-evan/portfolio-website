@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AIXNova — Case Study by Shahriar Evan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #080810;
+    --bg2: #0d0d1a;
+    --surface: #111122;
+    --border: rgba(255,255,255,0.07);
+    --text: #e8e8f0;
+    --muted: #6b6b88;
+    --accent: #7c6fff;
+    --accent2: #e066ff;
+    --accent3: #00d4aa;
+    --white: #ffffff;
+    --grad: linear-gradient(135deg, #7c6fff, #e066ff);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── Noise overlay ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ── Glow blobs ── */
+  .blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.18;
+  }
+  .blob-1 { width: 600px; height: 600px; background: #7c6fff; top: -200px; left: -200px; animation: drift1 20s ease-in-out infinite; }
+  .blob-2 { width: 500px; height: 500px; background: #e066ff; bottom: 200px; right: -150px; animation: drift2 25s ease-in-out infinite; }
+  .blob-3 { width: 400px; height: 400px; background: #00d4aa; top: 50%; left: 40%; animation: drift3 18s ease-in-out infinite; opacity: 0.1; }
+
+  @keyframes drift1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(60px,80px)} }
+  @keyframes drift2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-80px,-60px)} }
+  @keyframes drift3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(40px,-40px)} }
+
+  /* ── Layout ── */
+  .container { max-width: 960px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 10; }
+  .container-wide { max-width: 1100px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 10; }
+
+  /* ── Nav ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 20px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(8,8,16,0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; color: var(--white); }
+  .nav-logo span { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .nav-tag {
+    font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted);
+    border: 1px solid var(--border); padding: 4px 12px; border-radius: 20px;
+  }
+  .nav-cta {
+    background: var(--grad); color: white; padding: 8px 20px; border-radius: 8px;
+    font-size: 13px; font-weight: 500; text-decoration: none; transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* ── Hero ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 120px 0 80px;
+    position: relative;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent);
+    border: 1px solid rgba(124,111,255,0.3); background: rgba(124,111,255,0.08);
+    padding: 6px 14px; border-radius: 20px; margin-bottom: 32px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(48px, 8vw, 88px);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    margin-bottom: 12px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero h1 .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  .hero-sub {
+    font-size: 20px; color: var(--muted); max-width: 520px;
+    margin-bottom: 48px; font-weight: 300;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-stats {
+    display: flex; gap: 48px; flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .stat-item { }
+  .stat-num {
+    font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 800;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+    line-height: 1;
+  }
+  .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; font-family: 'DM Mono', monospace; }
+
+  .hero-scroll {
+    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: var(--muted); font-size: 11px; font-family: 'DM Mono', monospace;
+    animation: bounce 2s ease infinite;
+  }
+  .hero-scroll::after { content: '↓'; font-size: 18px; color: var(--accent); }
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ── Section ── */
+  section { padding: 100px 0; position: relative; z-index: 10; }
+  .section-label {
+    font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before { content: ''; flex: 1; max-width: 40px; height: 1px; background: var(--accent); }
+  .section-h2 {
+    font-family: 'Syne', sans-serif; font-size: clamp(32px, 5vw, 52px);
+    font-weight: 700; color: var(--white); line-height: 1.1; letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .section-p { color: var(--muted); font-size: 17px; max-width: 600px; line-height: 1.8; }
+
+  /* ── Overview cards ── */
+  .overview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: 60px; }
+  .overview-card { background: var(--surface); padding: 32px 28px; transition: background 0.2s; }
+  .overview-card:hover { background: rgba(124,111,255,0.06); }
+  .overview-icon { font-size: 28px; margin-bottom: 16px; }
+  .overview-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .overview-text { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* ── Problem / Solution ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); border-radius: 20px; overflow: hidden; margin-top: 60px; }
+  .col-card { background: var(--surface); padding: 48px 40px; }
+  .col-card.accent { background: rgba(124,111,255,0.06); border-left: 3px solid var(--accent); }
+  .col-label { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.15em; }
+  .col-h3 { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 16px; }
+  .col-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .col-list li { display: flex; gap: 12px; font-size: 15px; color: var(--muted); align-items: flex-start; }
+  .col-list li::before { content: attr(data-icon); flex-shrink: 0; margin-top: 1px; }
+
+  /* ── Tech stack ── */
+  .tech-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
+  .tech-pill {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 10px 18px; border-radius: 50px;
+    font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text);
+    transition: all 0.2s;
+  }
+  .tech-pill:hover { border-color: rgba(124,111,255,0.4); color: var(--white); background: rgba(124,111,255,0.08); }
+  .tech-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ── Feature blocks ── */
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 60px; }
+  .feature-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+    padding: 32px 28px; transition: all 0.25s; position: relative; overflow: hidden;
+  }
+  .feature-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--grad); opacity: 0; transition: opacity 0.25s;
+  }
+  .feature-card:hover { border-color: rgba(124,111,255,0.25); transform: translateY(-2px); }
+  .feature-card:hover::before { opacity: 1; }
+  .feature-num { font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 800; color: rgba(124,111,255,0.12); line-height: 1; margin-bottom: 16px; }
+  .feature-title { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+  .feature-desc { font-size: 14px; color: var(--muted); line-height: 1.7; }
+  .feature-tag { display: inline-block; margin-top: 16px; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent); background: rgba(124,111,255,0.1); padding: 3px 10px; border-radius: 20px; }
+
+  /* ── Metrics ── */
+  .metrics-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-top: 60px; }
+  .metric-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px 24px; text-align: center; }
+  .metric-big { font-family: 'Syne', sans-serif; font-size: 42px; font-weight: 800; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; line-height: 1; }
+  .metric-label { font-size: 13px; color: var(--muted); margin-top: 8px; font-family: 'DM Mono', monospace; }
+
+  /* ── Timeline ── */
+  .timeline { display: flex; flex-direction: column; gap: 0; margin-top: 60px; position: relative; }
+  .timeline::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 1px; background: var(--border); }
+  .tl-item { display: flex; gap: 32px; padding-bottom: 48px; position: relative; }
+  .tl-dot { width: 36px; height: 36px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 14px; position: relative; z-index: 1; }
+  .tl-content { flex: 1; padding-top: 6px; }
+  .tl-phase { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); margin-bottom: 8px; }
+  .tl-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+  .tl-desc { font-size: 14px; color: var(--muted); line-height: 1.7; }
+  .tl-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .tl-tag { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--muted); background: var(--surface); border: 1px solid var(--border); padding: 3px 10px; border-radius: 20px; }
+
+  /* ── CTA ── */
+  .cta-block {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 24px; padding: 80px 60px; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-block::before {
+    content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+    width: 400px; height: 400px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(124,111,255,0.15), transparent 70%);
+    pointer-events: none;
+  }
+  .cta-h2 { font-family: 'Syne', sans-serif; font-size: 40px; font-weight: 800; color: var(--white); margin-bottom: 16px; }
+  .cta-p { color: var(--muted); font-size: 17px; margin-bottom: 40px; }
+  .btn-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--grad); color: white; padding: 14px 32px; border-radius: 10px; font-size: 15px; font-weight: 500; text-decoration: none; transition: opacity 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-outline { color: var(--text); padding: 14px 32px; border-radius: 10px; font-size: 15px; border: 1px solid var(--border); text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-outline:hover { border-color: rgba(124,111,255,0.4); color: var(--white); }
+
+  /* ── Divider ── */
+  .divider { height: 1px; background: var(--border); margin: 0; }
+
+  /* ── Footer ── */
+  footer { padding: 40px 0; border-top: 1px solid var(--border); position: relative; z-index: 10; }
+  .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-left { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); }
+  .footer-right { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); }
+
+  /* ── Quote block ── */
+  .quote-block { border-left: 3px solid var(--accent); padding: 24px 32px; background: rgba(124,111,255,0.05); border-radius: 0 12px 12px 0; margin: 40px 0; }
+  .quote-text { font-size: 18px; color: var(--text); font-style: italic; line-height: 1.7; margin-bottom: 12px; }
+  .quote-author { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .container, .container-wide { padding: 0 20px; }
+    .two-col { grid-template-columns: 1fr; }
+    .hero-stats { gap: 28px; }
+    .cta-block { padding: 48px 24px; }
+    .cta-h2 { font-size: 28px; }
+  }
+
+  /* ── Utility classes (replacing inline styles) ── */
+  .pt-0 { padding-top: 0; }
+  .pb-0 { padding-bottom: 0; }
+  .pb-120 { padding-bottom: 120px; }
+  .mt-48 { margin-top: 48px; }
+  .mt-60 { margin-top: 60px; }
+  .p-0 { padding: 0; }
+
+  /* Tech dot colors */
+  .td-white   { background: #ffffff; }
+  .td-sky     { background: #38bdf8; }
+  .td-orange  { background: #f97316; }
+  .td-yellow  { background: #facc15; }
+  .td-indigo  { background: #635bff; }
+  .td-green   { background: #00a67e; }
+  .td-violet  { background: #4f46e5; }
+  .td-pink    { background: #e879f9; }
+  .td-rose    { background: #f43f5e; }
+  .td-emerald { background: #10b981; }
+  .td-blue    { background: #3b82f6; }
+  .td-purple  { background: #8b5cf6; }
+
+  /* CTA footer block */
+  .cta-footer {
+    border-radius: 24px 24px 0 0;
+    border-bottom: none;
+    padding-bottom: 60px;
+  }
+  .cta-brand-title {
+    font-size: 28px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 900;
+  }
+  .cta-brand-sub {
+    font-size: 15px;
+    margin-bottom: 36px;
+  }
+  .btn-visit {
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.08em;
+    font-size: 13px;
+    text-transform: uppercase;
+    padding: 16px 40px;
+  }
+  .grad-text {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Footer */
+  .case-footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 28px 0;
+    position: relative;
+    z-index: 10;
+  }
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+  }
+  .footer-links {
+    display: flex;
+    gap: 32px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+  }
+  .footer-link {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-link:hover { color: var(--white); }
+  .footer-credit {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+</style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-logo">AIX<span>Nova</span></div>
+  <div class="nav-tag">CASE STUDY · 2025</div>
+  <a href="https://aixnova.vercel.app" target="_blank" rel="noopener noreferrer" class="nav-cta">Visit Platform ↗</a>
+</nav>
+
+<!-- Hero -->
+<div class="container">
+  <div class="hero">
+    <div class="hero-eyebrow">Case Study — Full-stack SaaS</div>
+    <h1>Building a<br /><span class="grad">complete AI</span><br />workspace.</h1>
+    <p class="hero-sub">From zero to a live multi-tool AI platform — built solo in under 4 weeks.</p>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">6+</div>
+        <div class="stat-label">AI Tools</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">134</div>
+        <div class="stat-label">Prompt Templates</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Pricing Tiers</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">4wk</div>
+        <div class="stat-label">Build Time</div>
+      </div>
+    </div>
+    <div class="hero-scroll">scroll</div>
+  </div>
+</div>
+
+<!-- Overview -->
+<section>
+  <div class="container">
+    <div class="section-label">01 — Overview</div>
+    <h2 class="section-h2">What is AIXNova?</h2>
+    <p class="section-p">AIXNova is a multi-model AI workspace that gives users access to frontier AI tools — chat, image generation, writing, research, and presentations — under a single credit-based subscription.</p>
+
+    <div class="overview-grid">
+      <div class="overview-card">
+        <div class="overview-icon">🎯</div>
+        <div class="overview-title">Goal</div>
+        <div class="overview-text">Build a production-ready AI SaaS platform that competes with tools like Jasper, Copy.ai, and Perplexity — but unified in one workspace.</div>
+      </div>
+      <div class="overview-card">
+        <div class="overview-icon">👤</div>
+        <div class="overview-title">Builder</div>
+        <div class="overview-text">Designed, built, and deployed solo by Shahriar Evan — full-stack developer based in Malaysia.</div>
+      </div>
+      <div class="overview-card">
+        <div class="overview-icon">⚡</div>
+        <div class="overview-title">Timeline</div>
+        <div class="overview-text">Conceived and shipped in under 4 weeks. From empty repo to live Vercel deployment with payments working.</div>
+      </div>
+      <div class="overview-card">
+        <div class="overview-icon">💰</div>
+        <div class="overview-title">Monetization</div>
+        <div class="overview-text">Credit-based pricing (Free / Pro / Team) with Stripe Checkout integration and a full admin revenue dashboard.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Problem / Solution -->
+<section class="pt-0">
+  <div class="container">
+    <div class="section-label">02 — Problem & Solution</div>
+    <h2 class="section-h2">Why build this?</h2>
+
+    <div class="two-col">
+      <div class="col-card">
+        <div class="col-label">The Problem</div>
+        <div class="col-h3">Fragmented AI tools are expensive</div>
+        <ul class="col-list">
+          <li data-icon="❌">ChatGPT for chat, Midjourney for images, Jasper for writing — all separate subscriptions</li>
+          <li data-icon="❌">Context switching kills productivity</li>
+          <li data-icon="❌">No unified history or prompt library</li>
+          <li data-icon="❌">Expensive for solo builders and small teams</li>
+          <li data-icon="❌">No code + content + research in one place</li>
+        </ul>
+      </div>
+      <div class="col-card accent">
+        <div class="col-label">The Solution</div>
+        <div class="col-h3">One workspace. All frontier models.</div>
+        <ul class="col-list">
+          <li data-icon="✅">GPT-5, Claude 4.5, Gemini 2.5 in one chat UI</li>
+          <li data-icon="✅">Image generation + editing with Nano Banana</li>
+          <li data-icon="✅">134 battle-tested prompt templates</li>
+          <li data-icon="✅">Credit system — pay only for what you use</li>
+          <li data-icon="✅">AI Presentation builder with 24 templates</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tech Stack -->
+<section class="pt-0">
+  <div class="container">
+    <div class="section-label">03 — Tech Stack</div>
+    <h2 class="section-h2">Built with modern tools.</h2>
+    <p class="section-p">A fully serverless Next.js architecture — no separate backend needed. Every API route, auth flow, and AI call lives within the same codebase.</p>
+
+    <div class="tech-grid">
+      <div class="tech-pill"><span class="tech-dot td-white"></span>Next.js 14</div>
+      <div class="tech-pill"><span class="tech-dot td-sky"></span>Tailwind CSS</div>
+      <div class="tech-pill"><span class="tech-dot td-orange"></span>MongoDB Atlas</div>
+      <div class="tech-pill"><span class="tech-dot td-yellow"></span>Firebase Auth</div>
+      <div class="tech-pill"><span class="tech-dot td-indigo"></span>Stripe Payments</div>
+      <div class="tech-pill"><span class="tech-dot td-green"></span>OpenAI API</div>
+      <div class="tech-pill"><span class="tech-dot td-violet"></span>Google OAuth</div>
+      <div class="tech-pill"><span class="tech-dot td-pink"></span>Vercel Deploy</div>
+      <div class="tech-pill"><span class="tech-dot td-rose"></span>Framer Motion</div>
+      <div class="tech-pill"><span class="tech-dot td-emerald"></span>shadcn/ui</div>
+      <div class="tech-pill"><span class="tech-dot td-blue"></span>Lucide Icons</div>
+      <div class="tech-pill"><span class="tech-dot td-purple"></span>Sonner Toasts</div>
+    </div>
+
+    <div class="quote-block mt-48">
+      <div class="quote-text">"The entire platform — frontend, API routes, auth, payments, and AI integrations — runs as a single Next.js app on Vercel. No separate backend server needed."</div>
+      <div class="quote-author">— Architecture decision note</div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="pt-0">
+  <div class="container-wide">
+    <div class="container p-0">
+      <div class="section-label">04 — Features</div>
+      <h2 class="section-h2">Everything in one dashboard.</h2>
+    </div>
+
+    <div class="features-grid mt-60">
+      <div class="feature-card">
+        <div class="feature-num">01</div>
+        <div class="feature-title">Multi-Model AI Chat</div>
+        <div class="feature-desc">Streamed responses from GPT-5, Claude Sonnet 4.5, and Gemini 2.5. Multi-turn memory, file uploads, and model switching per conversation.</div>
+        <div class="feature-tag">Streaming · Multi-turn</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">02</div>
+        <div class="feature-title">Image Studio</div>
+        <div class="feature-desc">Generate and edit photoreal images with Google Nano Banana. Reference image uploads supported for style and composition control.</div>
+        <div class="feature-tag">Generate · Edit · Reference</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">03</div>
+        <div class="feature-title">Writing Suite</div>
+        <div class="feature-desc">Long-form structured drafts for blogs, LinkedIn, ad copy, newsletters, and more. Structured output with headings, bullets, and CTAs.</div>
+        <div class="feature-tag">Blog · LinkedIn · Ads</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">04</div>
+        <div class="feature-title">Deep Research</div>
+        <div class="feature-desc">AI-powered research briefs with summary, key insights, and conclusion. Analyst-grade output in seconds — not hours.</div>
+        <div class="feature-tag">Analyst-grade · Seconds</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">05</div>
+        <div class="feature-title">Presentation Builder</div>
+        <div class="feature-desc">AI generates slides from a topic or uploaded file. Full editor with 20 themes, 6 layouts, 24 templates (19 premium), and HTML export.</div>
+        <div class="feature-tag">AI Slides · 20 Themes</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">06</div>
+        <div class="feature-title">134 Prompt Templates</div>
+        <div class="feature-desc">Battle-tested prompts across Marketing, SEO, Code, Sales, Productivity, Image, and Research. One click to fill and run.</div>
+        <div class="feature-tag">7 Categories · 134 Prompts</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">07</div>
+        <div class="feature-title">Credit System + Stripe</div>
+        <div class="feature-desc">Free / Pro / Team tiers. Stripe Checkout with 3 pricing plans. Admin dashboard with revenue stats and user management.</div>
+        <div class="feature-tag">Stripe · Admin Panel</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">08</div>
+        <div class="feature-title">Auth + Profiles</div>
+        <div class="feature-desc">Firebase auth with email/password and Google OAuth. Profile photo upload, display name, password change, and avatar picker.</div>
+        <div class="feature-tag">Firebase · Google OAuth</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">09</div>
+        <div class="feature-title">⌘K Command Palette</div>
+        <div class="feature-desc">Global keyboard shortcut to navigate the entire app — switch tools, search history, toggle theme. Inspired by Linear and Raycast.</div>
+        <div class="feature-tag">⌘K · Keyboard-first</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Metrics -->
+<section class="pt-0">
+  <div class="container">
+    <div class="section-label">05 — By The Numbers</div>
+    <h2 class="section-h2">What got built.</h2>
+    <div class="metrics-row">
+      <div class="metric-card"><div class="metric-big">6+</div><div class="metric-label">AI tools</div></div>
+      <div class="metric-card"><div class="metric-big">134</div><div class="metric-label">prompt templates</div></div>
+      <div class="metric-card"><div class="metric-big">20</div><div class="metric-label">slide themes</div></div>
+      <div class="metric-card"><div class="metric-big">3</div><div class="metric-label">pricing tiers</div></div>
+      <div class="metric-card"><div class="metric-big">14</div><div class="metric-label">stripe price IDs</div></div>
+      <div class="metric-card"><div class="metric-big">1</div><div class="metric-label">solo developer</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Build Timeline -->
+<section class="pt-0">
+  <div class="container">
+    <div class="section-label">06 — Build Journey</div>
+    <h2 class="section-h2">How it came together.</h2>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot">🏗️</div>
+        <div class="tl-content">
+          <div class="tl-phase">Week 1</div>
+          <div class="tl-title">Foundation & Auth</div>
+          <div class="tl-desc">Set up Next.js 14 with Tailwind and shadcn/ui. Built Firebase authentication with JWT tokens, Google OAuth, and protected route middleware. Designed the sidebar layout and dashboard shell.</div>
+          <div class="tl-tags">
+            <span class="tl-tag">Next.js</span><span class="tl-tag">Firebase</span><span class="tl-tag">MongoDB</span><span class="tl-tag">JWT</span>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">🤖</div>
+        <div class="tl-content">
+          <div class="tl-phase">Week 2</div>
+          <div class="tl-title">AI Tools Core</div>
+          <div class="tl-desc">Integrated OpenAI API for streamed chat, writing, and research. Built image generation with Google Nano Banana. Added the credit system with per-tool deduction and usage tracking.</div>
+          <div class="tl-tags">
+            <span class="tl-tag">OpenAI API</span><span class="tl-tag">Streaming</span><span class="tl-tag">Credits</span><span class="tl-tag">Image Gen</span>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">💳</div>
+        <div class="tl-content">
+          <div class="tl-phase">Week 3</div>
+          <div class="tl-title">Payments, Admin & Power Features</div>
+          <div class="tl-desc">Stripe Checkout with 3 tiers and 14 price IDs. Admin panel with revenue dashboard, user management, and promo codes. Added ⌘K command palette, history, favorites, and 134 prompt templates.</div>
+          <div class="tl-tags">
+            <span class="tl-tag">Stripe</span><span class="tl-tag">Admin Panel</span><span class="tl-tag">⌘K Palette</span><span class="tl-tag">Templates</span>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">🚀</div>
+        <div class="tl-content">
+          <div class="tl-phase">Week 4</div>
+          <div class="tl-title">Presentation Builder & Launch</div>
+          <div class="tl-desc">Built the AI presentation editor from scratch — 20 themes, 6 layouts, 24 slide templates, rich text editing, and HTML export. Premium UI polish across all pages. Deployed to Vercel with custom domain.</div>
+          <div class="tl-tags">
+            <span class="tl-tag">Presentation AI</span><span class="tl-tag">Premium UI</span><span class="tl-tag">Vercel</span><span class="tl-tag">Live</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Learnings -->
+<section class="pt-0">
+  <div class="container">
+    <div class="section-label">07 — Key Learnings</div>
+    <h2 class="section-h2">What this project taught.</h2>
+
+    <div class="two-col mt-48">
+      <div class="col-card">
+        <div class="col-label">Technical</div>
+        <div class="col-h3">Architecture decisions</div>
+        <ul class="col-list">
+          <li data-icon="→">Next.js API routes can fully replace a separate Express backend for most SaaS use cases</li>
+          <li data-icon="→">Serverless + MongoDB Atlas is powerful but requires careful connection pooling</li>
+          <li data-icon="→">Stripe webhook handling needs idempotency — duplicate events are real</li>
+          <li data-icon="→">OpenAI streaming with ReadableStream requires careful client-side buffering</li>
+        </ul>
+      </div>
+      <div class="col-card accent">
+        <div class="col-label">Product</div>
+        <div class="col-h3">Building for real users</div>
+        <ul class="col-list">
+          <li data-icon="→">Credit-based pricing removes friction better than per-seat subscriptions</li>
+          <li data-icon="→">A ⌘K command palette dramatically improves perceived performance</li>
+          <li data-icon="→">Premium UI details (gradients, animations) matter more than feature count</li>
+          <li data-icon="→">Ship fast, polish later — the Vercel preview URL is your MVP</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA / Footer -->
+<section class="pt-0 pb-0">
+  <div class="container">
+    <div class="cta-block cta-footer">
+      <h2 class="cta-h2 cta-brand-title">AIX<span class="grad-text">Nova</span></h2>
+      <p class="cta-p cta-brand-sub">100 free credits · No credit card · Every tool from day one.</p>
+      <a href="https://aixnova.vercel.app" target="_blank" rel="noopener noreferrer" class="btn-primary btn-visit">
+        VISIT AIXNOVA ↗
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="case-footer">
+  <div class="container">
+    <div class="footer-col">
+      <div class="footer-links">
+        <a href="https://shahriar-evan.com" class="footer-link">← Portfolio</a>
+        <a href="https://aixnova.vercel.app" target="_blank" rel="noopener noreferrer" class="footer-link">Live Site ↗</a>
+      </div>
+      <p class="footer-credit">Built by Md. Shahriar Nafiz Evan · 2026</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
