@@ -9,6 +9,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        .feature-pill {
+            font-size: 0.72rem;
+            padding: 2px 8px;
+            background: rgba(139, 92, 246, 0.12);
+            border: 1px solid rgba(139, 92, 246, 0.25);
+            border-radius: 20px;
+            color: var(--primary-light);
+        }
+        .feature-pills-wrap {
+            margin: 0.8rem 0 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+    </style>
 </head>
 <body>
  
@@ -38,7 +55,7 @@
                 <li class="nav-close-item">
                     <button class="nav-close-btn" id="navCloseBtn" aria-label="Close menu">✕ Close</button>
                 </li>
-                <li><a href="#home"><span class="nav-home-emoji">🏠 </span>Home</a></li>
+                <li><a href="#home">🏠 Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
@@ -338,21 +355,33 @@
                 <!-- WritexNova -->
                 <div class="project-card glass-card card-3d saas-featured-card">
                     <div class="project-tag saas-tag">SaaS</div>
-                    <div class="project-icon"><i class="fas fa-robot"></i></div>
+                    <div class="project-icon"><i class="fas fa-pen-nib"></i></div>
                     <h3>WritexNova</h3>
-                    <p>AI-powered writing platform with tiered subscription plans, Lemon Squeezy payments, referral system, plagiarism checker, output history, and admin dashboard. Built and deployed as a full commercial product.</p>
+                    <p>AI-powered writing platform that generates, rewrites, and humanizes content — bypassing any AI detector. Multi-model support with undetectable output, grammar fixing, paraphrasing, summarizing, translation, and PDF chat.</p>
                     <div class="project-tech-tags">
                         <span>Node.js</span><span>Firebase</span><span>OpenAI</span><span>Lemon Squeezy</span>
                     </div>
                     <div class="saas-highlights">
                         <span class="saas-badge"><i class="fas fa-check-circle"></i> Live Product</span>
-                        <span class="saas-badge"><i class="fas fa-layer-group"></i> 4 Pricing Tiers</span>
+                        <span class="saas-badge"><i class="fas fa-shield-alt"></i> AI Humanizer</span>
+                        <span class="saas-badge"><i class="fas fa-tools"></i> 8+ AI Tools</span>
                         <span class="saas-badge"><i class="fas fa-credit-card"></i> Lemon Squeezy</span>
+                    </div>
+                    <div class="feature-pills-wrap">
+                        <span class="feature-pill">✦ AI Writer</span>
+                        <span class="feature-pill">✦ AI Humanizer</span>
+                        <span class="feature-pill">✦ AI Detector</span>
+                        <span class="feature-pill">✦ Paraphraser</span>
+                        <span class="feature-pill">✦ Grammar Checker</span>
+                        <span class="feature-pill">✦ AI Summarizer</span>
+                        <span class="feature-pill">✦ PDF Chat</span>
+                        <span class="feature-pill">✦ AI Translator</span>
+                        <span class="feature-pill">✦ Citation Generator</span>
+                        <span class="feature-pill">✦ Article Rewriter</span>
                     </div>
                     <div class="project-buttons">
                         <a href="https://writexnova.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-small"><i class="fas fa-external-link-alt"></i> Visit Platform</a>
                         <a href="writexnova-casestudy.html" class="btn btn-secondary btn-small"><i class="fas fa-file-alt"></i> Case Study</a>
-                        <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-small"><i class="fab fa-github"></i> Source Code</a>
                     </div>
                     <div class="card-glow"></div>
                 </div>
@@ -360,46 +389,72 @@
                 <!-- AIXNova -->
                 <div class="project-card glass-card card-3d saas-featured-card">
                     <div class="project-tag saas-tag">SaaS</div>
-                    <div class="project-icon"><i class="fas fa-brain"></i></div>
+                    <div class="project-icon"><i class="fas fa-sparkles"></i></div>
                     <h3>AIXNova</h3>
-                    <p>Complete AI workspace with multi-model chat (GPT-5, Claude, Gemini), image generation, writing suite, deep research, AI presentation builder, and 134 prompt templates — all under one credit-based subscription.</p>
+                    <p>Complete AI workspace — chat with GPT-5, Claude & Gemini, generate images, write long-form content, do deep research, build presentations, and access 200+ prompt templates. All under one credit-based subscription.</p>
                     <div class="project-tech-tags">
                         <span>Next.js</span><span>MongoDB</span><span>OpenAI</span><span>Lemon Squeezy</span>
                     </div>
                     <div class="saas-highlights">
                         <span class="saas-badge"><i class="fas fa-check-circle"></i> Live Product</span>
-                        <span class="saas-badge"><i class="fas fa-layer-group"></i> 6+ AI Tools</span>
+                        <span class="saas-badge"><i class="fas fa-layer-group"></i> 8+ AI Tools</span>
+                        <span class="saas-badge"><i class="fas fa-file-upload"></i> File Upload</span>
                         <span class="saas-badge"><i class="fas fa-credit-card"></i> Lemon Squeezy</span>
+                    </div>
+                    <div class="feature-pills-wrap">
+                        <span class="feature-pill">✦ Multi-model Chat</span>
+                        <span class="feature-pill">✦ Image Studio</span>
+                        <span class="feature-pill">✦ AI Writing</span>
+                        <span class="feature-pill">✦ Deep Research</span>
+                        <span class="feature-pill">✦ Web Search</span>
+                        <span class="feature-pill">✦ Presentation Builder</span>
+                        <span class="feature-pill">✦ 200+ Prompts</span>
+                        <span class="feature-pill">✦ File Upload</span>
+                        <span class="feature-pill">✦ Document Chat</span>
+                        <span class="feature-pill">✦ ⌘K Palette</span>
                     </div>
                     <div class="project-buttons">
                         <a href="https://aixnova.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-small"><i class="fas fa-external-link-alt"></i> Visit Platform</a>
                         <a href="aixnova-casestudy.html" class="btn btn-secondary btn-small"><i class="fas fa-file-alt"></i> Case Study</a>
-                        <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-small"><i class="fab fa-github"></i> Source Code</a>
                     </div>
                     <div class="card-glow"></div>
                 </div>
 
+            </div>
 
-                <!-- AIXAnime - hidden by default -->
-                <div class="project-card glass-card card-3d saas-featured-card saas-hidden" id="aixanimeCard">
+            <!-- More SaaS (hidden) -->
+            <div class="more-projects" id="moreSaas">
+                <div class="projects-grid">
+                    <!-- AIXAnime -->
+                    <div class="project-card glass-card card-3d saas-featured-card">
                         <div class="project-tag saas-tag">SaaS</div>
                         <div class="project-icon"><i class="fas fa-film"></i></div>
                         <h3>AIXAnime</h3>
-                        <p>AI-powered anime discovery and recommendation platform with personalized watchlists, genre-based filtering, character search, and community reviews — all in one sleek anime-themed experience.</p>
+                        <p>AI-powered anime creation platform — generate stunning anime art from text, transform real photos into anime, create custom avatars, generate anime voices, upscale to 4K, and produce anime video clips.</p>
                         <div class="project-tech-tags">
                             <span>Next.js</span><span>MongoDB</span><span>OpenAI</span><span>Lemon Squeezy</span>
                         </div>
                         <div class="saas-highlights">
                             <span class="saas-badge"><i class="fas fa-check-circle"></i> Live Product</span>
-                            <span class="saas-badge"><i class="fas fa-magic"></i> AI Powered</span>
+                            <span class="saas-badge"><i class="fas fa-magic"></i> 6+ AI Tools</span>
                             <span class="saas-badge"><i class="fas fa-credit-card"></i> Lemon Squeezy</span>
+                        </div>
+                        <div class="feature-pills-wrap">
+                            <span class="feature-pill">✦ Text → Anime Image</span>
+                            <span class="feature-pill">✦ Photo → Anime</span>
+                            <span class="feature-pill">✦ Avatar Generator</span>
+                            <span class="feature-pill">✦ Voice Studio</span>
+                            <span class="feature-pill">✦ HD 4K Upscaler</span>
+                            <span class="feature-pill">✦ Text → Anime Video</span>
+                            <span class="feature-pill">✦ Photo → Anime Video</span>
+                            <span class="feature-pill">✦ History & Favorites</span>
                         </div>
                         <div class="project-buttons">
                             <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-small"><i class="fas fa-external-link-alt"></i> Visit Platform</a>
-                            <a href="#" class="btn btn-secondary btn-small"><i class="fas fa-file-alt"></i> Case Study</a>
-                            <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-small"><i class="fab fa-github"></i> Source Code</a>
+                            <a href="#contact" class="btn btn-secondary btn-small"><i class="fas fa-bell"></i> Stay Updated</a>
                         </div>
                         <div class="card-glow"></div>
+                    </div>
                 </div>
             </div>
             <button class="btn btn-secondary expand-btn" id="expandSaas" aria-label="View more SaaS products">
@@ -537,10 +592,9 @@
     <!-- More SaaS toggle script -->
     <script>
         document.getElementById('expandSaas').addEventListener('click', function() {
-            // Toggle all hidden saas cards
-            const hiddenCards = [document.getElementById('aixanimeCard')];
-            const isHidden = hiddenCards[0].classList.contains('saas-hidden');
-            hiddenCards.forEach(card => { if(card) card.classList.toggle('saas-hidden'); });
+            const el = document.getElementById('moreSaas');
+            const isHidden = el.style.display === 'none' || el.style.display === '';
+            el.style.display = isHidden ? 'block' : 'none';
             this.innerHTML = isHidden
                 ? '<i class="fas fa-chevron-up"></i> Show Less'
                 : '<i class="fas fa-chevron-down"></i> More SaaS Apps';
