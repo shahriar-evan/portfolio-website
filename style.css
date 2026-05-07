@@ -570,6 +570,7 @@ footer p { font-size: 0.9rem; }
 /* SaaS grid equal height cards */
 #saas .projects-grid {
     align-items: stretch;
+    grid-template-columns: repeat(2, 1fr);
 }
 #saas .projects-grid > * {
     display: flex;
@@ -577,4 +578,4 @@ footer p { font-size: 0.9rem; }
     height: 100%;
 }
 /* Hidden SaaS cards - toggled via JS */
-.saas-hidden { display: none; }
+.saas-hidden { display: none !important; }
