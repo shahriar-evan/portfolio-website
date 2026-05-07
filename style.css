@@ -48,7 +48,7 @@ body.theme-cyan  { --primary:#06b6d4; --primary-dark:#0891b2; --primary-light:#2
 [data-theme="light"] .theme-palette { background: rgba(255,255,255,0.85); }
 [data-theme="light"] .hero-badge { background: rgba(139,92,246,0.12); color: var(--primary); border-color: rgba(139,92,246,0.25); }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
     font-family: 'DM Sans', sans-serif;
@@ -556,6 +556,7 @@ footer p { font-size: 0.9rem; }
     .hero-name { font-size: 2.2rem; }
     .hero-stats { gap: 1rem; }
     .projects-grid { grid-template-columns: 1fr; }
+    #saas .projects-grid { grid-template-columns: 1fr; }
     .theme-options { grid-template-columns: repeat(3,1fr); }
     .cta-buttons { flex-direction: column; align-items: center; }
     .btn { width: 100%; max-width: 280px; justify-content: center; }
@@ -566,6 +567,8 @@ footer p { font-size: 0.9rem; }
     .theme-option, .close-palette, .contact-btn, .skill-badge,
     .tech-icon-item, .expand-btn { cursor: auto; }
 }
+
+    .nav-home-emoji { display: inline; }
 
 /* SaaS grid equal height cards */
 #saas .projects-grid {
@@ -579,3 +582,6 @@ footer p { font-size: 0.9rem; }
 }
 /* Hidden SaaS cards - toggled via JS */
 .saas-hidden { display: none !important; }
+
+/* Home emoji: hidden on desktop, visible in mobile menu */
+.nav-home-emoji { display: none; }
