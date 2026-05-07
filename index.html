@@ -352,6 +352,7 @@
                     <div class="project-buttons">
                         <a href="https://writexnova.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-small"><i class="fas fa-external-link-alt"></i> Visit Platform</a>
                         <a href="writexnova-casestudy.html" class="btn btn-secondary btn-small"><i class="fas fa-file-alt"></i> Case Study</a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-small"><i class="fab fa-github"></i> Source Code</a>
                     </div>
                     <div class="card-glow"></div>
                 </div>
@@ -373,24 +374,32 @@
                     <div class="project-buttons">
                         <a href="https://aixnova.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-small"><i class="fas fa-external-link-alt"></i> Visit Platform</a>
                         <a href="aixnova-casestudy.html" class="btn btn-secondary btn-small"><i class="fas fa-file-alt"></i> Case Study</a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-small"><i class="fab fa-github"></i> Source Code</a>
                     </div>
                     <div class="card-glow"></div>
                 </div>
 
-            </div>
 
-            <!-- More SaaS (hidden) -->
-            <div class="more-projects" id="moreSaas">
-                <div class="projects-grid">
-                    <div class="project-card glass-card card-3d coming-soon-card">
-                        <div class="project-icon"><i class="fas fa-rocket"></i></div>
-                        <h3>Coming Soon</h3>
-                        <p>More SaaS products are in development. Building the next generation of AI-powered tools.</p>
+                <!-- AIXAnime - hidden by default -->
+                <div class="project-card glass-card card-3d saas-featured-card saas-hidden" id="aixanimeCard">
+                        <div class="project-tag saas-tag">SaaS</div>
+                        <div class="project-icon"><i class="fas fa-film"></i></div>
+                        <h3>AIXAnime</h3>
+                        <p>AI-powered anime discovery and recommendation platform with personalized watchlists, genre-based filtering, character search, and community reviews — all in one sleek anime-themed experience.</p>
+                        <div class="project-tech-tags">
+                            <span>Next.js</span><span>MongoDB</span><span>OpenAI</span><span>Lemon Squeezy</span>
+                        </div>
+                        <div class="saas-highlights">
+                            <span class="saas-badge"><i class="fas fa-check-circle"></i> Live Product</span>
+                            <span class="saas-badge"><i class="fas fa-magic"></i> AI Powered</span>
+                            <span class="saas-badge"><i class="fas fa-credit-card"></i> Lemon Squeezy</span>
+                        </div>
                         <div class="project-buttons">
-                            <a href="#contact" class="btn btn-secondary btn-small"><i class="fas fa-bell"></i> Stay Updated</a>
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-small"><i class="fas fa-external-link-alt"></i> Visit Platform</a>
+                            <a href="#" class="btn btn-secondary btn-small"><i class="fas fa-file-alt"></i> Case Study</a>
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-small"><i class="fab fa-github"></i> Source Code</a>
                         </div>
                         <div class="card-glow"></div>
-                    </div>
                 </div>
             </div>
             <button class="btn btn-secondary expand-btn" id="expandSaas" aria-label="View more SaaS products">
@@ -528,9 +537,10 @@
     <!-- More SaaS toggle script -->
     <script>
         document.getElementById('expandSaas').addEventListener('click', function() {
-            const el = document.getElementById('moreSaas');
-            const isHidden = el.style.display === 'none' || el.style.display === '';
-            el.style.display = isHidden ? 'block' : 'none';
+            // Toggle all hidden saas cards
+            const hiddenCards = [document.getElementById('aixanimeCard')];
+            const isHidden = hiddenCards[0].classList.contains('saas-hidden');
+            hiddenCards.forEach(card => { if(card) card.classList.toggle('saas-hidden'); });
             this.innerHTML = isHidden
                 ? '<i class="fas fa-chevron-up"></i> Show Less'
                 : '<i class="fas fa-chevron-down"></i> More SaaS Apps';

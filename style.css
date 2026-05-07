@@ -576,3 +576,5 @@ footer p { font-size: 0.9rem; }
     flex-direction: column;
     height: 100%;
 }
+/* Hidden SaaS cards - toggled via JS */
+.saas-hidden { display: none; }
