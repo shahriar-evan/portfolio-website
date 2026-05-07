@@ -592,11 +592,12 @@
     <script>
         document.getElementById('expandSaas').addEventListener('click', function() {
             const el = document.getElementById('moreSaas');
-            const isHidden = el.style.display === 'none' || el.style.display === '';
-            el.style.display = isHidden ? 'block' : 'none';
-            this.innerHTML = isHidden
-                ? '<i class="fas fa-chevron-up"></i> Show Less'
-                : '<i class="fas fa-chevron-down"></i> More SaaS Apps';
+            const isExpanded = el.classList.contains('expanded');
+            el.classList.toggle('expanded');
+            this.classList.toggle('active');
+            this.innerHTML = isExpanded
+                ? '<i class="fas fa-chevron-down"></i> More SaaS Apps'
+                : '<i class="fas fa-chevron-up"></i> Show Less';
         });
     </script>
 </body>
