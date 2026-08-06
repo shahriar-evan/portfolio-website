@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evan - Software Developer Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .feature-pill {
+            font-size: 0.72rem;
+            padding: 2px 8px;
+            background: rgba(139, 92, 246, 0.12);
+            border: 1px solid rgba(139, 92, 246, 0.25);
+            border-radius: 20px;
+            color: var(--primary-light);
+        }
+        .feature-pills-wrap {
+            margin: 0.8rem 0 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+            .mobile-only { display: none; }
+        @media (max-width: 768px) {
+            .mobile-only { display: flex; }
+        }
+    </style>
+</head>
+<body>
+ 
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+ 
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-inner">
+            <div class="loader-ring"></div>
+            <span class="loader-text">Loading...</span>
+        </div>
+    </div>
+ 
+    <!-- Animated Background -->
+    <div class="animated-bg" id="animatedBg"></div>
+ 
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+ 
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">Evan<span class="logo-dot">.</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li class="nav-close-item">
+                    <button class="nav-close-btn" id="navCloseBtn" aria-label="Close menu">✕ Close</button>
+                </li>
+                <li class="mobile-only"><a href="#home">🏠 Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#apps">Apps</a></li>
+                <li><a href="#saas">SaaS</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li>
+                    <button class="dark-mode-btn" id="darkModeBtn" title="Toggle Dark/Light Mode" aria-label="Toggle Dark/Light Mode">
+                        <i class="fas fa-moon" id="darkModeIcon"></i>
+                    </button>
+                </li>
+                <li><button class="theme-switcher-btn" id="themeSwitcher" aria-label="Open theme switcher"><i class="fas fa-palette"></i> Themes</button></li>
+            </ul>
+            <div class="nav-right-btns">
+                <button class="dark-mode-btn mobile-dm" id="darkModeBtnMobile" title="Toggle Dark/Light Mode" aria-label="Toggle Dark/Light Mode">
+                    <i class="fas fa-moon" id="darkModeIconMobile"></i>
+                </button>
+                <div class="hamburger" id="hamburger" role="button" aria-label="Toggle navigation menu" tabindex="0">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+ 
+    <!-- Theme Palette Modal -->
+    <div class="theme-palette" id="themePalette">
+        <button class="close-palette" id="closePalette" title="Close theme palette" aria-label="Close theme palette"><i class="fas fa-times"></i></button>
+        <h3><i class="fas fa-swatchbook"></i> Choose Theme</h3>
+        <div class="theme-options">
+            <div class="theme-option purple active" data-theme="default" title="Purple theme" role="button" tabindex="0"></div>
+            <div class="theme-option blue" data-theme="blue" title="Blue theme" role="button" tabindex="0"></div>
+            <div class="theme-option green" data-theme="green" title="Green theme" role="button" tabindex="0"></div>
+            <div class="theme-option orange" data-theme="orange" title="Orange theme" role="button" tabindex="0"></div>
+            <div class="theme-option rose" data-theme="rose" title="Rose theme" role="button" tabindex="0"></div>
+            <div class="theme-option cyan" data-theme="cyan" title="Cyan theme" role="button" tabindex="0"></div>
+        </div>
+    </div>
+ 
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="profile-image-container">
+                <div class="profile-ring"></div>
+                <img src="profile.jpg" alt="Profile photo of Md. Shahriar Nafiz Evan" class="profile-image"
+                     onerror="this.src='https://api.dicebear.com/7.x/initials/svg?seed=Evan&backgroundColor=8b5cf6&textColor=ffffff'">
+            </div>
+            <div class="hero-badge"><span class="badge-dot"></span> Available for hire</div>
+            <h1 class="hero-name">Md. Shahriar Nafiz <span class="name-highlight">Evan</span></h1>
+            <h2 class="hero-title" id="typingText"></h2>
+            <p class="hero-desc">Full-stack developer & CS student building and shipping real AI-powered SaaS products. Passionate about clean code, great UX, and turning ideas into live products people actually use.</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="15">0</span><span>+</span>
+                    <span class="stat-label">Projects</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="5">0</span><span>+</span>
+                    <span class="stat-label">SaaS Products</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="4">0</span><span>+</span>
+                    <span class="stat-label">Years Coding</span>
+                </div>
+            </div>
+            <div class="cta-buttons">
+                <a href="Evan_CV.pdf" class="btn btn-primary"><i class="fas fa-download"></i> Download CV</a>
+                <a href="#contact" class="btn btn-secondary"><i class="fas fa-paper-plane"></i> Contact</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+ 
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Who I Am</span>
+                <h2 class="section-title">About Me</h2>
+            </div>
+            <div class="about-content glass-card card-3d">
+                <div class="about-icon"><i class="fas fa-user-astronaut"></i></div>
+                <p>I'm a Computer Science student at <strong>INTI International University, Malaysia</strong>, and a full-stack developer who builds and ships real products. I've gone from writing my first line of HTML to deploying multiple live AI-powered SaaS platforms used by real users.</p>
+                <p>I believe the best way to learn is to build. That's why I focus on real-world projects with real tech stacks — Next.js, Node.js, MongoDB, Firebase, Stripe, OpenAI — not just tutorials. Every product I ship teaches me something new and pushes my limits further.</p>
+                <p>Currently building <strong>WritexNova</strong>, <strong>AIXNova</strong>, and <strong>AIXAnime</strong> — three live monetized SaaS products. My goal is to become a world-class product engineer who can go from idea to deployed product, solo if needed.</p>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">What I Know</span>
+                <h2 class="section-title">Skills & Expertise</h2>
+            </div>
+            <div class="skills-container">
+                <div class="skill-category glass-card card-3d">
+                    <h3><i class="fas fa-fire"></i> Core Skills</h3>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name"><span class="skill-icon"><i class="fab fa-html5 icon-html"></i></span> HTML</span>
+                            <span class="skill-percentage" data-percent="95">0%</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="95"><div class="skill-shimmer"></div></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name"><span class="skill-icon"><i class="fab fa-css3-alt icon-css"></i></span> CSS</span>
+                            <span class="skill-percentage" data-percent="90">0%</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="90"><div class="skill-shimmer"></div></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name"><span class="skill-icon"><i class="fab fa-js-square icon-js"></i></span> JavaScript</span>
+                            <span class="skill-percentage" data-percent="85">0%</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="85"><div class="skill-shimmer"></div></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name"><span class="skill-icon"><i class="fas fa-mobile-alt icon-responsive"></i></span> Responsive Design</span>
+                            <span class="skill-percentage" data-percent="92">0%</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="92"><div class="skill-shimmer"></div></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name"><span class="skill-icon"><i class="fab fa-github"></i></span> Git & Github</span>
+                            <span class="skill-percentage" data-percent="80">0%</span>
+                        </div>
+                        <div class="skill-bar"><div class="skill-progress" data-width="80"><div class="skill-shimmer"></div></div></div>
+                    </div>
+                </div>
+                <div class="skill-category glass-card card-3d">
+                    <h3><i class="fas fa-plus-circle"></i> Additional Skills</h3>
+                    <div class="more-skills">
+                        <div class="skill-badge glow-badge"><i class="fab fa-react"></i> React / Next.js</div>
+                        <div class="skill-badge glow-badge"><i class="fab fa-node-js"></i> Node.js / Express</div>
+                        <div class="skill-badge glow-badge"><i class="fas fa-database"></i> MongoDB / Firebase</div>
+                        <div class="skill-badge glow-badge"><i class="fas fa-brain"></i> OpenAI API</div>
+                        <div class="skill-badge glow-badge"><i class="fas fa-credit-card"></i> Stripe / Lemon Squeezy</div>
+                        <div class="skill-badge glow-badge"><i class="fas fa-cloud"></i> Vercel / Render</div>
+                        <div class="skill-badge glow-badge"><i class="fas fa-search"></i> SEO</div>
+                        <div class="skill-badge glow-badge"><i class="fas fa-paint-brush"></i> UI / UX Design</div>
+                    </div>
+                    <div class="tech-stack">
+                        <h4><i class="fas fa-layer-group"></i> Tech Stack</h4>
+                        <div class="tech-icons">
+                            <div class="tech-icon-item" title="HTML5"><i class="fab fa-html5"></i><span>HTML</span></div>
+                            <div class="tech-icon-item" title="CSS3"><i class="fab fa-css3-alt"></i><span>CSS</span></div>
+                            <div class="tech-icon-item" title="JavaScript"><i class="fab fa-js-square"></i><span>JS</span></div>
+                            <div class="tech-icon-item" title="React / Next.js"><i class="fab fa-react"></i><span>Next.js</span></div>
+                            <div class="tech-icon-item" title="Node.js"><i class="fab fa-node-js"></i><span>Node.js</span></div>
+                            <div class="tech-icon-item" title="GitHub"><i class="fab fa-github"></i><span>GitHub</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">What I Built</span>
+                <h2 class="section-title">Featured Projects</h2>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card glass-card card-3d">
+                    <div class="project-tag">Web</div>
+                    <div class="project-icon"><i class="fas fa-briefcase"></i></div>
+                    <h3>Portfolio Website</h3>
+                    <p>A modern, responsive portfolio showcasing my work with glassmorphism design, smooth animations, and dynamic theme switching capabilities.</p>
+                    <div class="project-tech-tags"><span>HTML</span><span>CSS</span><span>JS</span></div>
+                    <div class="project-buttons">
+                        <a href="portfolio-case-study.html" class="btn btn-primary btn-small"><i class="fas fa-external-link-alt"></i> Case Study</a>
+                        <a href="https://github.com/shahriar-evan/portfolio-website" class="btn btn-secondary btn-small"><i class="fab fa-github"></i> Source Code</a>
+                    </div>
+                    <div class="card-glow"></div>
+                </div>
+                <div class="project-card glass-card card-3d">
+                    <div class="project-tag">API</div>
+                    <div class="project-icon"><i class="fas fa-cloud-sun"></i></div>
+                    <h3>Weather App</h3>
+                    <p>Real-time weather application with location detection, 5-day forecast, and beautiful weather animations. Built with vanilla JavaScript and weather API.</p>
+                    <div class="project-tech-tags"><span>JS</span><span>API</span><span>CSS</span></div>
+                    <div class="project-buttons">
+                        <a href="https://shahriar-evan.github.io/weather-app" class="btn btn-primary btn-small"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                        <a href="https://github.com/shahriar-evan/weather-app" class="btn btn-secondary btn-small"><i class="fab fa-github"></i> Source Code</a>
+                    </div>
+                    <div class="card-glow"></div>
+                </div>
+            </div>
+            <div class="more-projects" id="moreProjects">
+                <div class="projects-grid">
+                    <div class="project-card glass-card card-3d">
+                        <div class="project-tag">Utility</div>
+                        <div class="project-icon"><i class="fas fa-tasks"></i></div>
+                        <h3>To-Do App</h3>
+                        <p>Elegant task management application with local storage, drag-and-drop functionality, and priority system for organizing daily tasks efficiently.</p>
+                        <div class="project-tech-tags"><span>HTML</span><span>CSS</span><span>JS</span></div>
+                        <div class="project-buttons">
+                            <a href="https://shahriar-evan.github.io/To-Do-App/" class="btn btn-primary btn-small"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                            <a href="https://github.com/shahriar-evan/To-Do-App" class="btn btn-secondary btn-small"><i class="fab fa-github"></i> Source Code</a>
+                        </div>
+                        <div class="card-glow"></div>
+                    </div>
+                    <div class="project-card glass-card card-3d">
+                        <div class="project-tag">Tool</div>
+                        <div class="project-icon"><i class="fas fa-calculator"></i></div>
+                        <h3>Calculator</h3>
+                        <p>Modern calculator with advanced operations, memory functions, and keyboard support. Features a clean, intuitive interface with smooth animations.</p>
+                        <div class="project-tech-tags"><span>HTML</span><span>CSS</span><span>JS</span></div>
+                        <div class="project-buttons">
+                            <a href="https://shahriar-evan.github.io/Calculator-App/" class="btn btn-primary btn-small"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                            <a href="https://github.com/shahriar-evan/Calculator-App" class="btn btn-secondary btn-small"><i class="fab fa-github"></i> Source Code</a>
+                        </div>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-secondary expand-btn" id="expandProjects" aria-label="View more projects">
+                <i class="fas fa-chevron-down"></i> View More Projects
+            </button>
+        </div>
+    </section>
+ 
+    <!-- Apps Section -->
+    <section id="apps">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">My Creations</span>
+                <h2 class="section-title">My Applications</h2>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card glass-card card-3d">
+                    <div class="project-tag">App</div>
+                    <div class="project-icon"><i class="fas fa-comments"></i></div>
+                    <h3>Firebase Auth App</h3>
+                    <p>Secure authentication system with Firebase including login, signup, and user management. Features secure access control and real-time authentication handling.</p>
+                    <div class="project-tech-tags"><span>Firebase</span><span>JavaScript</span><span>HTML</span><span>CSS</span></div>
+                    <div class="project-buttons">
+                        <a href="https://shahriar-evan.github.io/firebase-login-system/" class="btn btn-primary btn-small"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                        <a href="https://github.com/shahriar-evan/firebase-login-system" class="btn btn-secondary btn-small"><i class="fab fa-github"></i> Source Code</a>
+                    </div>
+                    <div class="card-glow"></div>
+                </div>
+                <div class="project-card glass-card card-3d">
+                    <div class="project-tag">App</div>
+                    <div class="project-icon"><i class="fas fa-sticky-note"></i></div>
+                    <h3>Notes App</h3>
+                    <p>Feature-rich note-taking application with markdown support, categories, search functionality, and cloud sync capabilities.</p>
+                    <div class="project-tech-tags"><span>JS</span><span>Markdown</span><span>CSS</span></div>
+                    <div class="project-buttons">
+                        <a href="https://shahriar-evan.github.io/notes-app/" class="btn btn-primary btn-small"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                        <a href="https://github.com/shahriar-evan/notes-app" class="btn btn-secondary btn-small"><i class="fab fa-github"></i> Source Code</a>
+                    </div>
+                    <div class="card-glow"></div>
+                </div>
+            </div>
+            <div class="more-projects" id="moreApps">
+                <div class="projects-grid">
+                    <div class="project-card glass-card card-3d coming-soon-card">
+                        <div class="project-icon"><i class="fas fa-rocket"></i></div>
+                        <h3>Coming Soon</h3>
+                        <p>Exciting new applications are in development. Stay tuned for innovative tools and creative solutions!</p>
+                        <div class="project-buttons">
+                            <a href="#" class="btn btn-secondary btn-small"><i class="fas fa-bell"></i> Stay Updated</a>
+                        </div>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-secondary expand-btn" id="expandApps" aria-label="View more apps">
+                <i class="fas fa-chevron-down"></i> View More Apps
+            </button>
+        </div>
+    </section>
+
+    <!-- SaaS Products Section -->
+    <section id="saas">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Live & Monetized</span>
+                <h2 class="section-title">My SaaS Products</h2>
+            </div>
+            <div class="projects-grid">
+
+                <!-- WritexNova -->
+                <div class="project-card glass-card card-3d saas-featured-card">
+                    <div class="project-tag saas-tag">SaaS</div>
+                    <div class="project-icon"><i class="fas fa-pen-nib"></i></div>
+                    <h3>WritexNova</h3>
+                    <p>AI writing platform with Humanizer, AI Detector, Paraphraser, Grammar Checker, Summarizer, Article Rewriter, AI Translator, Citation Generator, and PDF Chat — bypassing any AI detector with multi-model support.</p>
+                    <div class="project-tech-tags">
+                        <span>Node.js</span><span>Firebase</span><span>OpenAI</span><span>Lemon Squeezy</span>
+                    </div>
+                    <div class="saas-highlights">
+                        <span class="saas-badge"><i class="fas fa-check-circle"></i> Live Product</span>
+                        <span class="saas-badge"><i class="fas fa-shield-alt"></i> AI Humanizer</span>
+                        <span class="saas-badge"><i class="fas fa-tools"></i> 10+ AI Tools</span>
+                        <span class="saas-badge"><i class="fas fa-credit-card"></i> Lemon Squeezy</span>
+                    </div>
+                    <div class="project-buttons">
+                        <a href="https://writexnova.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-small"><i class="fas fa-external-link-alt"></i> Visit Platform</a>
+                        <a href="writexnova-casestudy.html" class="btn btn-secondary btn-small"><i class="fas fa-file-alt"></i> Case Study</a>
+                        <a href="https://github.com/shahriar-evan/writexnova" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-small"><i class="fab fa-github"></i> Source Code</a>
+                    </div>
+                    <div class="card-glow"></div>
+                </div>
+
+                <!-- AIXNova -->
+                <div class="project-card glass-card card-3d saas-featured-card">
+                    <div class="project-tag saas-tag">SaaS</div>
+                    <div class="project-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
+                    <h3>AIXNova</h3>
+                    <p>Complete AI workspace with Multi-model Chat (GPT-5, Claude, Gemini), Image Studio, AI Writing, Deep Research, Web Search, Presentation Builder, Document Chat, 200+ Prompts, File Upload, and ⌘K Command Palette.</p>
+                    <div class="project-tech-tags">
+                        <span>Next.js</span><span>MongoDB</span><span>OpenAI</span><span>Lemon Squeezy</span>
+                    </div>
+                    <div class="saas-highlights">
+                        <span class="saas-badge"><i class="fas fa-check-circle"></i> Live Product</span>
+                        <span class="saas-badge"><i class="fas fa-layer-group"></i> 8+ AI Tools</span>
+                        <span class="saas-badge"><i class="fas fa-file-upload"></i> File Upload</span>
+                        <span class="saas-badge"><i class="fas fa-credit-card"></i> Lemon Squeezy</span>
+                    </div>
+                    <div class="project-buttons">
+                        <a href="https://aixnova.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-small"><i class="fas fa-external-link-alt"></i> Visit Platform</a>
+                        <a href="aixnova-casestudy.html" class="btn btn-secondary btn-small"><i class="fas fa-file-alt"></i> Case Study</a>
+                        <a href="https://github.com/shahriar-evan/aixnova" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-small"><i class="fab fa-github"></i> Source Code</a>
+                    </div>
+                    <div class="card-glow"></div>
+                </div>
+
+                <!-- StreamWorld -->
+                <div class="project-card glass-card card-3d saas-featured-card">
+                    <div class="project-tag saas-tag">SaaS</div>
+                    <div class="project-icon"><i class="fas fa-tv"></i></div>
+                    <h3>StreamWorld</h3>
+                    <p>Live IPTV & sports streaming platform with 7,500+ channels across 40+ countries, real-time live sports matches, category & country filtering, HLS video playback, and a built-in sports proxy server.</p>
+                    <div class="project-tech-tags">
+                        <span>Node.js</span><span>Express</span><span>HLS.js</span><span>Vercel</span>
+                    </div>
+                    <div class="saas-highlights">
+                        <span class="saas-badge"><i class="fas fa-check-circle"></i> Live Product</span>
+                        <span class="saas-badge"><i class="fas fa-satellite-dish"></i> 7,500+ Channels</span>
+                        <span class="saas-badge"><i class="fas fa-futbol"></i> Live Sports</span>
+                        <span class="saas-badge"><i class="fas fa-globe"></i> 40+ Countries</span>
+                    </div>
+                    <div class="project-buttons">
+                        <a href="https://streamflix-orpin.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-small"><i class="fas fa-external-link-alt"></i> Visit Platform</a>
+                        <a href="https://github.com/shahriar-evan/streamflix" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-small"><i class="fab fa-github"></i> Source Code</a>
+                    </div>
+                    <div class="card-glow"></div>
+                </div>
+
+                <!-- Habit Tracker -->
+                <div class="project-card glass-card card-3d saas-featured-card">
+                    <div class="project-tag">Open Source</div>
+                    <div class="project-icon"><i class="fas fa-fire"></i></div>
+                    <h3>Habit Tracker</h3>
+                    <p>Open-access habit tracker with streak tracking, a 7-day calendar view, focus timer, mood check-ins, dark mode, and a premium SaaS-style landing page — no sign-up or login required.</p>
+                    <div class="project-tech-tags">
+                        <span>Node.js</span><span>Express</span><span>Firestore</span><span>Vanilla JS</span>
+                    </div>
+                    <div class="saas-highlights">
+                        <span class="saas-badge"><i class="fas fa-check-circle"></i> Live Product</span>
+                        <span class="saas-badge"><i class="fas fa-bolt"></i> No Login Required</span>
+                        <span class="saas-badge"><i class="fas fa-moon"></i> Dark Mode</span>
+                        <span class="saas-badge"><i class="fas fa-chart-line"></i> Streak Tracking</span>
+                    </div>
+                    <div class="project-buttons">
+                        <a href="https://habit-tracker-psi-three.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-small"><i class="fas fa-external-link-alt"></i> Visit Platform</a>
+                        <a href="https://github.com/shahriar-evan/habit-tracker" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-small"><i class="fab fa-github"></i> Source Code</a>
+                    </div>
+                    <div class="card-glow"></div>
+                </div>
+
+            </div>
+            <div class="more-projects" id="moreSaas">
+                <div class="projects-grid">
+                    <div class="project-card glass-card card-3d saas-featured-card">
+                        <div class="project-tag saas-tag">SaaS</div>
+                        <div class="project-icon"><i class="fas fa-film"></i></div>
+                        <h3>AIXAnime</h3>
+                        <p>AI anime creation platform with Text→Anime Image, Photo→Anime, Avatar Generator, Voice Studio, HD 4K Upscaler, Text→Anime Video, Photo→Anime Video, and History & Favorites — all in one sleek experience.</p>
+                        <div class="project-tech-tags">
+                            <span>Next.js</span><span>MongoDB</span><span>OpenAI</span><span>Lemon Squeezy</span>
+                        </div>
+                        <div class="saas-highlights">
+                            <span class="saas-badge"><i class="fas fa-check-circle"></i> Live Product</span>
+                            <span class="saas-badge"><i class="fas fa-magic"></i> 7+ AI Tools</span>
+                            <span class="saas-badge"><i class="fas fa-credit-card"></i> Lemon Squeezy</span>
+                        </div>
+                        <div class="project-buttons">
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-small"><i class="fas fa-external-link-alt"></i> Visit Platform</a>
+                            <a href="#contact" class="btn btn-secondary btn-small"><i class="fas fa-file-alt"></i> Case Study</a>
+                            <a href="https://github.com/shahriar-evan/aixanime" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-small"><i class="fab fa-github"></i> Source Code</a>
+                        </div>
+                        <div class="card-glow"></div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-secondary expand-btn" id="expandSaas" aria-label="View more SaaS products">
+                <i class="fas fa-chevron-down"></i> More SaaS Apps
+            </button>
+        </div>
+    </section>
+
+    <!-- Client Work -->
+    <section id="client-work">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Education Website</h2>
+            </div>
+            <div class="projects-grid">
+                <!-- Global Visa Connect -->
+                <div class="project-card glass-card card-3d saas-featured-card">
+                    <div class="project-tag">Open Source</div>
+                    <div class="project-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>Global Visa Connect</h3>
+                    <p>Education visa consultancy website built for a client, covering 12 study destinations with per-country university and tuition fee listings, IELTS/PTE/TOEFL/Duolingo/SAT admission requirements, a student application form, and a full admin dashboard for managing countries, universities, and applications.</p>
+                    <div class="project-tech-tags">
+                        <span>Next.js</span><span>Firebase</span><span>Tailwind CSS</span><span>Vercel</span>
+                    </div>
+                    <div class="saas-highlights">
+                        <span class="saas-badge"><i class="fas fa-check-circle"></i> Live Product</span>
+                        <span class="saas-badge"><i class="fas fa-globe"></i> 12 Countries</span>
+                        <span class="saas-badge"><i class="fas fa-user-shield"></i> Admin Dashboard</span>
+                        <span class="saas-badge"><i class="fas fa-file-signature"></i> Application Form</span>
+                    </div>
+                    <div class="project-buttons">
+                        <a href="https://global-visa-connect-psi.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-small"><i class="fas fa-external-link-alt"></i> Visit Platform</a>
+                        <a href="https://github.com/shahriar-evan/Global-Visa-Connect" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-small"><i class="fab fa-github"></i> Source Code</a>
+                    </div>
+                    <div class="card-glow"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">My Games</h2>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card glass-card card-3d">
+                    <div class="project-tag">Game</div>
+                    <div class="project-icon"><i class="fas fa-gamepad"></i></div>
+                    <h3>Snake Game</h3>
+                    <p>Modern Snake game built with JavaScript featuring smooth controls, dynamic speed, and high score tracking.</p>
+                    <div class="project-tech-tags"><span>JavaScript</span><span>HTML</span><span>CSS</span></div>
+                    <div class="project-buttons">
+                        <a href="https://shahriar-evan.github.io/snake-game/" class="btn btn-primary btn-small"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                        <a href="https://github.com/shahriar-evan/snake-game" class="btn btn-secondary btn-small"><i class="fab fa-github"></i> Source Code</a>
+                    </div>
+                    <div class="card-glow"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">My Journey</span>
+                <h2 class="section-title">Experience</h2>
+            </div>
+            <div class="experience-content glass-card card-3d">
+                <div class="exp-header">
+                    <div class="exp-icon"><i class="fas fa-rocket"></i></div>
+                    <div>
+                        <h3>Indie SaaS Developer</h3>
+                        <span class="exp-date"><i class="fas fa-calendar-alt"></i> 2024 – Present</span>
+                    </div>
+                </div>
+                <ul>
+                    <li><i class="fas fa-chevron-right"></i> Built and deployed 3 live SaaS products (WritexNova, AIXNova, AIXAnime) from zero to production — solo</li>
+                    <li><i class="fas fa-chevron-right"></i> Integrated payment systems (Stripe, Lemon Squeezy), auth (Firebase, Google OAuth, JWT), and AI APIs (OpenAI, Gemini) into commercial products</li>
+                    <li><i class="fas fa-chevron-right"></i> Built full-stack apps with Next.js, Node.js, Express, MongoDB, Firebase — deployed on Vercel and Render</li>
+                    <li><i class="fas fa-chevron-right"></i> Designed admin dashboards, credit systems, referral programs, and user management systems</li>
+                    <li><i class="fas fa-chevron-right"></i> Shipped products with real users, real payments, and real feedback — continuously iterating and improving</li>
+                </ul>
+            </div>
+            <div class="experience-content glass-card card-3d">
+                <div class="exp-header">
+                    <div class="exp-icon"><i class="fas fa-code"></i></div>
+                    <div>
+                        <h3>Frontend Developer</h3>
+                        <span class="exp-date"><i class="fas fa-calendar-alt"></i> 2024 – Present</span>
+                    </div>
+                </div>
+                <ul>
+                    <li><i class="fas fa-chevron-right"></i> Built responsive web apps and tools using HTML, CSS, JavaScript — focused on clean UI and great UX</li>
+                    <li><i class="fas fa-chevron-right"></i> Developed Weather App, To-Do App, Calculator, Notes App, and Firebase Auth system</li>
+                    <li><i class="fas fa-chevron-right"></i> Learned Git, GitHub, and version control workflows through real project management</li>
+                    <li><i class="fas fa-chevron-right"></i> Explored cybersecurity fundamentals, SEO, and responsive design best practices</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Education Section -->
+    <section id="education">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">My Background</span>
+                <h2 class="section-title">🎓 Education</h2>
+            </div>
+            <div class="experience-content glass-card card-3d">
+                <div class="exp-header">
+                    <div class="exp-icon edu-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <div>
+                        <h3>Bachelor of Computer Science</h3>
+                        <p class="education-university"><i class="fas fa-university"></i> INTI International University, Malaysia</p>
+                    </div>
+                </div>
+                <p class="education-description">Currently pursuing a degree in Computer Science with a strong focus on web development, software engineering, and modern technologies.</p>
+                <ul class="education-highlights">
+                    <li> Specializing in Frontend Development (HTML, CSS, JavaScript)</li>
+                    <li> Building real-world projects and responsive web applications</li>
+                    <li> Member of university technology clubs and communities</li>
+                    <li> Actively improving problem-solving and development skills</li>
+                    <li> Participating in coding challenges and hackathons</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Blog Section -->
+    <section id="blog">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">My Writing</span>
+                <h2 class="section-title">Build Journal</h2>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card glass-card card-3d">
+                    <div class="project-tag">Story</div>
+                    <div class="project-icon"><i class="fas fa-rocket"></i></div>
+                    <h3>How I Built 3 SaaS Products as a CS Student</h3>
+                    <p>From writing my first HTML page to shipping three live monetized AI platforms — what I learned, what broke, and what I'd do differently.</p>
+                    <div class="project-tech-tags"><span>SaaS</span><span>Journey</span><span>AI</span></div>
+                    <div class="project-buttons">
+                        <a href="#contact" class="btn btn-primary btn-small"><i class="fas fa-clock"></i> Coming Soon</a>
+                    </div>
+                    <div class="card-glow"></div>
+                </div>
+                <div class="project-card glass-card card-3d">
+                    <div class="project-tag">Technical</div>
+                    <div class="project-icon"><i class="fas fa-brain"></i></div>
+                    <h3>Integrating OpenAI, Auth & Payments in a Next.js SaaS</h3>
+                    <p>A step-by-step breakdown of the full stack I use to build AI SaaS products — from Firebase auth to Lemon Squeezy checkout to OpenAI streaming.</p>
+                    <div class="project-tech-tags"><span>Next.js</span><span>OpenAI</span><span>Guide</span></div>
+                    <div class="project-buttons">
+                        <a href="#contact" class="btn btn-primary btn-small"><i class="fas fa-clock"></i> Coming Soon</a>
+                    </div>
+                    <div class="card-glow"></div>
+                </div>
+                <div class="project-card glass-card card-3d">
+                    <div class="project-tag">Product</div>
+                    <div class="project-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h3>Shipping Fast: My Solo Founder Workflow</h3>
+                    <p>How I go from idea to live product in under 4 weeks — tools, habits, decision-making frameworks, and the mindset that makes it possible.</p>
+                    <div class="project-tech-tags"><span>Productivity</span><span>Indie</span><span>Workflow</span></div>
+                    <div class="project-buttons">
+                        <a href="#contact" class="btn btn-primary btn-small"><i class="fas fa-clock"></i> Coming Soon</a>
+                    </div>
+                    <div class="card-glow"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Get In Touch</h2>
+            </div>
+            <div class="glass-card contact-card card-3d">
+                <p class="contact-description">
+                    I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Let's connect and create something amazing together!
+                </p>
+                <div class="contact-buttons">
+                    <a href="mailto:shahriarevan545@gmail.com" class="contact-btn" title="Email"><i class="fas fa-envelope"></i><span>Email</span></a>
+                    <a href="https://github.com/shahriar-evan" target="_blank" rel="noopener noreferrer" class="contact-btn" title="GitHub"><i class="fab fa-github"></i><span>GitHub</span></a>
+                    <a href="https://www.linkedin.com/in/tech-evan-b374382b6/" target="_blank" rel="noopener noreferrer" class="contact-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i><span>LinkedIn</span></a>
+                    <a href="https://wa.me/+8801770849168" target="_blank" rel="noopener noreferrer" class="contact-btn" title="WhatsApp"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="contact">
+        <div class="contact-card glass-card reveal">
+            <span class="section-tag">Say Hello</span>
+            <h2>Have a project in mind? Let's build something amazing.</h2>
+            <form id="contact-form" action="https://formspree.io/f/mbdqkjnr" method="POST">
+                <div class="input-group">
+                    <input type="text" name="name" placeholder="Name" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit" class="btn primary">Send Message</button>
+            </form>
+        </div>
+    </section>
+ 
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <a href="#home" class="footer-logo">Evan<span>.</span></a>
+            <p>© 2026 <strong>shahriarevan.com</strong> | All Rights Reserved</p>
+            <p class="footer-sub">Crafted with <i class="fas fa-heart icon-accent"></i> code, and coffee ☕</p>
+            <p class="footer-sub"><a href="practical-skills.html" style="color: inherit; text-decoration: underline; opacity: 0.7;">Other ways I can help →</a></p>
+            <div class="visitor-box">
+                <img src="https://visitor-badge.laobi.icu/badge?page_id=shahriar-evan.portfolio" alt="Visitor badge counter" />
+            </div>
+        </div>
+    </footer>
+ 
+    <script src="script.js"></script>
+
+    <!-- More SaaS toggle script -->
+    <script>
+        document.getElementById('expandSaas').addEventListener('click', function() {
+            const el = document.getElementById('moreSaas');
+            const isExpanded = el.classList.contains('expanded');
+            el.classList.toggle('expanded');
+            this.classList.toggle('active');
+            this.innerHTML = isExpanded
+                ? '<i class="fas fa-chevron-down"></i> More SaaS Apps'
+                : '<i class="fas fa-chevron-up"></i> Show Less';
+        });
+    </script>
+</body>
+</html>

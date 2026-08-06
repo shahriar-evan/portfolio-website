@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Practical Tech Support — Evan</title>
+<meta name="description" content="Beyond software development — practical, hands-on technical problem-solving for everyday workplaces." />
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg:      #0a0714;
+    --bg2:     #0f0d1e;
+    --surface: rgba(255,255,255,0.04);
+    --border:  rgba(255,255,255,0.08);
+    --text:    #e8e4f0;
+    --muted:   rgba(232,228,240,0.45);
+    --purple:  #8b5cf6;
+    --pink:    #ec4899;
+    --grad:    linear-gradient(135deg, #8b5cf6, #ec4899);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+  * { position: relative; z-index: 1; }
+
+  #progress-bar { position: fixed; top: 0; left: 0; height: 2px; width: 0%; background: var(--grad); z-index: 9999; transition: width 0.08s linear; }
+
+  .back-btn {
+    position: fixed; top: 24px; left: 28px; z-index: 999;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+    border: 1px solid var(--border); background: rgba(10,7,20,0.7);
+    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); padding: 9px 16px; text-decoration: none; border-radius: 4px; transition: all 0.2s;
+  }
+  .back-btn:hover { color: #fff; border-color: var(--purple); box-shadow: 0 0 20px rgba(139,92,246,0.25); }
+  .back-btn svg { width: 11px; height: 11px; }
+
+  .dm-toggle {
+    position: fixed; top: 24px; right: 28px; z-index: 999;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); border: 1px solid var(--border);
+    background: rgba(10,7,20,0.7); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    padding: 9px 14px; border-radius: 4px; cursor: pointer; transition: all 0.2s;
+  }
+  .dm-toggle:hover { color: #fff; border-color: var(--purple); box-shadow: 0 0 20px rgba(139,92,246,0.25); }
+
+  body.light { --bg: #f4f2ff; --bg2: #ede9ff; --border: rgba(79,53,210,0.12); --text: #1a0f3c; --muted: rgba(26,15,60,0.55); }
+  body.light .back-btn { background: rgba(244,242,255,0.85); color: #4f35d2; }
+  body.light .dm-toggle { background: rgba(244,242,255,0.85); }
+
+  /* HERO */
+  .hero { min-height: 78vh; display: flex; flex-direction: column; justify-content: center; padding: 140px 120px 72px; border-bottom: 1px solid var(--border); overflow: hidden; }
+  .hero-bg-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'Syne', sans-serif; font-size: clamp(90px,16vw,180px); font-weight: 800; letter-spacing: -0.05em; color: rgba(255,255,255,0.02); white-space: nowrap; pointer-events: none; -webkit-user-select: none; user-select: none; }
+  .hero-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--purple); margin-bottom: 28px; display: flex; align-items: center; gap: 12px; animation: fadeUp 0.8s ease both; }
+  .hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--purple); }
+  .hero-title { font-family: 'Syne', sans-serif; font-size: clamp(2.8rem,6.4vw,6rem); font-weight: 800; line-height: 0.95; letter-spacing: -0.04em; margin-bottom: 32px; animation: fadeUp 0.8s 0.1s ease both; }
+  .grad-text { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; animation: fadeUp 0.8s 0.2s ease both; flex-wrap: wrap; }
+  .hero-desc { font-size: 1.05rem; color: var(--muted); line-height: 1.75; max-width: 560px; }
+  .hero-stats { display: flex; gap: 40px; flex-shrink: 0; }
+  .h-stat { text-align: right; }
+  .h-stat-num { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: block; line-height: 1; }
+  .h-stat-lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 4px; display: block; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+
+  .sec { padding: 100px 120px 0; }
+  .sec-hdr { display: flex; align-items: baseline; gap: 24px; margin-bottom: 56px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  .sec-num { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; color: var(--purple); }
+  .sec-title { font-family: 'Syne', sans-serif; font-size: clamp(1.7rem,2.8vw,2.4rem); font-weight: 800; letter-spacing: -0.03em; }
+  .sec-sub { font-size: 1rem; color: var(--muted); line-height: 1.75; max-width: 580px; margin-bottom: 44px; }
+
+  .g3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); }
+  .feat-card { background: var(--bg2); padding: 34px 28px; transition: background 0.2s; cursor: default; }
+  .feat-card:hover { background: rgba(139,92,246,0.07); }
+  .feat-icon { font-size: 1.6rem; margin-bottom: 16px; display: block; }
+  .feat-title { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; }
+  .feat-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+
+  .t-row { display: flex; flex-direction: column; gap: 1px; background: var(--border); }
+  .t-line { background: var(--bg2); padding: 22px 32px; display: grid; grid-template-columns: 210px 1fr; align-items: center; gap: 32px; transition: background 0.2s; }
+  .t-line:hover { background: rgba(139,92,246,0.06); }
+  .t-name { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+  .t-name em { font-style: normal; font-size: 1.1rem; }
+  .t-desc { font-size: 0.85rem; color: var(--muted); }
+
+  .note-band { margin: 64px 120px 100px; background: linear-gradient(135deg,rgba(139,92,246,0.1),rgba(236,72,153,0.05)); border: 1px solid rgba(139,92,246,0.18); border-radius: 8px; padding: 44px 48px; }
+  .note-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple); display: block; margin-bottom: 16px; }
+  .note-text { font-size: 0.95rem; line-height: 1.8; color: var(--text); max-width: 720px; }
+  .note-text strong { color: #fff; }
+
+  footer { padding: 72px 120px; border-top: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0; }
+  .footer-brand { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; margin-bottom: 6px; }
+  .footer-brand span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .footer-credit { font-size: 0.8rem; color: var(--muted); margin-bottom: 2rem; }
+  .footer-links { display: flex; flex-direction: row; gap: 28px; text-align: center; justify-content: center; margin-top: 1rem; flex-wrap: wrap; }
+  .footer-links a { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.06em; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--purple); }
+  .cta-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--grad); color: #fff; padding: 14px 28px; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: opacity 0.2s; white-space: nowrap; }
+  .cta-btn:hover { opacity: 0.85; }
+  .cta-btn-footer { margin: 1.8rem 0 1.2rem; }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: all 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* QUICK CV */
+  .cv-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 48px 52px; }
+  .cv-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; flex-wrap: wrap; border-bottom: 1px solid var(--border); padding-bottom: 28px; margin-bottom: 28px; }
+  .cv-name { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; margin-bottom: 6px; }
+  .cv-tagline { font-size: 0.9rem; color: var(--muted); max-width: 480px; line-height: 1.6; }
+  .cv-contact { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--muted); text-align: right; line-height: 1.9; white-space: nowrap; }
+  .cv-print-btn { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 9px 16px; border-radius: 4px; cursor: pointer; transition: all 0.2s; margin-top: 12px; }
+  .cv-print-btn:hover { color: #fff; border-color: var(--purple); }
+  .cv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .cv-block-title { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple); margin-bottom: 16px; display: block; }
+  .cv-line { font-size: 0.85rem; line-height: 1.9; color: var(--text); }
+  .cv-line strong { font-weight: 700; }
+  .cv-line span { color: var(--muted); }
+  .cv-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .cv-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; padding: 5px 12px; border: 1px solid var(--border); border-radius: 20px; color: var(--muted); }
+  .cv-full { grid-column: 1 / -1; margin-top: 4px; }
+  @media (max-width: 768px) {
+    .cv-card { padding: 32px 24px; }
+    .cv-top { flex-direction: column; }
+    .cv-contact { text-align: left; }
+    .cv-grid { grid-template-columns: 1fr; gap: 28px; }
+  }
+  @media print {
+    .back-btn, .dm-toggle, .cv-print-btn, footer, #progress-bar { display: none !important; }
+    body { background: #fff; color: #111; }
+    .cv-card { border: none; }
+  }
+
+  @media (max-width: 1024px) {
+    .hero { padding: 110px 48px 56px; }
+    .sec { padding: 72px 48px 0; }
+    .note-band { margin: 56px 48px 80px; }
+    footer { padding: 48px; }
+    .back-btn { left: 16px; top: 16px; }
+  }
+  @media (max-width: 768px) {
+    .hero { padding: 88px 24px 44px; min-height: auto; }
+    .hero-bottom { flex-direction: column; align-items: flex-start; }
+    .hero-stats { gap: 24px; }
+    .h-stat { text-align: left; }
+    .sec { padding: 56px 24px 0; }
+    .g3 { grid-template-columns: 1fr; }
+    .t-line { grid-template-columns: 1fr; gap: 6px; }
+    .note-band { margin: 48px 24px 64px; padding: 32px 24px; }
+    footer { padding: 40px 24px; }
+    .footer-links { flex-direction: column; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<a href="index.html" class="back-btn">
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>
+  Back
+</a>
+
+<button class="dm-toggle" id="dmToggle" onclick="document.body.classList.toggle('light'); this.textContent = document.body.classList.contains('light') ? '☀ Light' : '☾ Dark'">☾ Dark</button>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg-text">HANDS-ON</div>
+  <div class="hero-eyebrow">Beyond the Codebase</div>
+  <h1 class="hero-title">Practical Tech<br><span class="grad-text">Problem-Solving.</span></h1>
+  <div class="hero-bottom">
+    <p class="hero-desc">Software development is one part of what I do. I've also spent time solving everyday technical problems — the kind that show up in restaurants, hotels, retail stores, and small offices — where a bit of tech know-how quietly makes everything run smoother.</p>
+    <div class="hero-stats">
+      <div class="h-stat"><span class="h-stat-num">3</span><span class="h-stat-lbl">Live Products Built</span></div>
+      <div class="h-stat"><span class="h-stat-num">1st</span><span class="h-stat-lbl">Call for Tech Issues</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHERE IT HELPS -->
+<section class="sec" id="where">
+  <div class="sec-hdr"><span class="sec-num">01</span><h2 class="sec-title">Where This Comes In Handy</h2></div>
+  <p class="sec-sub">Most workplaces run on a handful of small, everyday systems — and most teams have no one who actually understands them.</p>
+  <div class="t-row reveal">
+    <div class="t-line"><div class="t-name"><em>🍽️</em> Restaurants &amp; Cafés</div><div class="t-desc">POS systems, order-taking tablets, printer/receipt issues, WiFi for staff and guests</div></div>
+    <div class="t-line"><div class="t-name"><em>🏨</em> Hotels &amp; Hospitality</div><div class="t-desc">Booking.com / Airbnb dashboards, reservation software, front-desk computers and network issues</div></div>
+    <div class="t-line"><div class="t-name"><em>🛍️</em> Retail &amp; Small Shops</div><div class="t-desc">Checkout systems, inventory spreadsheets, basic e-commerce or social media storefronts</div></div>
+    <div class="t-line"><div class="t-name"><em>🏢</em> Small Offices</div><div class="t-desc">Shared printers, slow computers, file organization, simple automation to save repeated manual work</div></div>
+  </div>
+</section>
+
+<!-- WHAT I CAN DO -->
+<section class="sec" id="skills">
+  <div class="sec-hdr"><span class="sec-num">02</span><h2 class="sec-title">What I Can Help With</h2></div>
+  <p class="sec-sub">Practical, no-fuss support — the kind that doesn't need a job title to be useful.</p>
+  <div class="g3 reveal">
+    <div class="feat-card"><span class="feat-icon">🧾</span><div class="feat-title">POS &amp; Booking Systems</div><div class="feat-desc">Comfortable setting up, troubleshooting, and training others on point-of-sale and reservation platforms.</div></div>
+    <div class="feat-card"><span class="feat-icon">🛠️</span><div class="feat-title">Basic IT Troubleshooting</div><div class="feat-desc">WiFi drops, printer errors, slow computers, software glitches — the small fixes that stall a whole shift.</div></div>
+    <div class="feat-card"><span class="feat-icon">🌐</span><div class="feat-title">Website &amp; Social Setup</div><div class="feat-desc">Can build or tidy up a simple website, menu page, or social profile for a small business that has none.</div></div>
+    <div class="feat-card"><span class="feat-icon">📶</span><div class="feat-title">Network &amp; Devices</div><div class="feat-desc">Setting up routers, connecting devices, and keeping shared tech running without needing a technician visit.</div></div>
+    <div class="feat-card"><span class="feat-icon">📋</span><div class="feat-title">Digital Organization</div><div class="feat-desc">Turning messy spreadsheets, shift schedules, or inventory lists into something simple and searchable.</div></div>
+    <div class="feat-card"><span class="feat-icon">⚡</span><div class="feat-title">Fast Learner, Calm Under Pressure</div><div class="feat-desc">Comfortable picking up a new tool on shift one and staying steady when something breaks mid-service.</div></div>
+  </div>
+</section>
+
+<div class="note-band reveal">
+  <span class="note-tag">A Quick Note</span>
+  <p class="note-text">I bring a genuine <strong>software development background</strong> — I've built and deployed live products like WritexNova and AIXNova — into everyday, hands-on roles. Whatever the primary job is, I'm always glad to be the person who can also sort out the tech when something isn't working.</p>
+</div>
+
+<!-- QUICK CV -->
+<section class="sec" id="cv">
+  <div class="sec-hdr"><span class="sec-num">03</span><h2 class="sec-title">Quick CV</h2></div>
+  <p class="sec-sub">A short, ready-to-share profile for part-time and on-site roles. Click "Print / Save as PDF" to download a copy.</p>
+  <div class="cv-card reveal">
+    <div class="cv-top">
+      <div>
+        <div class="cv-name">Md. Shahriar Nafiz Evan</div>
+        <p class="cv-tagline">Computer Science student and full-stack developer, available for part-time work. Reliable, quick to learn, and comfortable stepping in wherever tech support is needed.</p>
+        <button class="cv-print-btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+      </div>
+      <div class="cv-contact">
+        shahriarevan545@gmail.com<br>
+        WhatsApp: +60 11-3796 8437<br>
+        WhatsApp: +880 1770-849168<br>
+        Based in Malaysia · open to relocation<br>
+        Available for part-time / flexible hours
+      </div>
+    </div>
+
+    <div class="cv-grid">
+      <div>
+        <span class="cv-block-title">Key Skills</span>
+        <div class="cv-tags">
+          <span class="cv-tag">POS &amp; Booking Systems</span>
+          <span class="cv-tag">Basic IT Troubleshooting</span>
+          <span class="cv-tag">WiFi &amp; Network Setup</span>
+          <span class="cv-tag">Website / Social Setup</span>
+          <span class="cv-tag">MS Office</span>
+          <span class="cv-tag">Customer Service</span>
+          <span class="cv-tag">Fast Learner</span>
+          <span class="cv-tag">Teamwork</span>
+          <span class="cv-tag">Communication</span>
+          <span class="cv-tag">Problem-Solving</span>
+        </div>
+      </div>
+      <div>
+        <span class="cv-block-title">Languages</span>
+        <p class="cv-line">Bengali <span>(Native)</span> · English <span>(Intermediate)</span> · Hindi <span>(Basic)</span> · Malay <span>(Basic)</span></p>
+      </div>
+
+      <div>
+        <span class="cv-block-title">Education</span>
+        <p class="cv-line"><strong>Computer Science</strong> <span>— currently studying, Bachelor's transfer program</span></p>
+        <p class="cv-line"><strong>Higher Secondary (Science)</strong> <span>— completed</span></p>
+      </div>
+      <div>
+        <span class="cv-block-title">Relevant Experience</span>
+        <p class="cv-line"><strong>Team Leader</strong> <span>— led a multicultural group project over 6 weeks; handled coordination and final presentation</span></p>
+        <p class="cv-line"><strong>Event Volunteer</strong> <span>— helped organize and run a campus-wide event for 2 days</span></p>
+        <p class="cv-line"><strong>Sports Team Player</strong> <span>— regional league, one full season; discipline and performance under pressure</span></p>
+      </div>
+
+      <div class="cv-full">
+        <span class="cv-block-title">A Bit More</span>
+        <p class="cv-line" style="line-height:1.8;">Independently built and deployed live software products from scratch — so I'm used to figuring things out, fixing problems on the fly, and staying calm when something isn't working. Happy to help with day-to-day tasks and to be the go-to person for anything tech-related on the side.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Evan<span>.</span></div>
+  <div class="footer-credit">Md. Shahriar Nafiz Evan · Practical Skills</div>
+  <a href="mailto:shahriarevan545@gmail.com" class="cta-btn cta-btn-footer">Get in Touch ↗</a>
+  <div class="footer-links">
+    <a href="index.html">← Back to Home</a>
+    <a href="Evan_CV.pdf" target="_blank" rel="noopener noreferrer">View CV ↗</a>
+  </div>
+</footer>
+
+<script>
+  const bar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    bar.style.width = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100) + '%';
+  });
+
+  const rev = document.querySelectorAll('.reveal');
+  const rio = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); rio.unobserve(e.target); }});
+  }, { threshold: 0.1 });
+  rev.forEach(r => rio.observe(r));
+</script>
+</body>
+</html>
