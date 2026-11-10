@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evan - Software Developer Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{--bg:#05060a;--tx:#f3eee8;--mu:#a49c93;--ac:#ff9a4d;--pn:rgba(16,12,20,.64);--ln:rgba(255,255,255,.12)}
+[data-mode=light]{--bg:#eef1f6;--tx:#161a22;--mu:#566070;--pn:rgba(255,255,255,.72);--ln:rgba(0,0,0,.12)}
+*{box-sizing:border-box;margin:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font:16px/1.6 "DM Sans",system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3{font-family:Outfit,sans-serif;line-height:1.15}
+a{color:inherit;text-decoration:none}
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+#pre{position:fixed;inset:0;z-index:99;background:var(--bg);display:grid;place-items:center;transition:opacity .6s}
+#pre i{width:46px;height:46px;border:3px solid var(--ln);border-top-color:var(--ac);border-radius:50%;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 4vw;background:linear-gradient(var(--bg),transparent)}
+.logo{font:800 1.5rem Outfit}.logo b{color:var(--ac)}
+nav ul{display:flex;gap:16px;list-style:none;font-size:.85rem;flex-wrap:wrap;justify-content:center}
+nav ul a{color:var(--mu)}nav ul a:hover{color:var(--ac)}
+.ib{background:var(--pn);border:1px solid var(--ln);color:var(--tx);border-radius:8px;padding:6px 10px;cursor:pointer;font:inherit;backdrop-filter:blur(10px)}
+#burger{display:none}
+#themes{position:fixed;top:60px;right:4vw;z-index:21;display:none;gap:8px;padding:10px}
+#themes.on{display:flex}#themes i{width:24px;height:24px;border-radius:50%;cursor:pointer;border:2px solid var(--ln)}
+@media(max-width:1000px){nav ul{display:none;position:absolute;top:100%;left:0;right:0;background:var(--pn);backdrop-filter:blur(14px);flex-direction:column;padding:16px 4vw}nav ul.open{display:flex}#burger{display:block}}
+main{position:relative;z-index:2}
+section{min-height:100vh;padding:90px 5vw 40px;display:flex;flex-direction:column;justify-content:center;max-width:1180px;margin:0 auto}
+.tag{color:var(--ac);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
+h2.t{font-size:clamp(1.8rem,4vw,2.8rem);margin:4px 0 22px}
+.panel{background:var(--pn);border:1px solid var(--ln);border-radius:18px;padding:24px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transform-style:preserve-3d;transition:transform .15s,border-color .3s}
+.panel:hover{border-color:var(--ac)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px;perspective:1000px}
+.more{display:none;margin-top:20px}.more.on{display:grid}
+.card h3{font-size:1.3rem;margin:8px 0}.card p{color:var(--mu);font-size:.93rem}
+.ic{font-size:1.6rem;color:var(--ac)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.chips span{font-size:.75rem;padding:2px 10px;border-radius:20px;border:1px solid var(--ln);color:var(--ac)}
+.bd span{color:var(--tx)}.bd i{color:var(--ac);margin-right:4px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.btn{padding:9px 16px;border-radius:10px;border:1px solid var(--ln);font-size:.88rem;font-weight:500;cursor:pointer;background:transparent;color:var(--tx);font-family:inherit}
+.btn.p{background:var(--ac);color:#150b02;border-color:var(--ac)}.btn:hover{filter:brightness(1.15)}
+.xp{align-self:flex-start;margin-top:18px}
+#home{justify-content:center}
+#home .in{max-width:560px}
+.badge{display:inline-flex;gap:8px;align-items:center;padding:4px 14px;border:1px solid var(--ln);border-radius:20px;font-size:.85rem;background:var(--pn)}
+.badge i{width:8px;height:8px;border-radius:50%;background:#3ddc84;animation:sp 1.6s ease-in-out infinite alternate;animation-name:pl}
+@keyframes pl{to{opacity:.3}}
+h1{font-size:clamp(2.6rem,7vw,5rem);margin:0 0 6px;font-weight:800}h1 em{color:var(--ac);font-style:normal}
+#typing{font-size:1.4rem;color:var(--ac);min-height:2rem;font-weight:600}#typing:after{content:"|";animation:pl .7s infinite}
+.stats{display:flex;gap:28px;margin:22px 0}.stats b{font:800 2rem Outfit;color:var(--ac)}.stats small{display:block;color:var(--mu)}
+.abt p{margin-bottom:12px}
+.sk{margin-bottom:14px}.sk div{display:flex;justify-content:space-between;font-size:.9rem}
+.bar{height:7px;background:var(--ln);border-radius:5px;overflow:hidden;margin-top:5px}.bar i{display:block;height:100%;width:0;background:var(--ac);transition:width 1.4s}
+.xi{display:flex;gap:14px;align-items:center;margin-bottom:12px}
+.xi .ic{width:48px;height:48px;display:grid;place-items:center;border:1px solid var(--ln);border-radius:12px;flex:none}
+.panel ul{padding-left:20px;color:var(--mu)}.panel li{margin:6px 0}
+form{display:grid;gap:12px;margin-top:14px}
+input,textarea{font:inherit;padding:12px;border-radius:10px;border:1px solid var(--ln);background:transparent;color:var(--tx);width:100%}
+input:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:2px solid var(--ac)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+footer{position:relative;z-index:2;text-align:center;padding:50px 5vw 60px;color:var(--mu);font-size:.9rem;background:linear-gradient(transparent,var(--bg))}
+.rv{opacity:0;transform:translateY(40px) rotateX(8deg);transition:opacity .8s,transform .8s}.rv.on{opacity:1;transform:none}
+@media(max-width:600px){.two{grid-template-columns:1fr}#home .in{margin-top:42vh}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div id="pre"><i></i></div>
+<canvas id="gl" aria-hidden="true"></canvas>
+<nav>
+<a href="#home" class="logo">Evan<b>.</b></a>
+<ul id="nl"></ul>
+<div style="display:flex;gap:8px"><button class="ib" id="mode" aria-label="Toggle dark or light mode"><i class="fas fa-moon"></i></button><button class="ib" id="thb" aria-label="Choose theme colour"><i class="fas fa-palette"></i></button><button class="ib" id="burger" aria-label="Menu"><i class="fas fa-bars"></i></button></div>
+</nav>
+<div id="themes" class="panel"></div>
+<main>
+<section id="home"><div class="in">
+<h1>Md. Shahriar Nafiz <em>Evan</em></h1>
+<h2 id="typing"></h2>
+<p style="color:var(--mu)">Full-stack developer &amp; CS student building and shipping real AI-powered SaaS products. Passionate about clean code, great UX, and turning ideas into live products people actually use.</p>
+<div class="stats"><div><b data-n="15">0</b><b>+</b><small>Projects</small></div><div><b data-n="5">0</b><b>+</b><small>SaaS Products</small></div><div><b data-n="4">0</b><b>+</b><small>Years Coding</small></div></div>
+<div class="btns"><a href="Evan_CV.pdf" class="btn p"><i class="fas fa-download"></i> Download CV</a><a href="#contact" class="btn"><i class="fas fa-paper-plane"></i> Contact</a></div>
+</div></section>
+
+<section id="about"><span class="tag">Who I Am</span><h2 class="t">About Me</h2>
+<div class="panel abt rv"><p>I'm a Computer Science student at <strong>INTI International University, Malaysia</strong>, and a full-stack developer who builds and ships real products. I've gone from writing my first line of HTML to deploying multiple live AI-powered SaaS platforms used by real users.</p><p>I believe the best way to learn is to build. That's why I focus on real-world projects with real tech stacks — Next.js, Node.js, MongoDB, Firebase, Stripe, OpenAI — not just tutorials. Every product I ship teaches me something new and pushes my limits further.</p><p>Currently building <strong>WritexNova</strong>, <strong>AIXNova</strong>, and <strong>AIXAnime</strong> — three live monetized SaaS products. My goal is to become a world-class product engineer who can go from idea to deployed product, solo if needed.</p></div></section>
+
+<section id="skills"><span class="tag">What I Know</span><h2 class="t">Skills &amp; Expertise</h2>
+<div class="grid"><div class="panel rv"><h3><i class="fas fa-fire ic"></i> Core Skills</h3><br><div id="bars"></div></div>
+<div class="panel rv"><h3><i class="fas fa-plus-circle ic"></i> Additional Skills</h3><div class="chips" id="badges" style="margin:14px 0"></div><h3 style="font-size:1rem;margin-top:16px"><i class="fas fa-layer-group ic" style="font-size:1rem"></i> Tech Stack</h3><div class="chips" id="stack"></div></div></div></section>
+
+<section id="projects"><span class="tag">What I Built</span><h2 class="t">Featured Projects</h2><div class="grid" id="g-projects"></div><div class="grid more" id="m-projects"></div><button class="btn xp" data-m="projects">View More Projects</button></section>
+<section id="apps"><span class="tag">My Creations</span><h2 class="t">My Applications</h2><div class="grid" id="g-apps"></div><div class="grid more" id="m-apps"></div><button class="btn xp" data-m="apps">View More Apps</button></section>
+<section id="saas"><span class="tag">Live &amp; Monetized</span><h2 class="t">My SaaS Products</h2><div class="grid" id="g-saas"></div><div class="grid more" id="m-saas"></div><button class="btn xp" data-m="saas">More SaaS Apps</button></section>
+<section id="client-work"><h2 class="t">Education Website</h2><div class="grid" id="g-client"></div></section>
+<section id="games"><h2 class="t">My Games</h2><div class="grid" id="g-games"></div></section>
+
+<section id="experience"><span class="tag">My Journey</span><h2 class="t">Experience</h2><div class="grid" id="g-exp"></div></section>
+<section id="education"><span class="tag">My Background</span><h2 class="t">🎓 Education</h2>
+<div class="panel rv"><div class="xi"><span class="ic"><i class="fas fa-graduation-cap"></i></span><div><h3>Bachelor of Computer Science</h3><span style="color:var(--mu)"><i class="fas fa-university"></i> INTI International University, Malaysia</span></div></div>
+<p style="color:var(--mu)">Currently pursuing a degree in Computer Science with a strong focus on web development, software engineering, and modern technologies.</p>
+<ul><li>Specializing in Frontend Development (HTML, CSS, JavaScript)</li><li>Building real-world projects and responsive web applications</li><li>Member of university technology clubs and communities</li><li>Actively improving problem-solving and development skills</li><li>Participating in coding challenges and hackathons</li></ul></div></section>
+<section id="blog"><span class="tag">My Writing</span><h2 class="t">Build Journal</h2><div class="grid" id="g-blog"></div></section>
+
+<section id="contact"><h2 class="t">Get In Touch</h2>
+<div class="grid"><div class="panel rv"><p style="color:var(--mu)">I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Let's connect and create something amazing together!</p>
+<div class="btns"><a class="btn p" href="mailto:shahriarevan545@gmail.com"><i class="fas fa-envelope"></i> Email</a><a class="btn" target="_blank" rel="noopener noreferrer" href="https://github.com/shahriar-evan"><i class="fab fa-github"></i> GitHub</a><a class="btn" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/tech-evan-b374382b6/"><i class="fab fa-linkedin-in"></i> LinkedIn</a><a class="btn" target="_blank" rel="noopener noreferrer" href="https://wa.me/+8801770849168"><i class="fab fa-whatsapp"></i> WhatsApp</a></div></div>
+<div class="panel rv"><span class="tag">Say Hello</span><h3>Have a project in mind? Let's build something amazing.</h3>
+<form action="https://formspree.io/f/mbdqkjnr" method="POST"><div class="two"><input name="name" placeholder="Name" aria-label="Name" required><input type="email" name="email" placeholder="Email" aria-label="Email" required></div><textarea name="message" rows="4" placeholder="Your Message" aria-label="Message" required></textarea><button class="btn p" type="submit">Send Message</button></form></div></div></section>
+</main>
+<footer><a href="#home" class="logo">Evan<b>.</b></a><p>© 2026 <strong>shahriarevan.com</strong> | All Rights Reserved</p><p>Crafted with <i class="fas fa-heart" style="color:var(--ac)"></i> code, and coffee ☕</p><p><a href="practical-skills.html" style="text-decoration:underline">Other ways I can help →</a></p><p><img src="https://visitor-badge.laobi.icu/badge?page_id=shahriar-evan.portfolio" alt="Visitor badge counter"></p></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+var $=function(s){return document.querySelector(s)},RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
+/* ---------- DATA ---------- */
+var NAV=[["about","About"],["skills","Skills"],["projects","Projects"],["apps","Apps"],["saas","SaaS"],["experience","Experience"],["education","Education"],["blog","Blog"],["contact","Contact"]];
+$("#nl").innerHTML=NAV.map(function(n){return'<li><a href="#'+n[0]+'">'+n[1]+'</a></li>'}).join("");
+var GH="https://github.com/shahriar-evan/";
+function C(tag,ic,t,d,tech,bd,b){return{tag:tag,ic:ic,t:t,d:d,tech:tech,bd:bd||[],b:b}}
+function L(l,h,p,i,ext){return[l,h,p,i,ext]}
+var D={
+projects:[C("Web","briefcase","Portfolio Website","A modern, responsive portfolio showcasing my work with glassmorphism design, smooth animations, and dynamic theme switching capabilities.",["HTML","CSS","JS"],0,[L("Case Study","portfolio-case-study.html",1,"external-link-alt"),L("Source Code",GH+"portfolio-website",0,"github",1)]),
+C("API","cloud-sun","Weather App","Real-time weather application with location detection, 5-day forecast, and beautiful weather animations. Built with vanilla JavaScript and weather API.",["JS","API","CSS"],0,[L("Live Demo","https://shahriar-evan.github.io/weather-app",1,"external-link-alt"),L("Source Code",GH+"weather-app",0,"github")])],
+projectsMore:[C("Utility","tasks","To-Do App","Elegant task management application with local storage, drag-and-drop functionality, and priority system for organizing daily tasks efficiently.",["HTML","CSS","JS"],0,[L("Live Demo","https://shahriar-evan.github.io/To-Do-App/",1,"external-link-alt"),L("Source Code",GH+"To-Do-App",0,"github")]),
+C("Tool","calculator","Calculator","Modern calculator with advanced operations, memory functions, and keyboard support. Features a clean, intuitive interface with smooth animations.",["HTML","CSS","JS"],0,[L("Live Demo","https://shahriar-evan.github.io/Calculator-App/",1,"external-link-alt"),L("Source Code",GH+"Calculator-App",0,"github")])],
+apps:[C("App","comments","Firebase Auth App","Secure authentication system with Firebase including login, signup, and user management. Features secure access control and real-time authentication handling.",["Firebase","JavaScript","HTML","CSS"],0,[L("Live Demo","https://shahriar-evan.github.io/firebase-login-system/",1,"external-link-alt"),L("Source Code",GH+"firebase-login-system",0,"github")]),
+C("App","sticky-note","Notes App","Feature-rich note-taking application with markdown support, categories, search functionality, and cloud sync capabilities.",["JS","Markdown","CSS"],0,[L("Live Demo","https://shahriar-evan.github.io/notes-app/",1,"external-link-alt"),L("Source Code",GH+"notes-app",0,"github")])],
+appsMore:[C("","rocket","Coming Soon","Exciting new applications are in development. Stay tuned for innovative tools and creative solutions!",[],0,[L("Stay Updated","#",0,"bell")])],
+saas:[C("SaaS","pen-nib","WritexNova","AI writing platform with Humanizer, AI Detector, Paraphraser, Grammar Checker, Summarizer, Article Rewriter, AI Translator, Citation Generator, and PDF Chat — bypassing any AI detector with multi-model support.",["Node.js","Firebase","OpenAI","Lemon Squeezy"],["check-circle|Live Product","shield-alt|AI Humanizer","tools|10+ AI Tools","credit-card|Lemon Squeezy"],[L("Visit Platform","https://writexnova.com",1,"external-link-alt",1),L("Case Study","writexnova-casestudy.html",0,"file-alt"),L("Source Code",GH+"writexnova",0,"github",1)]),
+C("SaaS","wand-magic-sparkles","AIXNova","Complete AI workspace with Multi-model Chat (GPT-5, Claude, Gemini), Image Studio, AI Writing, Deep Research, Web Search, Presentation Builder, Document Chat, 200+ Prompts, File Upload, and ⌘K Command Palette.",["Next.js","MongoDB","OpenAI","Lemon Squeezy"],["check-circle|Live Product","layer-group|8+ AI Tools","file-upload|File Upload","credit-card|Lemon Squeezy"],[L("Visit Platform","https://aixnova.vercel.app",1,"external-link-alt",1),L("Case Study","aixnova-casestudy.html",0,"file-alt"),L("Source Code",GH+"aixnova",0,"github",1)]),
+C("SaaS","tv","StreamWorld","Live IPTV & sports streaming platform with 7,500+ channels across 40+ countries, real-time live sports matches, category & country filtering, HLS video playback, and a built-in sports proxy server.",["Node.js","Express","HLS.js","Vercel"],["check-circle|Live Product","satellite-dish|7,500+ Channels","futbol|Live Sports","globe|40+ Countries"],[L("Visit Platform","https://streamflix-orpin.vercel.app/",1,"external-link-alt",1),L("Source Code",GH+"streamflix",0,"github",1)]),
+C("Open Source","fire","Habit Tracker","Open-access habit tracker with streak tracking, a 7-day calendar view, focus timer, mood check-ins, dark mode, and a premium SaaS-style landing page — no sign-up or login required.",["Node.js","Express","Firestore","Vanilla JS"],["check-circle|Live Product","bolt|No Login Required","moon|Dark Mode","chart-line|Streak Tracking"],[L("Visit Platform","https://habit-tracker-psi-three.vercel.app",1,"external-link-alt",1),L("Source Code",GH+"habit-tracker",0,"github",1)])],
+saasMore:[C("SaaS","film","AIXAnime","AI anime creation platform with Text→Anime Image, Photo→Anime, Avatar Generator, Voice Studio, HD 4K Upscaler, Text→Anime Video, Photo→Anime Video, and History & Favorites — all in one sleek experience.",["Next.js","MongoDB","OpenAI","Lemon Squeezy"],["check-circle|Live Product","magic|7+ AI Tools","credit-card|Lemon Squeezy"],[L("Visit Platform","#",1,"external-link-alt",1),L("Case Study","#contact",0,"file-alt"),L("Source Code",GH+"aixanime",0,"github",1)])],
+client:[C("Open Source","graduation-cap","Global Visa Connect","Education visa consultancy website built for a client, covering 12 study destinations with per-country university and tuition fee listings, IELTS/PTE/TOEFL/Duolingo/SAT admission requirements, a student application form, and a full admin dashboard for managing countries, universities, and applications.",["Next.js","Firebase","Tailwind CSS","Vercel"],["check-circle|Live Product","globe|12 Countries","user-shield|Admin Dashboard","file-signature|Application Form"],[L("Visit Platform","https://global-visa-connect-psi.vercel.app",1,"external-link-alt",1),L("Source Code",GH+"Global-Visa-Connect",0,"github",1)])],
+games:[C("Game","gamepad","Snake Game","Modern Snake game built with JavaScript featuring smooth controls, dynamic speed, and high score tracking.",["JavaScript","HTML","CSS"],0,[L("Live Demo","https://shahriar-evan.github.io/snake-game/",1,"external-link-alt"),L("Source Code",GH+"snake-game",0,"github")])],
+blog:[C("Story","rocket","How I Built 3 SaaS Products as a CS Student","From writing my first HTML page to shipping three live monetized AI platforms — what I learned, what broke, and what I'd do differently.",["SaaS","Journey","AI"],0,[L("Coming Soon","#contact",1,"clock")]),
+C("Technical","brain","Integrating OpenAI, Auth & Payments in a Next.js SaaS","A step-by-step breakdown of the full stack I use to build AI SaaS products — from Firebase auth to Lemon Squeezy checkout to OpenAI streaming.",["Next.js","OpenAI","Guide"],0,[L("Coming Soon","#contact",1,"clock")]),
+C("Product","lightbulb","Shipping Fast: My Solo Founder Workflow","How I go from idea to live product in under 4 weeks — tools, habits, decision-making frameworks, and the mindset that makes it possible.",["Productivity","Indie","Workflow"],0,[L("Coming Soon","#contact",1,"clock")])],
+exp:[["rocket","Indie SaaS Developer","2024 – Present",["Built and deployed 3 live SaaS products (WritexNova, AIXNova, AIXAnime) from zero to production — solo","Integrated payment systems (Stripe, Lemon Squeezy), auth (Firebase, Google OAuth, JWT), and AI APIs (OpenAI, Gemini) into commercial products","Built full-stack apps with Next.js, Node.js, Express, MongoDB, Firebase — deployed on Vercel and Render","Designed admin dashboards, credit systems, referral programs, and user management systems","Shipped products with real users, real payments, and real feedback — continuously iterating and improving"]],
+["code","Frontend Developer","2024 – Present",["Built responsive web apps and tools using HTML, CSS, JavaScript — focused on clean UI and great UX","Developed Weather App, To-Do App, Calculator, Notes App, and Firebase Auth system","Learned Git, GitHub, and version control workflows through real project management","Explored cybersecurity fundamentals, SEO, and responsive design best practices"]]]
+};
+function card(c){var h='<article class="panel card rv">'+(c.tag?'<span class="tag">'+c.tag+'</span><br>':'')+'<i class="fas fa-'+c.ic+' ic"></i><h3>'+c.t+'</h3><p>'+c.d+'</p>';
+if(c.tech.length)h+='<div class="chips">'+c.tech.map(function(x){return'<span>'+x+'</span>'}).join("")+'</div>';
+if(c.bd.length)h+='<div class="chips bd">'+c.bd.map(function(x){x=x.split("|");return'<span><i class="fas fa-'+x[0]+'"></i>'+x[1]+'</span>'}).join("")+'</div>';
+h+='<div class="btns">'+c.b.map(function(l){return'<a class="btn'+(l[2]?' p':'')+'" href="'+l[1]+'"'+(l[4]?' target="_blank" rel="noopener noreferrer"':'')+'><i class="'+(l[3]=="github"?"fab":"fas")+' fa-'+l[3]+'"></i> '+l[0]+'</a>'}).join("")+'</div></article>';return h}
+function fill(id,a){$(id).innerHTML=a.map(card).join("")}
+fill("#g-projects",D.projects);fill("#m-projects",D.projectsMore);fill("#g-apps",D.apps);fill("#m-apps",D.appsMore);fill("#g-saas",D.saas);fill("#m-saas",D.saasMore);fill("#g-client",D.client);fill("#g-games",D.games);fill("#g-blog",D.blog);
+$("#g-exp").innerHTML=D.exp.map(function(e){return'<div class="panel rv"><div class="xi"><span class="ic"><i class="fas fa-'+e[0]+'"></i></span><div><h3>'+e[1]+'</h3><small style="color:var(--mu)"><i class="fas fa-calendar-alt"></i> '+e[2]+'</small></div></div><ul>'+e[3].map(function(x){return'<li>'+x+'</li>'}).join("")+'</ul></div>'}).join("");
+$("#bars").innerHTML=[["HTML",95],["CSS",90],["JavaScript",85],["Responsive Design",92],["Git & Github",80]].map(function(s){return'<div class="sk"><div><span>'+s[0]+'</span><span>'+s[1]+'%</span></div><div class="bar"><i data-w="'+s[1]+'"></i></div></div>'}).join("");
+$("#badges").innerHTML=["React / Next.js","Node.js / Express","MongoDB / Firebase","OpenAI API","Stripe / Lemon Squeezy","Vercel / Render","SEO","UI / UX Design"].map(function(x){return'<span>'+x+'</span>'}).join("");
+$("#stack").innerHTML=[["html5","HTML"],["css3-alt","CSS"],["js-square","JS"],["react","Next.js"],["node-js","Node.js"],["github","GitHub"]].map(function(x){return'<span><i class="fab fa-'+x[0]+'"></i> '+x[1]+'</span>'}).join("");
+document.querySelectorAll(".xp").forEach(function(b){var t=b.textContent;b.onclick=function(){var m=$("#m-"+b.dataset.m),on=m.classList.toggle("on");b.textContent=on?"Show Less":t;observe()}});
+/* ---------- UI ---------- */
+var tl=["Software Developer","Web Developer","Cybersecurity Enthusiast","UI/UX Designer","Open Source Contributor"],ti=0,ci=0,del=false;
+(function ty(){var w=tl[ti];ci+=del?-1:1;$("#typing").textContent=w.slice(0,ci);if(!del&&ci==w.length){del=true;return setTimeout(ty,1400)}if(del&&ci==0){del=false;ti=(ti+1)%tl.length}setTimeout(ty,del?40:90)})();
+$("#burger").onclick=function(){$("#nl").classList.toggle("open")};$("#nl").onclick=function(){$("#nl").classList.remove("open")};
+var TH=["#ff9a4d","#8b5cf6","#3b82f6","#22c55e","#f43f5e","#06b6d4"];
+$("#themes").innerHTML=TH.map(function(c){return'<i style="background:'+c+'" data-c="'+c+'" role="button" tabindex="0" aria-label="Theme '+c+'"></i>'}).join("");
+$("#thb").onclick=function(){$("#themes").classList.toggle("on")};
+$("#themes").onclick=function(e){if(e.target.dataset.c){setAccent(e.target.dataset.c)}};
+$("#mode").onclick=function(){var d=document.documentElement,l=d.dataset.mode=="dark";d.dataset.mode=l?"light":"dark";this.firstChild.className="fas fa-"+(l?"sun":"moon");S.fog.color.set(l?0xeef1f6:0x05060a);pm.opacity=l?.5:.9};
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on");e.target.querySelectorAll&&e.target.querySelectorAll("[data-w]").forEach(function(b){b.style.width=b.dataset.w+"%"});io.unobserve(e.target)}})},{threshold:.15});
+function observe(){document.querySelectorAll(".rv:not(.on)").forEach(function(e){io.observe(e)})}observe();
+document.querySelectorAll("[data-n]").forEach(function(el){var n=+el.dataset.n,i=0,t=setInterval(function(){el.textContent=++i;if(i>=n)clearInterval(t)},100)});
+document.addEventListener("mousemove",function(e){var p=e.target.closest&&e.target.closest(".card");document.querySelectorAll(".card").forEach(function(c){c.style.transform=""});if(p&&!RM){var r=p.getBoundingClientRect();p.style.transform="rotateY("+((e.clientX-r.left)/r.width-.5)*10+"deg) rotateX("+(-((e.clientY-r.top)/r.height-.5))*10+"deg) translateZ(8px)"}});
+/* ---------- 3D SCENE ---------- */
+var cv=$("#gl"),R=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true}),S=new THREE.Scene(),K=new THREE.PerspectiveCamera(60,1,.1,400);
+S.fog=new THREE.FogExp2(0x05060a,.016);
+R.setPixelRatio(Math.min(devicePixelRatio,1.75));
+var mats=[],ACC=new THREE.Color("#ff9a4d");
+function M(wire,op){var m=new THREE.MeshStandardMaterial({color:ACC,wireframe:!!wire,transparent:true,opacity:op||1,metalness:.5,roughness:.3,emissive:ACC,emissiveIntensity:wire?.6:.18});mats.push(m);return m}
+S.add(new THREE.AmbientLight(0xffffff,.5));var pl=new THREE.PointLight(0xffffff,1.4,60);S.add(pl);
+var Z=[],ST=[];for(var i=0;i<12;i++)ST.push(6-i*18);
+var objs=[];
+function put(g,i,x,y){g.position.set(x,y||0,ST[i]-11);S.add(g);objs.push(g);return g}
+function mesh(geo,m){return new THREE.Mesh(geo,m||M(0,.85))}
+var wide=function(){return innerWidth>900};
+// 0 profile
+var pg=new THREE.Group(),tex=new THREE.TextureLoader().load("profile.jpg",function(){hide()});
+var disc=new THREE.Mesh(new THREE.CircleGeometry(2.3,64),new THREE.MeshBasicMaterial({map:tex,fog:false}));
+var ring=new THREE.Mesh(new THREE.TorusGeometry(2.45,.05,16,100),M(0,1));ring.material.emissiveIntensity=1.2;
+var ring2=new THREE.Mesh(new THREE.TorusGeometry(3.1,.02,8,100),M(1,.6));ring2.rotation.x=1.2;
+pg.add(disc,ring,ring2);put(pg,0,wide()?4.2:0,wide()?0:3.2);
+// 1 about
+var g1=new THREE.Group();g1.add(mesh(new THREE.IcosahedronGeometry(2.4,1),M(1,.8)),mesh(new THREE.IcosahedronGeometry(1.1,0)));put(g1,1,-6,0);
+// 2 skills: orbit
+var g2=new THREE.Group(),orb=[];for(var k=0;k<10;k++){var o=mesh(new THREE.OctahedronGeometry(.6),M(0,.9));o.userData.a=k/10*6.283;g2.add(o);orb.push(o)}put(g2,2,6,0);
+// 3 projects: floating panels
+var g3=new THREE.Group();for(k=0;k<6;k++){var b=mesh(new THREE.BoxGeometry(2,1.3,.12),M(0,.8));b.position.set((k%3-1)*2.8,(k<3?1:-1)*1.1,0);b.userData.p=k;g3.add(b)}put(g3,3,-6,0);
+// 4 apps
+var g4=new THREE.Group();g4.add(mesh(new THREE.TorusGeometry(2,.4,16,60),M(0,.85)),mesh(new THREE.TorusGeometry(1,.2,12,40),M(1,.9)));put(g4,4,6,0);
+// 5 saas
+var g5=new THREE.Group();[-3.5,0,3.5].forEach(function(x){var t=mesh(new THREE.TorusKnotGeometry(1,.3,80,12),M(x?0:1,.9));t.position.x=x;g5.add(t)});put(g5,5,-3,0);
+// 6 client
+put(mesh(new THREE.DodecahedronGeometry(2.3),M(1,.8)),6,6,0);
+// 7 games
+var g7=new THREE.Group();g7.add(mesh(new THREE.BoxGeometry(2.4,.5,1.6)),mesh(new THREE.CylinderGeometry(.18,.18,1.2,12)),mesh(new THREE.SphereGeometry(.45,24,24)));g7.children[1].position.y=.8;g7.children[2].position.y=1.5;put(g7,7,-6,-.5);
+// 8 experience: timeline pillars
+var g8=new THREE.Group();for(k=0;k<5;k++){var h=1+k*.8,c=mesh(new THREE.CylinderGeometry(.5,.5,h,24));c.position.set((k-2)*1.4,h/2-2,0);g8.add(c)}put(g8,8,6,0);
+// 9 education: cap
+var g9=new THREE.Group();g9.add(mesh(new THREE.BoxGeometry(4,.2,4)),mesh(new THREE.CylinderGeometry(1.2,1.4,1.1,4)));g9.children[1].position.y=-.7;g9.rotation.x=.3;put(g9,9,-6,0);
+// 10 blog: floating pages
+var g10=new THREE.Group();for(k=0;k<4;k++){var pgm=mesh(new THREE.PlaneGeometry(1.8,2.4),M(k%2,.7));pgm.material.side=THREE.DoubleSide;pgm.position.set(k*1.2-1.8,k*.3,-k*.4);pgm.rotation.y=-.35*k+.4;g10.add(pgm)}put(g10,10,6,0);
+// 11 contact: desk + laptop
+var g11=new THREE.Group(),dk=mesh(new THREE.BoxGeometry(5,.2,2.4));dk.position.y=-1;g11.add(dk);[[-2.3,-.9],[2.3,-.9],[-2.3,.9],[2.3,.9]].forEach(function(p){var l=mesh(new THREE.BoxGeometry(.15,2,.15));l.position.set(p[0],-2.1,p[1]);g11.add(l)});
+var lb=mesh(new THREE.BoxGeometry(1.8,.08,1.2));lb.position.y=-.86;var sc=mesh(new THREE.BoxGeometry(1.8,1.2,.06),new THREE.MeshBasicMaterial({color:ACC,fog:false}));mats.push(sc.material);sc.position.set(0,-.2,-.6);sc.rotation.x=-.15;g11.add(lb,sc);g11.rotation.x=.25;put(g11,11,0,1);
+// particles
+var N=1600,pa=new Float32Array(N*3);for(k=0;k<N;k++){pa[k*3]=(Math.random()-.5)*90;pa[k*3+1]=(Math.random()-.5)*50;pa[k*3+2]=15-Math.random()*240}
+var pgeo=new THREE.BufferGeometry();pgeo.setAttribute("position",new THREE.BufferAttribute(pa,3));var pm=new THREE.PointsMaterial({size:.14,color:ACC,transparent:true,opacity:.9});S.add(new THREE.Points(pgeo,pm));
+function setAccent(h){ACC.set(h);pm.color.set(h);mats.forEach(function(m){m.color&&m.color.set(h);m.emissive&&m.emissive.set(h)});document.documentElement.style.setProperty("--ac",h)}
+function hide(){var p=$("#pre");p.style.opacity=0;setTimeout(function(){p.style.display="none"},700)}setTimeout(hide,1800);
+/* scroll -> camera path */
+var IDS=["home","about","skills","projects","apps","saas","client-work","games","experience","education","blog","contact"],tops=[],mx=0,my=0,cz=6,ctz=6;
+function meas(){tops=IDS.map(function(id){return $("#"+id).offsetTop-innerHeight*.35});K.aspect=innerWidth/innerHeight;K.updateProjectionMatrix();R.setSize(innerWidth,innerHeight,false)}
+function zAt(y){var n=IDS.length-1;if(y<=tops[0])return ST[0];if(y>=tops[n])return ST[n];for(var i=0;i<n;i++)if(y<tops[i+1]){var t=(y-tops[i])/(tops[i+1]-tops[i]);t=t*t*(3-2*t);return ST[i]+(ST[i+1]-ST[i])*t}}
+addEventListener("resize",meas);addEventListener("load",meas);meas();
+addEventListener("mousemove",function(e){mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
+var clk=new THREE.Clock();
+function frame(){var t=clk.getElapsedTime(),s=RM?0:1;ctz=zAt(scrollY);cz+=(ctz-cz)*(RM?1:.08);
+K.position.set(Math.sin(cz*.12)*1.2+mx*1.5,-my*1+Math.cos(cz*.1)*.5,cz);K.lookAt(Math.sin(cz*.12)*.6,0,cz-10);pl.position.copy(K.position);
+objs.forEach(function(o,i){o.rotation.y+=.004*s*(i%2?-1:1);o.position.y+=Math.sin(t+i)*.002*s});
+ring.rotation.z=t*.5*s;ring2.rotation.z=t*.3*s;pg.rotation.y=Math.sin(t*.6)*.25*s;
+orb.forEach(function(o){var a=o.userData.a+t*.5*s;o.position.set(Math.cos(a)*3.4,Math.sin(a*2)*.8,Math.sin(a)*3.4);o.rotation.x=t})
+g3.children.forEach(function(b){b.position.z=Math.sin(t*1.2+b.userData.p)*.5});
+sc.material.color.copy(ACC);
+R.render(S,K);requestAnimationFrame(frame)}frame();
+</script>
+</body>
+</html>
