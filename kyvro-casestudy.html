@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kyvro — Case Study · Evan</title>
+<meta name="description" content="Case study: Kyvro, a fashion store for Bangladesh where anyone can open their own reseller shop. React, Vite, Tailwind, Firebase and Vercel.">
+<meta name="theme-color" content="#060608">
+<link rel="canonical" href="https://shahriarevan.com/kyvro-casestudy.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://shahriarevan.com/kyvro-casestudy.html">
+<meta property="og:title" content="Kyvro — Case Study by Md. Shahriar Nafiz Evan">
+<meta property="og:description" content="A fashion store for Bangladesh where anyone can open their own shop.">
+<meta property="og:image" content="https://shahriarevan.com/media/shots/kyvro.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script>try{if(localStorage.getItem("mode")=="light")document.documentElement.dataset.mode="light"}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{--bg:#060608;--tx:#eeebe6;--mu:#97919d;--dim:#5f5a66;--ac:#ef4444;--ac2:#a78bfa;--gold:#d4af37;--ok:#3ddc84;--ln:rgba(255,255,255,.09);--ln2:rgba(255,255,255,.18);--card:rgba(17,15,21,.66);
+ --disp:"Archivo",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;--ease:cubic-bezier(.2,.75,.2,1)}
+[data-mode=light]{--bg:#f3f1ed;--tx:#141218;--mu:#5b5662;--dim:#8b8691;--gold:#9a7a1c;--ln:rgba(20,18,24,.1);--ln2:rgba(20,18,24,.2);--card:rgba(255,255,255,.74)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:radial-gradient(ellipse 70% 50% at 80% 0%,rgba(212,175,55,.12),transparent 70%),radial-gradient(ellipse 60% 40% at 0% 30%,rgba(167,139,250,.08),transparent 70%),var(--bg);background-attachment:fixed;color:var(--tx);font:16.5px/1.7 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body:after{content:"";position:fixed;inset:-50%;z-index:70;pointer-events:none;opacity:.06;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--ac);color:#fff}
+code{font-family:var(--mono);font-size:.82em;padding:2px 6px;border-radius:5px;border:1px solid var(--ln);background:rgba(127,127,127,.08)}
+.mono{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase}
+#prog{position:fixed;top:0;left:0;right:0;height:2px;z-index:80;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--gold),var(--ac))}
+nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;justify-content:space-between;align-items:center;padding:14px 4vw;background:rgba(6,6,8,.6);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);border-bottom:1px solid var(--ln)}
+[data-mode=light] nav{background:rgba(243,241,237,.75)}
+.logo{font-family:var(--disp);font-weight:800;font-size:1.3rem;letter-spacing:-.02em}.logo b{color:var(--ac)}
+.nr{display:flex;gap:10px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;border:1px solid var(--ln2);font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tx);background:rgba(127,127,127,.04);cursor:pointer;transition:background .35s,color .35s,border-color .35s}
+.pill:hover{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.pill.w{background:var(--tx);color:var(--bg);border-color:var(--tx)}.pill.w:hover{background:transparent;color:var(--tx)}
+#mode{width:40px;height:40px;padding:0;justify-content:center}
+.wrap{max-width:900px;margin:0 auto;padding:0 6vw}
+.wide{max-width:1240px}
+/* hero */
+.hero{padding:150px 0 70px}
+.brand{display:flex;align-items:center;gap:16px}
+.brand img{height:58px;width:auto}
+.word{font-family:var(--disp);font-weight:600;letter-spacing:.42em;font-size:1.2rem}
+.word small{display:block;font-family:"Noto Serif Bengali",serif;letter-spacing:0;font-size:.85rem;color:var(--mu);margin-top:2px}
+.lbl{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--ln2);border-radius:999px;font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mu);background:rgba(127,127,127,.04)}
+.lbl:before{content:"";width:5px;height:5px;border-radius:50%;background:var(--gold)}
+.hero .lbl{margin-top:44px}
+h1{font-family:var(--disp);font-stretch:108%;font-weight:800;font-size:clamp(2.3rem,6vw,4.6rem);letter-spacing:-.035em;line-height:1;margin-top:22px;max-width:16ch}
+h1 em{font-style:normal;color:transparent;-webkit-text-stroke:1.5px var(--gold)}
+.lede{color:var(--mu);font-size:1.12rem;margin-top:26px;max-width:62ch}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin-top:50px;padding-top:26px;border-top:1px solid var(--ln)}
+.meta dt{color:var(--gold)}.meta dd{margin-top:8px;font-size:.95rem}
+.meta a{border-bottom:1px solid var(--ln2)}.meta a:hover{color:var(--gold);border-color:var(--gold)}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:36px}
+.shot{margin-top:60px;border-radius:22px;overflow:hidden;border:1px solid var(--ln2);box-shadow:0 60px 120px -50px rgba(0,0,0,.8),0 0 120px -40px rgba(212,175,55,.35)}
+.shot img{display:block;width:100%;height:auto}
+/* numbers */
+.nums{margin-top:80px;border-top:1px solid var(--ln);border-bottom:1px solid var(--ln)}
+.nums ul{list-style:none;display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.nums li{padding:30px 16px 30px 0}
+.nums b{display:block;font-family:var(--disp);font-weight:300;font-size:clamp(2rem,3.4vw,2.9rem);letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.nums b i{font-style:normal;color:var(--gold)}
+.nums span{display:block;margin-top:10px;color:var(--mu);font-size:.82rem;line-height:1.4}
+/* blocks */
+section{padding:110px 0 0}
+section .mono.k{color:var(--gold);display:block;margin-bottom:14px}
+h2{font-family:var(--disp);font-stretch:106%;font-weight:800;font-size:clamp(1.8rem,3.8vw,2.9rem);letter-spacing:-.03em;line-height:1.05;margin-bottom:22px}
+section p{color:var(--mu);margin-bottom:16px;max-width:68ch}
+.parts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:14px}
+.part{padding:28px 26px;border:1px solid var(--ln);border-radius:22px;background:var(--card);backdrop-filter:blur(16px);transition:border-color .4s,transform .6s var(--ease)}
+.part:hover{border-color:var(--ln2);transform:translateY(-5px)}
+.part .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;border:1px solid var(--ln);margin-bottom:20px;color:var(--gold)}
+.part .who{color:var(--gold)}.part h3{font-family:var(--disp);font-weight:750;font-size:1.35rem;letter-spacing:-.02em;margin:6px 0 14px}
+.part ul{list-style:none;display:grid;gap:9px}.part li{color:var(--mu);font-size:.92rem;padding-left:22px;position:relative}.part li:before{content:"→";position:absolute;left:0;color:var(--dim)}
+.prob{display:grid;grid-template-columns:90px minmax(0,1fr);gap:0 20px;padding:38px 0;border-top:1px solid var(--ln)}
+.prob:last-child{border-bottom:1px solid var(--ln)}
+.prob .n{font-family:var(--disp);font-weight:300;font-size:3rem;line-height:.9;letter-spacing:-.04em;color:var(--dim)}
+.prob h3{font-family:var(--disp);font-weight:750;font-size:clamp(1.25rem,2.4vw,1.6rem);letter-spacing:-.02em;line-height:1.2;margin-bottom:12px}
+.prob p{margin-bottom:12px}
+.prob .how{padding:16px 20px;border-left:2px solid var(--gold);background:rgba(212,175,55,.06);border-radius:0 12px 12px 0;color:var(--mu);margin-bottom:0}
+.prob .how b{color:var(--tx);font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;margin-right:8px}
+.tbl{overflow-x:auto;border:1px solid var(--ln);border-radius:20px;background:var(--card);backdrop-filter:blur(16px);margin-top:10px}
+table{border-collapse:collapse;width:100%;min-width:34rem;font-size:.93rem}
+th,td{text-align:left;padding:16px 20px;border-bottom:1px solid var(--ln);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mu);font-weight:500}
+th:last-child{color:var(--gold)}
+td:first-child{color:var(--mu)}td.k{font-family:var(--disp);font-weight:700;font-size:1.1rem}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.tags span{font-family:var(--mono);font-size:.7rem;letter-spacing:.04em;padding:8px 12px;border-radius:8px;border:1px solid var(--ln);background:rgba(127,127,127,.04)}
+.status{padding:30px 32px;border:1px solid var(--ln2);border-radius:22px;background:linear-gradient(135deg,rgba(212,175,55,.1),transparent 60%),var(--card);backdrop-filter:blur(16px)}
+.status .mono{display:inline-flex;gap:9px;align-items:center;color:var(--gold);margin-bottom:14px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(212,175,55,.6);animation:ping 2s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 9px rgba(212,175,55,0)}100%{box-shadow:0 0 0 0 rgba(212,175,55,0)}}
+.status ul{list-style:none;display:grid;gap:10px}.status li{color:var(--mu);padding-left:26px;position:relative}.status li:before{content:"○";position:absolute;left:0;color:var(--gold)}
+.next{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:110px;padding:40px 0;border-top:1px solid var(--ln)}
+.next h3{font-family:var(--disp);font-weight:800;font-size:clamp(1.6rem,3.4vw,2.6rem);letter-spacing:-.03em;line-height:1.05}
+footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:28px 6vw 34px;color:var(--dim);border-top:1px solid var(--ln)}
+footer a{color:var(--mu)}footer a:hover{color:var(--tx)}
+.rv{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1.1s var(--ease);transition-delay:var(--d,0ms)}.rv.on{opacity:1;transform:none}
+a:focus-visible,button:focus-visible{outline:1px solid var(--gold);outline-offset:4px}
+@media(max-width:1000px){.nums ul{grid-template-columns:repeat(4,minmax(0,1fr))}.parts{grid-template-columns:1fr}}
+@media(max-width:700px){.meta{grid-template-columns:1fr 1fr}.nums ul{grid-template-columns:repeat(2,minmax(0,1fr))}.prob{grid-template-columns:1fr}.prob .n{font-size:2rem;margin-bottom:10px}.hero{padding-top:120px}.pill.hide-s{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<nav><a href="index.html" class="logo">Evan<b>.</b></a><div class="nr"><a href="index.html#blog" class="pill hide-s"><i class="fas fa-arrow-left"></i> Journal</a><a href="index.html#client-work" class="pill"><i class="fas fa-arrow-left"></i> Portfolio</a><button class="pill" id="mode" aria-label="Switch to light mode"><i class="fas fa-sun"></i></button></div></nav>
+
+<main>
+<header class="hero">
+ <div class="wrap wide">
+  <div class="brand rv"><img src="media/kyvro-emblem-gold.png" alt="Kyvro K emblem" width="224" height="192"><div class="word">KYVRO<small>কাইভ্রো</small></div></div>
+  <span class="lbl rv" style="--d:80ms">Case study · E-commerce platform</span>
+  <h1 class="rv" style="--d:140ms">A fashion store for Bangladesh where <em>anyone can open their own shop</em>.</h1>
+  <p class="lede rv" style="--d:200ms">Kyvro sells clothes, shoes and accessories in BDT, with bKash, Nagad and cash on delivery. On top of the main store, any customer can start a reseller shop on their own link, set their own markup and get paid out, without holding stock or seeing the supplier.</p>
+  <dl class="meta rv" style="--d:260ms">
+   <div><dt class="mono">Role</dt><dd>Founder, product, design and full-stack development</dd></div>
+   <div><dt class="mono">Timeline</dt><dd>24 Oct – 12 Nov 2026 (about 3 weeks)</dd></div>
+   <div><dt class="mono">Stack</dt><dd>React, Vite, Tailwind, Firebase, Vercel</dd></div>
+   <div><dt class="mono">Live at</dt><dd><a href="https://www.kyvro.store" target="_blank" rel="noopener noreferrer">kyvro.store ↗</a></dd></div>
+  </dl>
+  <div class="cta rv" style="--d:300ms"><a class="pill w" href="https://www.kyvro.store" target="_blank" rel="noopener noreferrer">Visit Kyvro <i class="fas fa-arrow-up-right-from-square"></i></a><span class="pill" style="cursor:not-allowed;color:var(--dim)" title="Source code is private"><i class="fas fa-lock"></i> Code</span></div>
+  <div class="shot rv" style="--d:200ms"><img src="media/shots/kyvro.webp" alt="Kyvro storefront home page" width="960" height="600"></div>
+  <div class="nums rv">
+   <ul>
+    <li><b>265</b><span>products live</span></li>
+    <li><b>26</b><span>categories</span></li>
+    <li><b>8</b><span>storefront themes, light and dark</span></li>
+    <li><b>4</b><span>roles with separate data access</span></li>
+    <li><b>420</b><span>commits</span></li>
+    <li><b>120</b><span>pull requests merged</span></li>
+    <li><b><i>~</i>3</b><span>weeks, 24 Oct – 12 Nov 2026</span></li>
+   </ul>
+  </div>
+ </div>
+</header>
+
+<section>
+ <div class="wrap rv">
+  <span class="mono k">// The context</span>
+  <h2>Online fashion in Bangladesh runs on Facebook pages and trust</h2>
+  <p>Most clothing is sold through Facebook pages and WhatsApp chats. Buyers expect cash on delivery, pay with bKash or Nagad rather than cards, and fake orders cost sellers money in wasted delivery. At the same time, many young people want to sell online but have no money for stock.</p>
+  <p>Kyvro answers both sides. It is a proper store with a real checkout, and a platform that lets people resell its products under their own shop name. Products come from local wholesale suppliers and are shipped by them, so neither Kyvro nor its sellers hold inventory.</p>
+ </div>
+</section>
+
+<section>
+ <div class="wrap wide">
+  <div class="rv"><span class="mono k">// What I built</span><h2>One codebase, three products</h2></div>
+  <div class="parts">
+   <div class="part rv"><div class="ic"><i class="fas fa-bag-shopping"></i></div><span class="mono who">For shoppers</span><h3>The storefront</h3>
+    <ul><li>Home page with clothes on animated hanging rails, a shoe wheel and quick view</li><li>Collections with sub-sections (Saree, Punjabi, Three Piece, Borka…)</li><li>Cart, checkout, order tracking, WhatsApp ordering</li><li>Short links for social posts, e.g. <code>kyvro.store/?c=saree</code></li></ul></div>
+   <div class="part rv" style="--d:100ms"><div class="ic"><i class="fas fa-store"></i></div><span class="mono who">For sellers</span><h3>Shop platform</h3>
+    <ul><li>Own public link (<code>kyvro.store/your-shop</code>), name, logo, theme</li><li>Pick products, set prices within a markup cap</li><li>Earnings, payouts to bKash or bank, promo codes</li><li>Basic, Pro and Premium plans paid in BDT</li></ul></div>
+   <div class="part rv" style="--d:200ms"><div class="ic"><i class="fas fa-shield-halved"></i></div><span class="mono who">For the team</span><h3>Admin portal</h3>
+    <ul><li>Dashboard, analytics, orders and delivery status</li><li>Product approval and supplier costs (Owner and Manager only)</li><li>Team commission, shop review, warnings and removal</li><li>AI tool that makes background-free product photos</li></ul></div>
+  </div>
+ </div>
+</section>
+
+<section>
+ <div class="wrap">
+  <div class="rv"><span class="mono k">// Hard problems</span><h2>The decisions that mattered</h2></div>
+  <div>
+   <div class="prob rv"><span class="n">01</span><div><h3>Four roles, and each one must not see something</h3><p>Admins must never see supplier costs. Sellers must never see customers' names, phones or addresses. Managers must never see sellers' private details.</p><p class="how"><b>How</b>Hiding it in the UI is not enough, so the rules live in the database. About 1,000 lines of Firestore security rules split private data into its own collections (costs, supplier links, payout details). Sellers see their orders only through a server endpoint that returns order number, date, status and their markup, nothing else. Plan fields such as tier and paid-until can be written only by the server.</p></div></div>
+   <div class="prob rv"><span class="n">02</span><div><h3>Prices that cannot be tampered with</h3><p>A customer's browser builds the order, and a seller sets their own prices. Either could send a wrong number.</p><p class="how"><b>How</b>Before any payment page opens, the server re-checks every line against the store price and the seller's markup cap, and refuses the payment if anything is off. Promo codes are capped at the seller's markup, so a discount can only ever come out of the seller's earnings, never out of Kyvro's.</p></div></div>
+   <div class="prob rv"><span class="n">03</span><div><h3>Payments the way Bangladesh pays</h3><p>Cards are rare; bKash and Nagad are everywhere, and cash on delivery invites fake orders.</p><p class="how"><b>How</b>Online payment goes through UddoktaPay (bKash and Nagad), with the amount always read from the saved order on the server. Cash on delivery stays, but the delivery charge (৳100 inside Dhaka, ৳150 outside) is paid online first. Bigger online orders get 10–15% off and free delivery above ৳2,000, which pushes buyers toward paying up front.</p></div></div>
+   <div class="prob rv"><span class="n">04</span><div><h3>A whole platform on free hosting</h3><p>Vercel's free plan allows 12 serverless functions. A store, a seller platform, payments, emails and daily jobs need far more endpoints than that.</p><p class="how"><b>How</b>Related endpoints share one function and pick their job with an <code>?action=</code> parameter (plan payments, billing, sitemap, shop removal, AI photos…). The site runs on 11 functions and still has one spare.</p></div></div>
+   <div class="prob rv"><span class="n">05</span><div><h3>Product photos that look like a real shop</h3><p>Supplier photos come in every size and background. Hung on a rail, they looked messy.</p><p class="how"><b>How</b>An Admin button sends a photo to an image model that puts the garment on a flat colour, picked far from the garment's own colour. The browser then removes that colour to get a clean cut-out, and a person approves it before it goes live. It costs about $0.04 a photo, with a daily limit so a mistake cannot run up the bill.</p></div></div>
+   <div class="prob rv"><span class="n">06</span><div><h3>A store that looks after itself</h3><p>With a one-person team, routine work has to run on its own.</p><p class="how"><b>How</b>A daily job reminds customers about unpaid orders on day 1 and 3 and cancels them on day 7, nudges abandoned carts, sends plan renewal reminders, warns inactive sellers and cleans up removed shops after 30 days.</p></div></div>
+  </div>
+ </div>
+</section>
+
+<section>
+ <div class="wrap rv">
+  <span class="mono k">// Business model</span>
+  <h2>How Kyvro earns</h2>
+  <p>Kyvro earns the margin between supplier cost and store price on every sale. Sellers earn their markup on delivered orders, and pay for plans that unlock more shops, products and branding.</p>
+  <div class="tbl"><table>
+   <thead><tr><th></th><th>Basic</th><th>Pro</th><th>Premium</th></tr></thead>
+   <tbody>
+    <tr><td>Shops per account</td><td class="k">1</td><td class="k">2</td><td class="k">3</td></tr>
+    <tr><td>Products</td><td>10</td><td>All</td><td>All</td></tr>
+    <tr><td>Themes</td><td>Classic</td><td>All 8</td><td>All 8</td></tr>
+    <tr><td>Branding</td><td>–</td><td>Social links, stats</td><td>Name, logo, banner, verified badge</td></tr>
+    <tr><td>Selling tools</td><td>–</td><td>Share kit</td><td>Promo codes, order emails, featured on Kyvro</td></tr>
+    <tr><td>Payout</td><td>Monthly</td><td>Monthly</td><td>Weekly</td></tr>
+   </tbody>
+  </table></div>
+ </div>
+</section>
+
+<section>
+ <div class="wrap rv">
+  <span class="mono k">// Ready for launch</span>
+  <h2>Marketing set up from day one</h2>
+  <p>Meta Pixel and Google Analytics track views, add-to-cart and purchases for ads. A sitemap lists every product and shop link for Google. Messenger has an instant reply, five FAQ answers and a WhatsApp button. Each collection has a short link so a Facebook post can open straight on Sarees or Punjabis.</p>
+  <div class="tags"><span>React 18</span><span>Vite</span><span>Tailwind CSS</span><span>Firebase Auth</span><span>Cloud Firestore</span><span>Vercel serverless</span><span>UddoktaPay (bKash / Nagad)</span><span>Resend email</span><span>Push notifications</span><span>OpenRouter image AI</span><span>Meta Pixel</span><span>Google Analytics</span></div>
+ </div>
+</section>
+
+<section>
+ <div class="wrap rv">
+  <div class="status">
+   <span class="mono"><i class="dot"></i>Where it stands · November 2026</span>
+   <p style="color:var(--tx)">The store, seller platform and admin portal are built and live. The site is in a final check before opening to customers:</p>
+   <ul><li>Testing a real bKash payment and a cash-on-delivery order end to end</li><li>Turning off maintenance mode and starting Facebook and Instagram posts</li><li>First small Facebook ads on the best-performing collections</li></ul>
+  </div>
+ </div>
+</section>
+
+<div class="wrap wide">
+ <div class="next rv"><div><span class="mono" style="color:var(--dim)">Want something like this?</span><h3>Let's build your store.</h3></div><div class="cta" style="margin:0"><a class="pill w" href="index.html#contact">Start a project <i class="fas fa-arrow-right"></i></a><a class="pill" href="index.html#blog">More from the journal</a></div></div>
+</div>
+</main>
+<footer class="mono"><span>Kyvro · কাইভ্রো · Wear Your Story</span><span>Case study by <a href="index.html">Md. Shahriar Nafiz Evan</a></span></footer>
+<script>
+var RT=document.documentElement,MB=document.getElementById("mode"),PG=document.getElementById("prog");
+function setMode(m){RT.dataset.mode=m;MB.innerHTML='<i class="fas fa-'+(m=="light"?"moon":"sun")+'"></i>';MB.setAttribute("aria-label","Switch to "+(m=="light"?"dark":"light")+" mode");document.querySelector('meta[name="theme-color"]').content=m=="light"?"#f3f1ed":"#060608";try{localStorage.setItem("mode",m)}catch(e){}}
+setMode(RT.dataset.mode=="light"?"light":"dark");MB.onclick=function(){setMode(RT.dataset.mode=="light"?"dark":"light")};
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll(".rv").forEach(function(e){io.observe(e)});
+addEventListener("scroll",function(){var d=document.documentElement.scrollHeight-innerHeight;PG.style.transform="scaleX("+(d>0?scrollY/d:0)+")"},{passive:true});
+</script>
+</body>
+</html>
