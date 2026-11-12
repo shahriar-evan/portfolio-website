@@ -81,7 +81,7 @@ footer{position:relative;z-index:2;text-align:center;padding:50px 5vw 60px;color
 </head>
 <body>
 <div id="pre"><div style="text-align:center"><div class="logo" style="font-size:2rem">Evan<b>.</b></div><div id="barw"><i id="bar"></i></div><div id="pct">0%</div></div></div>
-<div id="stage" aria-hidden="true"><video id="film" muted playsinline preload="auto" poster="media/poster.jpg" src="media/film.mp4"></video><div id="stage-glow"></div></div>
+<div id="stage" aria-hidden="true"><video id="film" muted playsinline preload="auto" poster="media/poster.jpg"></video><div id="stage-glow"></div></div>
 <nav>
 <a href="#home" class="logo">Evan<b>.</b></a>
 <ul id="nl"></ul>
@@ -194,7 +194,7 @@ function loop(){var e=RM?1:.16;cur+=(tgt-cur)*e;sh+=(shT-sh)*(RM?1:.1);
  if(ready&&!V.seeking&&Math.abs(V.currentTime-cur)>.02)try{V.currentTime=cur}catch(x){}
  ST.style.transform="translateX("+sh+"vw)";requestAnimationFrame(loop)}
 /* download the whole film first so seeking is instant */
-var SRC="media/film.mp4";
+var SRC=MOB.matches?"media/film_mobile.mp4":"media/film.mp4";
 function go(url){V.src=url;V.load();var d=function(){if(ready)return;ready=true;$("#pct").textContent="100%";$("#bar").style.width="100%";setTimeout(function(){var p=$("#pre");p.style.opacity=0;setTimeout(function(){p.style.display="none"},700)},300)};V.addEventListener("loadeddata",d);setTimeout(d,15000)}
 fetch(SRC).then(function(r){var tot=+r.headers.get("content-length")||0,rd=r.body.getReader(),ch=[],got=0;
  return rd.read().then(function pump(x){if(x.done)return new Blob(ch,{type:"video/mp4"});ch.push(x.value);got+=x.value.length;if(tot){var p=Math.round(got/tot*100);$("#pct").textContent=p+"%";$("#bar").style.width=p+"%"}return rd.read().then(pump)})})
