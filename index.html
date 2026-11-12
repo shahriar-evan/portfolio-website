@@ -211,6 +211,8 @@ h2 em{font-style:normal;color:transparent;-webkit-text-stroke:1px rgba(238,235,2
 .cform>div>p{color:var(--mu);margin-top:18px;max-width:420px}
 .mail{display:inline-block;margin-top:30px;font-family:var(--disp);font-weight:600;font-size:clamp(1rem,1.8vw,1.3rem);border-bottom:1px solid var(--ln2);padding-bottom:4px;transition:border-color .3s,color .3s}.mail:hover{color:var(--ac);border-color:var(--ac)}
 .soc{display:flex;gap:10px;margin-top:26px}.soc a{width:46px;height:46px;border-radius:50%;border:1px solid var(--ln2);display:grid;place-items:center;transition:background .3s,color .3s,transform .4s var(--ease)}.soc a:hover{background:var(--tx);color:var(--bg);transform:translateY(-3px)}
+.cols .lockd{display:block;color:var(--dim);line-height:1.9;cursor:not-allowed}.cols .lockd i{font-size:.7rem;margin-right:4px}
+.soc .lockd{width:46px;height:46px;border-radius:50%;border:1px dashed var(--ln2);display:grid;place-items:center;color:var(--dim);cursor:not-allowed;font-size:.8rem}
 form{display:grid;gap:14px;align-content:start}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .fl{position:relative}
@@ -335,11 +337,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   <div class="cols">
    <div class="rv"><span class="mono">// Focus</span><p>Full-stack web engineering</p><p>AI-powered SaaS products</p><p>Product design &amp; UX</p></div>
    <div class="rv" style="--d:100ms"><span class="mono">// Status</span><p class="ok"><i class="dot"></i>Open to opportunities</p><a href="#saas">View work →</a><a href="Evan_CV.pdf">Download CV ↓</a></div>
-   <div class="rv" style="--d:200ms"><span class="mono">// Elsewhere</span><a target="_blank" rel="noopener noreferrer" href="https://github.com/shahriar-evan">GitHub ↗</a><a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/tech-evan-b374382b6/">LinkedIn ↗</a><a target="_blank" rel="noopener noreferrer" href="https://wa.me/+8801770849168">WhatsApp ↗</a></div>
+   <div class="rv" style="--d:200ms"><span class="mono">// Elsewhere</span><span class="lockd" title="GitHub is private"><i class="fas fa-lock"></i> GitHub</span><a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/tech-evan-b374382b6/">LinkedIn ↗</a><a target="_blank" rel="noopener noreferrer" href="https://wa.me/+8801770849168">WhatsApp ↗</a></div>
   </div>
   <div class="cform">
    <div class="rv"><span class="lbl">// Say hello</span><h3>Have a project in mind? Let's build something great.</h3><p>Always open to new projects, creative ideas, or a role on a team building something real.</p><a class="mail" href="mailto:shahriarevan545@gmail.com">shahriarevan545@gmail.com</a>
-    <div class="soc"><a target="_blank" rel="noopener noreferrer" href="https://github.com/shahriar-evan" aria-label="GitHub"><i class="fab fa-github"></i></a><a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/tech-evan-b374382b6/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a><a target="_blank" rel="noopener noreferrer" href="https://wa.me/+8801770849168" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a><a href="mailto:shahriarevan545@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a></div></div>
+    <div class="soc"><span class="lockd" title="GitHub is private" aria-label="GitHub (private)"><i class="fas fa-lock"></i></span><a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/tech-evan-b374382b6/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a><a target="_blank" rel="noopener noreferrer" href="https://wa.me/+8801770849168" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a><a href="mailto:shahriarevan545@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a></div></div>
    <form class="rv" style="--d:150ms" action="https://formspree.io/f/mbdqkjnr" method="POST">
     <div class="two"><div class="fl"><input id="fn" name="name" placeholder=" " required><label for="fn">Name</label></div><div class="fl"><input id="fe" type="email" name="email" placeholder=" " required><label for="fe">Email</label></div></div>
     <div class="fl"><textarea id="fm" name="message" rows="4" placeholder=" " required></textarea><label for="fm">Your message</label></div>
@@ -359,7 +361,6 @@ var NAV=[["about","About"],["skills","Stack"],["saas","Work"],["experience","Roa
 var WORK=["saas","client-work","projects","apps","games"];
 $("#nl").innerHTML=NAV.map(function(n){return'<li><a href="#'+n[0]+'" data-k="'+n[0]+'">'+n[1]+'</a></li>'}).join("");
 $("#menu").innerHTML=NAV.map(function(n,i){return'<a class="disp" href="#'+n[0]+'"><small>0'+(i+1)+'</small>'+n[1]+'</a>'}).join("");
-var GH="https://github.com/shahriar-evan/";
 function C(tag,ic,t,d,tech,bd,b){return{tag:tag,ic:ic,t:t,d:d,tech:tech,bd:bd||[],b:b}}
 function L(l,h,p,i,ext){return[l,h,p,i,ext]}
 var D={
