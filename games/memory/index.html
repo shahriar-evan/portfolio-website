@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memory Match — Evan</title>
+<meta name="theme-color" content="#060608">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{--bg:#060608;--tx:#eeebe6;--mu:#97919d;--dim:#5f5a66;--ac:#ef4444;--ac2:#a78bfa;--ok:#3ddc84;--ln:rgba(255,255,255,.09);--ln2:rgba(255,255,255,.18);--card:rgba(17,15,21,.8);--ease:cubic-bezier(.2,.75,.2,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(167,139,250,.14),transparent 70%),var(--bg);color:var(--tx);font:15px/1.5 "Archivo",system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;padding:24px 16px 40px}
+a{color:inherit;text-decoration:none}
+.mono{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase}
+header{width:100%;max-width:720px;display:flex;justify-content:space-between;align-items:center;margin-bottom:34px}
+header a{color:var(--mu);transition:color .3s}header a:hover{color:var(--tx)}
+h1{font-stretch:112%;font-weight:850;font-size:clamp(2.2rem,8vw,3.6rem);letter-spacing:-.03em;line-height:.95;text-transform:uppercase;text-align:center}
+.sub{color:var(--mu);text-align:center;margin:10px 0 26px}
+.bar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:22px}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;border:1px solid var(--ln2);background:rgba(255,255,255,.03);color:var(--tx);font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .3s,color .3s}
+.pill:hover,.pill.on{background:var(--tx);color:var(--bg)}
+.stats{display:flex;gap:28px;justify-content:center;margin-bottom:26px;color:var(--mu)}
+.stats b{display:block;font-size:1.6rem;font-weight:700;color:var(--tx);text-align:center;font-variant-numeric:tabular-nums}
+#board{display:grid;gap:10px;width:100%;max-width:560px;perspective:1000px}
+.c{position:relative;aspect-ratio:1;cursor:pointer;transform-style:preserve-3d;transition:transform .55s var(--ease);border:0;background:none;padding:0}
+.c.up,.c.ok{transform:rotateY(180deg)}
+.c span{position:absolute;inset:0;border-radius:14px;display:grid;place-items:center;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid var(--ln)}
+.c .f{background:linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.01)),var(--card);color:var(--dim);font-size:1rem}
+.c:hover .f{border-color:var(--ln2);color:var(--mu)}
+.c .b{transform:rotateY(180deg);background:var(--card);border-color:var(--ln2);font-size:clamp(1.3rem,5vw,2rem);color:var(--tx)}
+.c.ok .b{border-color:var(--ok);color:var(--ok);box-shadow:0 0 30px -8px rgba(61,220,132,.6)}
+.c.no .b{border-color:var(--ac);color:var(--ac);animation:shake .45s}
+@keyframes shake{25%{transform:rotateY(180deg) translateX(5px)}75%{transform:rotateY(180deg) translateX(-5px)}}
+#win{position:fixed;inset:0;display:grid;place-items:center;background:rgba(6,6,8,.82);backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity .4s}
+#win.on{opacity:1;pointer-events:auto}
+#win div{text-align:center;padding:40px 34px;border:1px solid var(--ln2);border-radius:24px;background:var(--card);max-width:340px}
+#win h2{font-stretch:110%;font-weight:850;font-size:2.4rem;letter-spacing:-.03em;text-transform:uppercase;margin:10px 0}
+#win p{color:var(--mu);margin-bottom:22px}
+.new{color:var(--ok)}
+:focus-visible{outline:1px solid var(--ac);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header><a class="mono" href="../../#games">← Portfolio</a><span class="mono" style="color:var(--dim)">Game 02</span></header>
+<h1>Memory Match</h1>
+<p class="sub">Flip two cards at a time and find every pair.</p>
+<div class="bar" id="lv"><button class="pill on" data-l="0">Easy</button><button class="pill" data-l="1">Medium</button><button class="pill" data-l="2">Hard</button><button class="pill" id="re"><i class="fas fa-rotate-right"></i> Restart</button></div>
+<div class="stats mono"><div><b id="mv">0</b>Moves</div><div><b id="tm">0:00</b>Time</div><div><b id="bs">—</b>Best</div></div>
+<div id="board"></div>
+<div id="win" role="dialog" aria-modal="true" aria-labelledby="wt"><div><span class="mono" style="color:var(--ok)">All pairs found</span><h2 id="wt">You win</h2><p id="ws"></p><button class="pill on" id="again">Play again</button></div></div>
+<script>
+var ICONS=["rocket","code","bolt","heart","star","gem","fire","leaf","moon","music","ghost","crown","anchor","bug","cube","feather"];
+var LV=[{p:6,c:4},{p:8,c:4},{p:12,c:6}],lv=0,first=null,lock=false,moves=0,found=0,t0=0,tick=null;
+var $=function(s){return document.querySelector(s)},B=$("#board");
+function best(){try{return JSON.parse(localStorage.getItem("mm-best")||"{}")}catch(e){return{}}}
+function fmt(s){return Math.floor(s/60)+":"+("0"+s%60).slice(-2)}
+function showBest(){var b=best()[lv];$("#bs").textContent=b?b.m+" / "+fmt(b.t):"—"}
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function start(){var L=LV[lv],pick=shuffle(ICONS.slice()).slice(0,L.p),deck=shuffle(pick.concat(pick));
+ first=null;lock=false;moves=0;found=0;t0=0;clearInterval(tick);$("#mv").textContent=0;$("#tm").textContent="0:00";$("#win").classList.remove("on");showBest();
+ B.style.gridTemplateColumns="repeat("+L.c+",1fr)";B.style.maxWidth=(L.c==6?620:460)+"px";
+ B.innerHTML=deck.map(function(ic,i){return'<button class="c" data-i="'+ic+'" aria-label="Hidden card"><span class="f"><i class="fas fa-question"></i></span><span class="b"><i class="fas fa-'+ic+'"></i></span></button>'}).join("")}
+B.onclick=function(e){var c=e.target.closest(".c");if(!c||lock||c.classList.contains("up")||c.classList.contains("ok"))return;
+ if(!t0){t0=Date.now();tick=setInterval(function(){$("#tm").textContent=fmt(Math.floor((Date.now()-t0)/1000))},500)}
+ c.classList.add("up");c.setAttribute("aria-label",c.dataset.i);
+ if(!first){first=c;return}
+ moves++;$("#mv").textContent=moves;
+ if(first.dataset.i==c.dataset.i){[first,c].forEach(function(x){x.classList.remove("up");x.classList.add("ok")});first=null;found++;if(found==LV[lv].p)win();return}
+ lock=true;var a=first;first=null;[a,c].forEach(function(x){x.classList.add("no")});
+ setTimeout(function(){[a,c].forEach(function(x){x.classList.remove("up","no");x.setAttribute("aria-label","Hidden card")});lock=false},800)};
+function win(){clearInterval(tick);var s=Math.floor((Date.now()-t0)/1000),b=best(),old=b[lv],nb=!old||moves<old.m||(moves==old.m&&s<old.t);
+ if(nb){b[lv]={m:moves,t:s};try{localStorage.setItem("mm-best",JSON.stringify(b))}catch(e){}}
+ $("#ws").innerHTML=moves+" moves in "+fmt(s)+(nb?'<br><span class="new">New best score!</span>':"");showBest();setTimeout(function(){$("#win").classList.add("on");$("#again").focus()},500)}
+$("#lv").onclick=function(e){var b=e.target.closest("[data-l]");if(!b)return;lv=+b.dataset.l;document.querySelectorAll("[data-l]").forEach(function(x){x.classList.toggle("on",x==b)});start()};
+$("#re").onclick=start;$("#again").onclick=start;
+start();
+</script>
+</body>
+</html>

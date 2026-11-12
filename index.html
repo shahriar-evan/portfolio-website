@@ -6,12 +6,18 @@
 <title>Evan — Full-Stack Developer</title>
 <meta name="description" content="Md. Shahriar Nafiz Evan — full-stack developer building and shipping AI-powered SaaS products.">
 <meta name="theme-color" content="#060608">
+<script>try{if(localStorage.getItem("mode")=="light")document.documentElement.dataset.mode="light"}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 :root{--bg:#060608;--tx:#eeebe6;--mu:#97919d;--dim:#5f5a66;--ac:#ef4444;--ac2:#a78bfa;--ok:#3ddc84;--ln:rgba(255,255,255,.09);--ln2:rgba(255,255,255,.18);--card:rgba(17,15,21,.66);
  --disp:"Archivo",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;--ease:cubic-bezier(.2,.75,.2,1);--io:cubic-bezier(.77,0,.18,1)}
+[data-mode=light]{--bg:#f3f1ed;--tx:#141218;--mu:#5b5662;--dim:#8b8691;--ln:rgba(20,18,24,.1);--ln2:rgba(20,18,24,.2);--card:rgba(255,255,255,.74)}
+/* hero, top nav and the photo badge always sit on the dark film */
+#pre,#home,nav:not(.sc),.pc .bdg{--bg:#060608;--tx:#eeebe6;--mu:#b9b3be;--dim:#8f8a94;--ln:rgba(255,255,255,.1);--ln2:rgba(255,255,255,.22);color:var(--tx)}
+[data-mode=light] nav:not(.sc) .pill{background:rgba(255,255,255,.03)}
+#mode{width:42px;height:42px;padding:0;justify-content:center}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--tx);font:16px/1.65 Manrope,system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
@@ -38,7 +44,17 @@ body:after{content:"";position:fixed;inset:-50%;z-index:70;pointer-events:none;o
 /* film stage */
 #stage{position:fixed;inset:0;z-index:0;background:#000;will-change:transform}
 #film{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transform-origin:50% 45%}
-#veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:#060608;opacity:0}
+#veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:var(--bg);opacity:0;transition:background .5s}
+[data-mode=light] body:after{opacity:.045}
+[data-mode=light] nav.sc{background:rgba(243,241,237,.72)}
+[data-mode=light] #menu{background:rgba(243,241,237,.97)}
+[data-mode=light] h2 em{-webkit-text-stroke-color:rgba(20,18,24,.7)}
+[data-mode=light] .giant{-webkit-text-stroke-color:rgba(20,18,24,.14)}
+[data-mode=light] .name{background-image:linear-gradient(180deg,#141218 30%,#bdb8c2)}
+[data-mode=light] .card:before{background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(20,18,24,.05),transparent 60%)}
+[data-mode=light] .pc{box-shadow:0 50px 100px -40px rgba(20,18,24,.45),0 0 120px -30px rgba(167,139,250,.5)}
+[data-mode=light] .chip,[data-mode=light] .tags span,[data-mode=light] .c-ic,[data-mode=light] .pill{background:rgba(255,255,255,.55)}
+[data-mode=light] .jr:hover{background:rgba(20,18,24,.03)}
 #vig{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 80% 75% at 50% 45%,transparent 45%,rgba(0,0,0,.6)),linear-gradient(transparent 70%,rgba(6,6,8,.85))}
 
 /* nav */
@@ -242,7 +258,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 <nav id="nav">
  <a href="#home" class="logo">Evan<b>.</b></a>
  <ul id="nl"></ul>
- <div class="nr"><a href="#contact" class="pill hire">Hire Me</a><button class="pill" id="burger" aria-label="Open menu" aria-expanded="false"><i class="fas fa-bars"></i></button></div>
+ <div class="nr"><a href="#contact" class="pill hire">Hire Me</a><button class="pill" id="mode" aria-label="Switch to light mode"><i class="fas fa-sun"></i></button><button class="pill" id="burger" aria-label="Open menu" aria-expanded="false"><i class="fas fa-bars"></i></button></div>
 </nav>
 <div id="menu" aria-hidden="true"></div>
 
@@ -360,7 +376,10 @@ C("SaaS","tv","StreamWorld","Live IPTV & sports streaming platform with 7,500+ c
 C("Open Source","fire","Habit Tracker","Open-access habit tracker with streaks, a 7-day calendar view, focus timer, mood check-ins, dark mode and a SaaS-style landing page — no sign-up required.",["Node.js","Express","Firestore","Vanilla JS"],["check-circle|Live product","bolt|No login","chart-line|Streaks"],[L("Visit","https://habit-tracker-psi-three.vercel.app",1,0,1),L("Code",GH+"habit-tracker",0,0,1)])],
 saasMore:[C("SaaS","film","AIXAnime","AI anime creation platform with Text→Anime Image, Photo→Anime, Avatar Generator, Voice Studio, HD 4K Upscaler, Text→Anime Video, Photo→Anime Video, and History & Favorites.",["Next.js","MongoDB","OpenAI","Lemon Squeezy"],["check-circle|Live product","wand-magic|7+ AI tools"],[L("Visit","#",1,0,1),L("Case Study","#contact",0),L("Code",GH+"aixanime",0,0,1)])],
 client:[C("Client","graduation-cap","Global Visa Connect","Education visa consultancy website for a client: 12 study destinations with university and tuition listings, IELTS/PTE/TOEFL/Duolingo/SAT requirements, a student application form, and a full admin dashboard.",["Next.js","Firebase","Tailwind CSS","Vercel"],["check-circle|Live product","globe|12 countries","user-shield|Admin dashboard"],[L("Visit","https://global-visa-connect-psi.vercel.app",1,0,1),L("Code",GH+"Global-Visa-Connect",0,0,1)])],
-games:[C("Game","gamepad","Snake Game","Modern Snake game built with JavaScript featuring smooth controls, dynamic speed, and high score tracking.",["JavaScript","HTML","CSS"],0,[L("Play","https://shahriar-evan.github.io/snake-game/",1,0,1),L("Code",GH+"snake-game",0,0,1)])],
+games:[C("Game","gamepad","Snake Game","Modern Snake game built with JavaScript featuring smooth controls, dynamic speed, and high score tracking.",["JavaScript","HTML","CSS"],0,[L("Play","https://shahriar-evan.github.io/snake-game/",1,0,1),L("Code",GH+"snake-game",0,0,1)]),
+C("Puzzle","clone","Memory Match","Card-flipping memory game with 3 difficulty levels, 3D flip animations, a move counter and timer, and best scores saved on your device.",["JavaScript","CSS 3D","LocalStorage"],0,[L("Play","games/memory/",1),L("Code",GH+"portfolio-website/tree/main/games/memory",0,0,1)]),
+C("Strategy","robot","Tic-Tac-Toe AI","Play against an unbeatable minimax AI, a relaxed easy mode, or a friend on the same screen — with a live scoreboard and winning-line highlights.",["JavaScript","Minimax AI","CSS"],0,[L("Play","games/tictactoe/",1),L("Code",GH+"portfolio-website/tree/main/games/tictactoe",0,0,1)]),
+C("Arcade","bolt","Neon Dodge","Fast canvas arcade game: dodge falling neon blocks, grab orbs for bonus points and survive as the speed ramps up. Keyboard, mouse and touch controls.",["Canvas API","JavaScript","Game Loop"],0,[L("Play","games/dodge/",1),L("Code",GH+"portfolio-website/tree/main/games/dodge",0,0,1)])],
 blog:[["How I Built 3 SaaS Products as a CS Student","From my first HTML page to three live monetized AI platforms — what I learned, what broke, and what I'd do differently.","Story"],
 ["Integrating OpenAI, Auth & Payments in a Next.js SaaS","A step-by-step breakdown of the stack I use for AI SaaS — from Firebase auth to Lemon Squeezy checkout to OpenAI streaming.","Technical"],
 ["Shipping Fast: My Solo Founder Workflow","How I go from idea to live product in under 4 weeks — tools, habits, decision frameworks and mindset.","Product"]],
@@ -390,6 +409,9 @@ $$(".xp").forEach(function(b){var t=b.textContent;b.onclick=function(){var m=$("
 /* ---------- UI ---------- */
 var tl=["Software Developer","AI SaaS Builder","Web Developer","UI/UX Designer","Cybersecurity Enthusiast"],ti=0,ci=0,del=false;
 (function ty(){var w=tl[ti];ci+=del?-1:1;$("#typing").textContent=w.slice(0,ci);if(!del&&ci==w.length){del=true;return setTimeout(ty,1600)}if(del&&ci==0){del=false;ti=(ti+1)%tl.length}setTimeout(ty,del?35:80)})();
+var MB=$("#mode"),RT=document.documentElement;
+function setMode(m){RT.dataset.mode=m;MB.innerHTML='<i class="fas fa-'+(m=="light"?"moon":"sun")+'"></i>';MB.setAttribute("aria-label","Switch to "+(m=="light"?"dark":"light")+" mode");$('meta[name="theme-color"]').content=m=="light"?"#f3f1ed":"#060608";try{localStorage.setItem("mode",m)}catch(e){}}
+setMode(RT.dataset.mode=="light"?"light":"dark");MB.onclick=function(){setMode(RT.dataset.mode=="light"?"dark":"light");if(window.upd)upd()};
 var menu=$("#menu"),bur=$("#burger");
 function setMenu(o){menu.classList.toggle("open",o);bur.setAttribute("aria-expanded",o);menu.setAttribute("aria-hidden",!o);bur.innerHTML=o?'<i class="fas fa-xmark"></i>':'<i class="fas fa-bars"></i>';document.body.style.overflow=o?"hidden":""}
 bur.onclick=function(){setMenu(!menu.classList.contains("open"))};menu.onclick=function(e){if(e.target.closest("a"))setMenu(false)};
@@ -409,7 +431,7 @@ if(!RM&&matchMedia("(hover:hover)").matches){
 }
 
 /* ---------- FILM (scroll-scrubbed video) ---------- */
-var V=$("#film"),ST=$("#stage"),VE=$("#veil"),HW=$("#hw"),NV=$("#nav"),PG=$("#prog"),GI=$("#giant"),TL=$("#tl"),CT=$("#contact"),MOB=matchMedia("(max-width:760px)"),ready=false,cur=0,tgt=0,sh=0,shT=0,anc=[];
+var V=$("#film"),ST=$("#stage"),VE=$("#veil"),HW=$("#hw"),NV=$("#nav"),PG=$("#prog"),GI=$("#giant"),TL=$("#tl"),CT=$("#contact"),VG=$("#vig"),MOB=matchMedia("(max-width:760px)"),ready=false,cur=0,tgt=0,sh=0,shT=0,anc=[];
 /* film seconds + sideways shift (vw) for each section, when it is centred on screen */
 var PLAN=[["home",6,0],["about",15.5,24],["skills",23.5,0],["saas",29,-22],["client-work",31,-22],["projects",32.4,-22],["apps",32.7,-22],["games",32.7,-22],["experience",32.7,-22],["blog",32.7,-22],["contact",32.7,0]];
 function meas(){var vh=innerHeight;anc=[[0,0,0]];PLAN.forEach(function(p){var e=$("#"+p[0]);anc.push([Math.max(1,e.offsetTop+e.offsetHeight/2-vh/2),p[1],p[2]])});
@@ -417,7 +439,7 @@ function meas(){var vh=innerHeight;anc=[[0,0,0]];PLAN.forEach(function(p){var e=
 function upd(){var y=scrollY,a=anc,i=0;if(!a.length)return;
  if(y>=a[a.length-1][0]){tgt=a[a.length-1][1];shT=a[a.length-1][2]}
  else{while(y>a[i+1][0])i++;var k=(y-a[i][0])/(a[i+1][0]-a[i][0]);tgt=a[i][1]+(a[i+1][1]-a[i][1])*k;shT=a[i][2]+(a[i+1][2]-a[i][2])*k}
- if(MOB.matches)shT=0}
+ if(MOB.matches||RT.dataset.mode=="light")shT=0}
 addEventListener("scroll",upd,{passive:true});addEventListener("resize",function(){meas();upd()});
 function cl(v){return v<0?0:v>1?1:v}
 function loop(){var e=RM?1:.14,y=scrollY,vh=innerHeight;cur+=(tgt-cur)*e;sh+=(shT-sh)*(RM?1:.08);
@@ -425,8 +447,9 @@ function loop(){var e=RM?1:.14,y=scrollY,vh=innerHeight;cur+=(tgt-cur)*e;sh+=(sh
  ST.style.transform="translateX("+sh+"vw)";
  /* hero text drifts up and fades; the film darkens behind the content sections */
  var hp=cl(y/(vh*.75));HW.style.opacity=1-hp;HW.style.transform="translateY("+(-y*.28)+"px)";
- var cr=CT.getBoundingClientRect(),ck=cl(1-cr.top/vh-.6);
- VE.style.opacity=(cl((y-vh*.3)/(vh*.8))*.86*(1-.4*ck)).toFixed(3);
+ var lt=RT.dataset.mode=="light",cr=CT.getBoundingClientRect(),ck=lt?0:cl(1-cr.top/vh-.6);
+ var vo=cl((y-vh*.3)/(vh*.8))*.86*(1-.4*ck);VE.style.opacity=vo.toFixed(3);
+ if(lt)VG.style.opacity=(1-vo/.86).toFixed(3);else VG.style.opacity="";
  NV.classList.toggle("sc",y>40);
  var dh=document.documentElement.scrollHeight-vh;PG.style.transform="scaleX("+(dh>0?y/dh:0)+")";
  var gr=GI.getBoundingClientRect();if(gr.top<vh&&gr.bottom>0)GI.style.transform="translateX("+((gr.top/vh)*-18+4)+"vw)";

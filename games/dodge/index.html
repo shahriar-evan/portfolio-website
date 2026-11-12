@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Neon Dodge — Evan</title>
+<meta name="theme-color" content="#060608">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060608;--tx:#eeebe6;--mu:#97919d;--dim:#5f5a66;--ac:#ef4444;--ac2:#a78bfa;--ok:#3ddc84;--ln:rgba(255,255,255,.09);--ln2:rgba(255,255,255,.18);--card:rgba(17,15,21,.85)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font:15px/1.5 "Archivo",system-ui,sans-serif;touch-action:none;user-select:none;-webkit-user-select:none}
+a{color:inherit;text-decoration:none}
+.mono{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block}
+.hud{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:18px 20px;pointer-events:none}
+.hud a{pointer-events:auto;color:var(--mu)}.hud a:hover{color:var(--tx)}
+.hud .r{display:flex;gap:22px;align-items:center}
+.hud b{font-size:1.3rem;font-weight:700;color:var(--tx);font-variant-numeric:tabular-nums;margin-left:6px}
+#lives{color:var(--ac);letter-spacing:.2em;font-size:1rem}
+.ov{position:fixed;inset:0;display:grid;place-items:center;background:rgba(6,6,8,.72);backdrop-filter:blur(8px);transition:opacity .35s}
+.ov.off{opacity:0;pointer-events:none}
+.ov>div{text-align:center;padding:0 24px;max-width:460px}
+h1{font-stretch:112%;font-weight:850;font-size:clamp(2.8rem,11vw,5rem);letter-spacing:-.03em;line-height:.9;text-transform:uppercase;margin:12px 0 16px}
+h1 span{color:transparent;-webkit-text-stroke:1.5px var(--tx)}
+.ov p{color:var(--mu);margin-bottom:24px}
+.keys{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;color:var(--dim);margin-bottom:28px}
+.keys span{display:flex;gap:8px;align-items:center}.keys i{display:inline-block;width:10px;height:10px;border-radius:3px}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:999px;border:1px solid var(--tx);background:var(--tx);color:var(--bg);font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background .3s,color .3s}
+.pill:hover{background:transparent;color:var(--tx)}
+:focus-visible{outline:1px solid var(--ac);outline-offset:3px}
+</style>
+</head>
+<body>
+<canvas id="c" aria-label="Neon Dodge game area"></canvas>
+<div class="hud mono"><a href="../../#games">← Portfolio</a><div class="r"><span>Score<b id="sc">0</b></span><span>Best<b id="hi">0</b></span><span id="lives">♥♥♥</span></div></div>
+<div class="ov" id="ov"><div>
+ <span class="mono" id="ot" style="color:var(--ac2)">Game 04 · Arcade</span>
+ <h1 id="oh">Neon <span>Dodge</span></h1>
+ <p id="op">Slide left and right to dodge the red blocks. Grab purple orbs for bonus points. It keeps getting faster.</p>
+ <div class="keys mono"><span><i style="background:var(--ac)"></i>Avoid</span><span><i style="background:var(--ac2);border-radius:50%"></i>+25</span><span>← → / A D / drag</span><span>P = pause</span></div>
+ <button class="pill" id="go">Start game</button>
+</div></div>
+<script>
+var cv=document.getElementById("c"),x=cv.getContext("2d"),W,H,DPR;
+var $=function(s){return document.querySelector(s)};
+function size(){DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;x.setTransform(DPR,0,0,DPR,0,0)}
+addEventListener("resize",size);size();
+var P,obs,orbs,parts,stars,score,lives,speed,spawn,orbT,inv,run=false,paused=false,last=0,keys={},target=null,shake=0;
+var hi=0;try{hi=+localStorage.getItem("nd-hi")||0}catch(e){}$("#hi").textContent=hi;
+stars=[];for(var i=0;i<90;i++)stars.push({x:Math.random(),y:Math.random(),z:.2+Math.random()*.8});
+function reset(){P={x:W/2,y:H-90,r:16,vx:0};obs=[];orbs=[];parts=[];score=0;lives=3;speed=230;spawn=0;orbT=2;inv=0;target=null;hud()}
+function hud(){$("#sc").textContent=Math.floor(score);$("#lives").textContent="♥♥♥".slice(0,lives)+"♡♡♡".slice(0,3-lives)}
+function burst(px,py,col,n){for(var i=0;i<n;i++){var a=Math.random()*6.28,s=60+Math.random()*260;parts.push({x:px,y:py,vx:Math.cos(a)*s,vy:Math.sin(a)*s,l:.6+Math.random()*.4,c:col})}}
+function start(){reset();run=true;paused=false;$("#ov").classList.add("off");last=performance.now();cv.focus&&cv.focus()}
+function end(){run=false;var nb=score>hi;if(nb){hi=Math.floor(score);try{localStorage.setItem("nd-hi",hi)}catch(e){}$("#hi").textContent=hi}
+ $("#ot").textContent=nb?"New high score":"Game over";$("#ot").style.color=nb?"var(--ok)":"var(--ac)";$("#oh").innerHTML=Math.floor(score)+" <span>pts</span>";
+ $("#op").textContent=nb?"That's your best run yet. Can you beat it?":"Best: "+hi+". One more try?";$("#go").textContent="Play again";$("#ov").classList.remove("off");$("#go").focus()}
+function pause(p){if(!run)return;paused=p;if(!p)last=performance.now();
+ $("#ot").textContent="Paused";$("#ot").style.color="var(--mu)";$("#oh").innerHTML="Paused";$("#op").textContent="Press P or the button to continue.";$("#go").textContent="Resume";$("#ov").classList.toggle("off",!p)}
+$("#go").onclick=function(){if(run&&paused)pause(false);else start()};
+addEventListener("keydown",function(e){keys[e.key.toLowerCase()]=true;if(e.key=="p"||e.key=="P"||e.key=="Escape")pause(!paused);if((e.key==" "||e.key=="Enter")&&!run){e.preventDefault();start()}});
+addEventListener("keyup",function(e){keys[e.key.toLowerCase()]=false});
+function ptr(e){if(run&&!paused)target=(e.touches?e.touches[0].clientX:e.clientX)}
+cv.addEventListener("pointerdown",ptr);cv.addEventListener("pointermove",function(e){if(e.pointerType!="mouse"||e.buttons)ptr(e)});cv.addEventListener("pointerup",function(){target=null});
+addEventListener("blur",function(){if(run&&!paused)pause(true)});
+function hit(o){var cx=Math.max(o.x,Math.min(P.x,o.x+o.w)),cy=Math.max(o.y,Math.min(P.y,o.y+o.h));return(P.x-cx)*(P.x-cx)+(P.y-cy)*(P.y-cy)<P.r*P.r*.8}
+function step(dt){
+ speed+=dt*9;score+=dt*10;P.y=H-90;
+ var ax=(keys.arrowleft||keys.a?-1:0)+(keys.arrowright||keys.d?1:0);
+ if(ax)P.vx+=ax*3200*dt;else if(target!=null)P.vx+=(target-P.x)*30*dt;
+ P.vx*=Math.pow(.0009,dt);P.x+=P.vx*dt;if(P.x<P.r){P.x=P.r;P.vx=0}if(P.x>W-P.r){P.x=W-P.r;P.vx=0}
+ spawn-=dt;if(spawn<=0){var w=40+Math.random()*Math.min(140,W*.25);obs.push({x:Math.random()*(W-w),y:-40,w:w,h:18+Math.random()*16,v:speed*(.8+Math.random()*.5)});spawn=Math.max(.16,.85-speed/1400)*(.6+Math.random()*.6)}
+ orbT-=dt;if(orbT<=0){orbs.push({x:20+Math.random()*(W-40),y:-20,v:speed*.7,t:0});orbT=2+Math.random()*2.5}
+ if(inv>0)inv-=dt;
+ obs.forEach(function(o){o.y+=o.v*dt;if(inv<=0&&hit(o)){lives--;inv=1.6;shake=.35;burst(P.x,P.y,"#ef4444",28);hud();o.y=H+99;if(!lives)end()}});
+ obs=obs.filter(function(o){return o.y<H+60});
+ orbs.forEach(function(o){o.y+=o.v*dt;o.t+=dt;if(Math.hypot(o.x-P.x,o.y-P.y)<P.r+10){score+=25;o.y=H+99;burst(o.x,o.y,"#a78bfa",18)}});
+ orbs=orbs.filter(function(o){return o.y<H+40});hud()}
+function draw(dt){
+ var g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,"#0b0910");g.addColorStop(1,"#060608");x.fillStyle=g;x.fillRect(0,0,W,H);
+ x.save();if(shake>0){shake-=dt;x.translate((Math.random()-.5)*12*shake/.35,(Math.random()-.5)*12*shake/.35)}
+ stars.forEach(function(s){s.y+=dt*(run&&!paused?speed:40)*s.z/H*.35;if(s.y>1)s.y-=1;x.fillStyle="rgba(238,235,230,"+s.z*.5+")";x.fillRect(s.x*W,s.y*H,s.z*2,s.z*2)});
+ x.strokeStyle="rgba(255,255,255,.05)";x.beginPath();x.moveTo(0,H-60);x.lineTo(W,H-60);x.stroke();
+ obs.forEach(function(o){x.shadowColor="#ef4444";x.shadowBlur=18;x.fillStyle="#ef4444";x.beginPath();x.roundRect?x.roundRect(o.x,o.y,o.w,o.h,6):x.rect(o.x,o.y,o.w,o.h);x.fill()});
+ orbs.forEach(function(o){var r=9+Math.sin(o.t*8)*1.5;x.shadowColor="#a78bfa";x.shadowBlur=22;x.fillStyle="#a78bfa";x.beginPath();x.arc(o.x,o.y,r,0,7);x.fill()});
+ if(P&&(inv<=0||Math.floor(inv*12)%2==0)){x.shadowColor="#eeebe6";x.shadowBlur=26;x.fillStyle="#eeebe6";x.beginPath();x.moveTo(P.x,P.y-P.r*1.2);x.lineTo(P.x+P.r,P.y+P.r*.8);x.lineTo(P.x-P.r,P.y+P.r*.8);x.closePath();x.fill()}
+ x.shadowBlur=0;parts.forEach(function(p){p.x+=p.vx*dt;p.y+=p.vy*dt;p.vx*=.96;p.vy*=.96;p.l-=dt;x.globalAlpha=Math.max(0,p.l);x.fillStyle=p.c;x.fillRect(p.x,p.y,3,3)});x.globalAlpha=1;parts=parts.filter(function(p){return p.l>0});
+ x.restore()}
+function loop(t){var dt=Math.min(.05,(t-last)/1000);last=t;if(run&&!paused)step(dt);draw(dt);requestAnimationFrame(loop)}
+reset();requestAnimationFrame(function(t){last=t;loop(t)});
+</script>
+</body>
+</html>
