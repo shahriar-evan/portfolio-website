@@ -72,7 +72,6 @@ body:after{content:"";position:fixed;inset:-50%;z-index:70;pointer-events:none;o
 [data-mode=light] .card:before{background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(20,18,24,.05),transparent 60%)}
 [data-mode=light] .pc{box-shadow:0 50px 100px -40px rgba(20,18,24,.45),0 0 120px -30px rgba(167,139,250,.5)}
 [data-mode=light] .chip,[data-mode=light] .tags span,[data-mode=light] .c-ic,[data-mode=light] .pill{background:rgba(255,255,255,.55)}
-[data-mode=light] .jr:hover{background:rgba(20,18,24,.03)}
 #vig{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 80% 75% at 50% 45%,transparent 45%,rgba(0,0,0,.6)),linear-gradient(transparent 70%,rgba(6,6,8,.85))}
 
 /* nav */
@@ -205,15 +204,6 @@ h2 em{font-style:normal;color:transparent;-webkit-text-stroke:1px rgba(238,235,2
 .ti .org{color:var(--mu);margin-bottom:18px}
 .ti ul{list-style:none;display:grid;gap:10px}.ti li{color:var(--mu);padding-left:26px;position:relative}.ti li:before{content:"→";position:absolute;left:0;color:var(--dim)}
 
-/* journal */
-.jr{display:grid;grid-template-columns:70px 1fr auto;gap:30px;align-items:center;padding:34px 10px;border-top:1px solid var(--ln);transition:background .4s,padding .5s var(--ease)}
-.jl{border-bottom:1px solid var(--ln)}
-.jr:hover{background:rgba(255,255,255,.025);padding-left:22px}
-.jr .no{color:var(--dim)}.jr h3{font-family:var(--disp);font-weight:700;font-size:clamp(1.2rem,2.2vw,1.6rem);letter-spacing:-.02em;line-height:1.2}
-.jr p{color:var(--mu);font-size:.9rem;margin-top:8px;max-width:640px}
-.jr .st{display:flex;align-items:center;gap:14px;color:var(--mu)}
-.jr .st i{width:40px;height:40px;border-radius:50%;border:1px solid var(--ln2);display:grid;place-items:center;font-style:normal;transition:transform .5s var(--ease),background .3s,color .3s}
-.jr:hover .st i{transform:rotate(-45deg);background:var(--tx);color:var(--bg)}
 
 /* contact */
 #contact{max-width:none;padding:130px 0 0;overflow:hidden}
@@ -294,7 +284,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
  .tiles{grid-template-columns:1fr}.cnt{gap:26px}.cnt b{font-size:2.3rem}
  .grid{grid-template-columns:1fr}
  .tl{padding-left:44px}.tl:before,.tl:after{left:9px}.ti:before{left:-40px}
- .jr{grid-template-columns:1fr;gap:12px}.jr .st{display:none}
+
  .cols{grid-template-columns:1fr}.two{grid-template-columns:1fr}
  .box{padding:24px}
  .svc,.proc{grid-template-columns:1fr}#fl{display:none}#ckb .k,.ck-f{display:none}
@@ -407,8 +397,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 
 <section id="experience"><div class="sh"><span class="lbl rv">// Engineering roadmap</span><h2 class="split">Experience &amp; <em>Education</em></h2></div><div class="tl" id="tl"></div></section>
 
-<section id="blog"><div class="sh"><span class="lbl rv">// Build journal</span><h2 class="split">Notes From <em>Shipping</em></h2><p class="sub rv">Case studies and write-ups from building real products.</p></div><div class="jl" id="g-blog"></div></section>
-
 <section id="contact">
  <div class="giant disp" id="giant">Contact — Contact</div>
  <div class="cw">
@@ -435,7 +423,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 <script>
 var $=function(s){return document.querySelector(s)},$$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))},RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
 /* ---------- DATA ---------- */
-var NAV=[["about","About"],["skills","Stack"],["saas","Work"],["services","Services"],["experience","Roadmap"],["blog","Journal"],["contact","Contact"]];
+var NAV=[["about","About"],["skills","Stack"],["saas","Work"],["services","Services"],["experience","Roadmap"],["contact","Contact"]];
 var WORK=["saas","client-work","projects","apps","games"];
 $("#nl").innerHTML=NAV.map(function(n){return'<li><a href="#'+n[0]+'" data-k="'+n[0]+'">'+n[1]+'</a></li>'}).join("");
 $("#menu").innerHTML=NAV.map(function(n,i){return'<a class="disp" href="#'+n[0]+'"><small>0'+(i+1)+'</small>'+n[1]+'</a>'}).join("");
@@ -460,9 +448,6 @@ games:[C("Game","gamepad","Snake Game","Modern Snake game built with JavaScript 
 C("Puzzle","clone","Memory Match","Card-flipping memory game with 3 difficulty levels, 3D flip animations, a move counter and timer, and best scores saved on your device.",["JavaScript","CSS 3D","LocalStorage"],0,[L("Play","games/memory/",1),L("Code")]),
 C("Strategy","robot","Tic-Tac-Toe AI","Play against an unbeatable minimax AI, a relaxed easy mode, or a friend on the same screen — with a live scoreboard and winning-line highlights.",["JavaScript","Minimax AI","CSS"],0,[L("Play","games/tictactoe/",1),L("Code")]),
 C("Arcade","bolt","Neon Dodge","Fast canvas arcade game: dodge falling neon blocks, grab orbs for bonus points and survive as the speed ramps up. Keyboard, mouse and touch controls.",["Canvas API","JavaScript","Game Loop"],0,[L("Play","games/dodge/",1),L("Code")])],
-blog:[["Kyvro: a fashion store where anyone can open their own shop","How I built a storefront, a reseller shop platform and an admin portal in about 3 weeks — four roles, tamper-proof prices, bKash and Nagad payments, and a whole platform on free hosting.","Case study · Nov 2026","kyvro-casestudy.html"],
-["WritexNova: building an AI writing platform","How the AI writing suite came together — Humanizer, AI Detector, Paraphraser, Grammar Checker and more, with multi-model support and Lemon Squeezy payments.","Case study","writexnova-casestudy.html"],
-["AIXNova: designing a complete AI workspace","Multi-model chat, Image Studio, Deep Research, Document Chat and a ⌘K command palette — the product and engineering decisions behind it.","Case study","aixnova-casestudy.html"]],
 exp:[["2024 — Present","Indie SaaS Developer","Self-employed · Solo founder",["Built and deployed 3 live SaaS products (WritexNova, AIXNova, AIXAnime) from zero to production — solo","Integrated payments (Stripe, Lemon Squeezy), auth (Firebase, Google OAuth, JWT) and AI APIs (OpenAI, Gemini) into commercial products","Built full-stack apps with Next.js, Node.js, Express, MongoDB and Firebase — deployed on Vercel and Render","Designed admin dashboards, credit systems, referral programs and user management","Shipped to real users with real payments — continuously iterating on feedback"]],
 ["2024 — Present","Frontend Developer","Personal & open-source projects",["Built responsive web apps and tools with HTML, CSS and JavaScript, focused on clean UI and great UX","Developed a Weather App, To-Do App, Calculator, Notes App and a Firebase Auth system","Learned Git, GitHub and version control through real project management","Explored cybersecurity fundamentals, SEO and responsive design best practices"]],
 ["Ongoing","Bachelor of Computer Science","INTI International University, Malaysia",["Focus on web development, software engineering and modern technologies","Member of university technology clubs and communities","Taking part in coding challenges and hackathons"],"education"]]
@@ -479,7 +464,6 @@ function card(c,i,k,off){var sh=SHOT[c.t],go=c.b.filter(function(l){return l[2]&
 function fill(id,a,k,off){$(id).innerHTML=a.map(function(c,i){return card(c,i,k,off)}).join("")}
 fill("#g-saas",D.saas,"saas");fill("#m-saas",D.saasMore,"saas",D.saas.length);fill("#g-client",D.client,"client");fill("#g-projects",D.projects,"projects");fill("#m-projects",D.projectsMore,"projects",D.projects.length);fill("#g-apps",D.apps,"apps");fill("#m-apps",D.appsMore,"apps",D.apps.length);fill("#g-games",D.games,"games");
 $("#tl").innerHTML=D.exp.map(function(e){return'<div class="ti rv"'+(e[4]?' id="'+e[4]+'"':'')+'><span class="mono">'+e[0]+'</span><h3>'+e[1]+'</h3><div class="org">'+e[2]+'</div><ul>'+e[3].map(function(x){return'<li>'+x+'</li>'}).join("")+'</ul></div>'}).join("");
-$("#g-blog").innerHTML=D.blog.map(function(b,i){return'<a class="jr rv" href="'+b[3]+'"><span class="no mono">'+pad(i+1)+'</span><div><span class="mono" style="color:var(--ac)">'+b[2]+'</span><h3>'+b[0]+'</h3><p>'+b[1]+'</p></div><span class="st mono">Read<i>→</i></span></a>'}).join("");
 $("#bars").innerHTML=[["HTML",95],["CSS",90],["JavaScript",85],["Responsive Design",92],["Git & GitHub",80]].map(function(s){return'<div class="sk"><div><span>'+s[0]+'</span><span class="mono">'+s[1]+'%</span></div><div class="bar"><i data-w="'+s[1]+'"></i></div></div>'}).join("");
 $("#badges").innerHTML=["React / Next.js","Node.js / Express","MongoDB / Firebase","OpenAI API","Stripe / Lemon Squeezy","Vercel / Render","REST APIs","Auth & OAuth","SEO","UI / UX Design","Git workflows","Cybersecurity basics"].map(function(x){return'<span>'+x+'</span>'}).join("");
 function chips(a){var h=a.map(function(x){return'<span class="chip"><i class="'+x[0]+'"></i>'+x[1]+'</span>'}).join("");return h+h}
@@ -516,7 +500,7 @@ if(!RM&&matchMedia("(hover:hover)").matches){
 /* ---------- FILM (scroll-scrubbed video) ---------- */
 var V=$("#film"),ST=$("#stage"),VE=$("#veil"),HW=$("#hw"),NV=$("#nav"),PG=$("#prog"),GI=$("#giant"),TL=$("#tl"),CT=$("#contact"),VG=$("#vig"),MOB=matchMedia("(max-width:760px)"),ready=false,cur=0,tgt=0,sh=0,shT=0,anc=[];
 /* film seconds + sideways shift (vw) for each section, when it is centred on screen */
-var PLAN=[["home",6,0],["about",15.5,24],["skills",23.5,0],["saas",29,-22],["client-work",31,-22],["projects",32.4,-22],["apps",32.7,-22],["games",32.7,-22],["services",32.7,-22],["experience",32.7,-22],["blog",32.7,-22],["contact",32.7,0]];
+var PLAN=[["home",6,0],["about",15.5,24],["skills",23.5,0],["saas",29,-22],["client-work",31,-22],["projects",32.4,-22],["apps",32.7,-22],["games",32.7,-22],["services",32.7,-22],["experience",32.7,-22],["contact",32.7,0]];
 function meas(){var vh=innerHeight;anc=[[0,0,0]];PLAN.forEach(function(p){var e=$("#"+p[0]);anc.push([Math.max(1,e.offsetTop+e.offsetHeight/2-vh/2),p[1],p[2]])});
  for(var i=1;i<anc.length;i++)if(anc[i][0]<=anc[i-1][0])anc[i][0]=anc[i-1][0]+1}
 function upd(){var y=scrollY,a=anc,i=0;if(!a.length)return;
@@ -553,7 +537,7 @@ document.addEventListener("touchstart",function(){V.play().then(function(){V.pau
 /* ---------- ⌘K COMMAND MENU ---------- */
 var CK=$("#cmdk"),CQ=$("#ckq"),CL=$("#ckl"),ML=$(".mail"),MAC=/Mac|iPhone|iPad/.test(navigator.platform||""),ckSel=0,ckRes=[],ckLast=null;
 if(!MAC){$("#ckb .k").textContent="Ctrl K";$("#ckk").textContent="Ctrl K Toggle"}
-var CMDS=[["Go to","About","user","#about"],["Go to","Stack","layer-group","#skills"],["Go to","Work","briefcase","#saas"],["Go to","Client work","handshake","#client-work"],["Go to","Games","gamepad","#games"],["Go to","Services","pen-ruler","#services"],["Go to","Roadmap","route","#experience"],["Go to","Journal","book-open","#blog"],["Go to","Contact","envelope","#contact"]];
+var CMDS=[["Go to","About","user","#about"],["Go to","Stack","layer-group","#skills"],["Go to","Work","briefcase","#saas"],["Go to","Client work","handshake","#client-work"],["Go to","Games","gamepad","#games"],["Go to","Services","pen-ruler","#services"],["Go to","Roadmap","route","#experience"],["Go to","Contact","envelope","#contact"]];
 ["saas","saasMore","client","projects","projectsMore","apps","games"].forEach(function(k){D[k].forEach(function(c){var l=c.b.filter(function(x){return x[2]&&x[1]!="#"})[0];if(l)CMDS.push(["Projects",c.t,c.ic,l[1],l[4]])})});
 CMDS.push(["Actions","Switch dark / light mode","circle-half-stroke",function(){MB.click()}],["Actions","Download CV","file-arrow-down","Evan_CV.pdf"],["Actions","Copy email address","copy",function(){try{navigator.clipboard.writeText(ML.textContent)}catch(e){}}],["Actions","Send an email","paper-plane",function(){location.href=ML.href}],["Actions","Open LinkedIn","link","https://www.linkedin.com/in/tech-evan-b374382b6/",1],["Actions","Chat on WhatsApp","comment","https://wa.me/+8801770849168",1]);
 function ckRender(){var q=CQ.value.trim().toLowerCase(),g="";ckRes=CMDS.filter(function(c){return!q||(c[1]+" "+c[0]).toLowerCase().indexOf(q)>-1});if(ckSel>=ckRes.length)ckSel=0;
