@@ -204,7 +204,7 @@ a:focus-visible,button:focus-visible{outline:1px solid var(--k);outline-offset:4
    <tr><th scope="row">Name</th><td>"Tally" means to count and match up. A short, plain English word that people anywhere can pronounce.</td></tr>
    <tr><th scope="row">Countries</th><td>Six markets today.<div class="tags"><span>🇺🇸 US</span><span>🇨🇳 CN</span><span>🇧🇩 BD</span><span>🇵🇰 PK</span><span>🇸🇬 SG</span><span>🇲🇾 MY</span></div></td></tr>
    <tr><th scope="row">Stores</th><td><div class="tags" style="margin-top:0"><span>Amazon</span><span>AliExpress</span><span>Daraz PK</span><span>Daraz BD</span><span>Shopee</span><span>Lazada</span></div></td></tr>
-   <tr><th scope="row">Currencies</th><td>One click shows every price on the site in the shopper's currency.<div class="tags"><span>USD</span><span>CNY</span><span>BDT</span><span>PKR</span><span>SGD</span><span>MYR</span></div></td></tr>
+   <tr><th scope="row">Currencies</th><td>Prices appear in the visitor's own currency automatically, based on the country they're browsing from. They can switch any time, and Tally remembers the choice.<div class="tags"><span>USD</span><span>CNY</span><span>BDT</span><span>PKR</span><span>SGD</span><span>MYR</span></div></td></tr>
    <tr><th scope="row">Design</th><td>Clean and plain. It doesn't lean on any one country's visual style, so it fits any market.</td></tr>
    <tr><th scope="row">Logo</th><td>A tally mark: four strokes, with a fifth crossing them out. Every store counted, the best one picked. It reads without words.</td></tr>
   </tbody></table></div>
@@ -216,7 +216,7 @@ a:focus-visible,button:focus-visible{outline:1px solid var(--k);outline-offset:4
   <div class="rv"><span class="mono k">// For shoppers</span><h2>What users get</h2></div>
   <div class="parts two">
    <div class="part rv"><div class="ic"><i class="fas fa-coins"></i></div><h3>Saves money</h3><ul><li>Every store's price <b>side by side</b> from one search</li><li>The <b>real total</b> with delivery included</li><li>The cheapest store marked with a green <b>Lowest</b> badge</li><li>The gap between cheapest and priciest shown on every product</li></ul></div>
-   <div class="part rv" style="--d:100ms"><div class="ic"><i class="fas fa-clock"></i></div><h3>Saves time</h3><ul><li>No visiting five websites</li><li>No manual maths or currency conversion</li><li><b>Buy</b> opens the store's product page directly</li></ul></div>
+   <div class="part rv" style="--d:100ms"><div class="ic"><i class="fas fa-clock"></i></div><h3>Saves time</h3><ul><li>No visiting five websites</li><li>Prices open in <b>your own currency</b>, picked from where you are</li><li>No manual maths or currency conversion</li><li><b>Buy</b> opens the store's product page directly</li></ul></div>
    <div class="part rv"><div class="ic"><i class="fas fa-filter"></i></div><h3>Easy to find things</h3><ul><li><b>Categories:</b> Electronics, Fashion, Accessories, Digital</li><li><b>Filters:</b> country, category, store, price range</li><li><b>Sorting:</b> lowest price, best value, highest rating</li><li>Ratings, review counts and similar products on every page</li></ul></div>
    <div class="part rv" style="--d:100ms"><div class="ic"><i class="fas fa-shield-halved"></i></div><h3>No hassle, no tricks</h3><ul><li><b>No account</b> and no browser extension</li><li>Works well on phones and <b>installs like an app</b></li><li>Light and dark mode</li><li>Referral fees <b>never change the order</b>. Cheapest total is always first</li></ul></div>
   </div>
@@ -227,9 +227,9 @@ a:focus-visible,button:focus-visible{outline:1px solid var(--k);outline-offset:4
  <div class="wrap wide">
   <div class="rv"><span class="mono k">// Business model</span><h2>How Tally earns</h2></div>
   <div class="parts">
-   <div class="part rv"><span class="mono who">Revenue</span><h3>Affiliate commission</h3><p>Every Buy link carries <code>?ref=tally</code>. When a shopper buys, the store pays a commission.</p></div>
-   <div class="part rv" style="--d:100ms"><span class="mono who">Insight</span><h3>Click tracking</h3><p>The admin panel shows how many clicks each product and store gets.</p></div>
-   <div class="part rv" style="--d:200ms"><span class="mono who">Operations</span><h3>Admin panel</h3><p>Add, edit and remove products, stores and offers from <code>/admin</code>.</p></div>
+   <div class="part rv"><span class="mono who">Revenue</span><h3>Affiliate commission</h3><p>Each store's tracking ID (like Amazon's <code>tag=</code>) is added to every link, and each offer can hold its own affiliate link. When a shopper buys, the store pays a commission.</p></div>
+   <div class="part rv" style="--d:100ms"><span class="mono who">Insight</span><h3>Commission coverage</h3><p>The admin panel shows how many offers already earn, which still need a link, and how many clicks each product and store gets.</p></div>
+   <div class="part rv" style="--d:200ms"><span class="mono who">Operations</span><h3>Admin panel</h3><p>Manage products, stores, prices and affiliate links from <code>/admin</code>. Offers without a link still send shoppers to a working store search page.</p></div>
   </div>
  </div>
 </section>
@@ -242,6 +242,7 @@ a:focus-visible,button:focus-visible{outline:1px solid var(--k);outline-offset:4
    <ul class="lim">
     <li><b>Manual prices</b><span>Prices are entered in the admin panel, not pulled from stores automatically. The demo catalogue has 20 products.</span></li>
     <li><b>Fixed exchange rates</b><span>Currency conversion uses a reference rate that isn't updated daily.</span></li>
+    <li><b>Affiliate approval</b><span>Commission starts once each store's program approves Tally and its links are added in the admin panel.</span></li>
     <li><b>Database pending</b><span>The live site needs a cloud database connected before products appear.</span></li>
     <li><b>No unproven claims</b><span>User numbers and store-vetting claims can't be backed up yet, so the site doesn't make them.</span></li>
    </ul>
