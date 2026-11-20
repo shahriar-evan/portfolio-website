@@ -24,14 +24,13 @@
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Md. Shahriar Nafiz Evan","alternateName":"Evan","url":"https://shahriarevan.com/","image":"https://shahriarevan.com/media/profile_card.jpg","jobTitle":"Full-Stack Developer","alumniOf":{"@type":"CollegeOrUniversity","name":"INTI International University"},"knowsAbout":["Full-stack web development","Next.js","Node.js","React","Firebase","MongoDB","OpenAI API","SaaS","E-commerce"],"sameAs":["https://www.linkedin.com/in/tech-evan-b374382b6/"]}</script>
-<script>try{if(localStorage.getItem("mode")=="light")document.documentElement.dataset.mode="light"}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 :root{--bg:#060608;--tx:#eeebe6;--mu:#97919d;--dim:#5f5a66;--ac:#ef4444;--ac2:#a78bfa;--ok:#3ddc84;--ln:rgba(255,255,255,.09);--ln2:rgba(255,255,255,.18);--card:rgba(17,15,21,.66);
  --disp:"Archivo",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;--ease:cubic-bezier(.2,.75,.2,1);--io:cubic-bezier(.77,0,.18,1)}
-[data-mode=light]{--bg:#f3f1ed;--tx:#141218;--mu:#5b5662;--dim:#8b8691;--ln:rgba(20,18,24,.1);--ln2:rgba(20,18,24,.2);--card:rgba(255,255,255,.74)}
+[data-mode=light]{--bg:#f3f1ed;--tx:#0d0c10;--mu:#1f1c24;--dim:#3d3944;--ln:rgba(20,18,24,.1);--ln2:rgba(20,18,24,.2);--card:rgba(255,255,255,.74)}
 /* hero, top nav and the photo badge always sit on the dark film */
 #pre,#home,nav:not(.sc),.pc .bdg{--bg:#060608;--tx:#eeebe6;--mu:#b9b3be;--dim:#8f8a94;--ln:rgba(255,255,255,.1);--ln2:rgba(255,255,255,.22);color:var(--tx)}
 [data-mode=light] nav:not(.sc) .pill{background:rgba(255,255,255,.03)}
@@ -68,7 +67,8 @@ body:after{content:"";position:fixed;inset:-50%;z-index:70;pointer-events:none;o
 [data-mode=light] body:after{opacity:.045}
 [data-mode=light] nav.sc{background:rgba(243,241,237,.72)}
 [data-mode=light] #menu{background:rgba(243,241,237,.97)}
-[data-mode=light] h2 em{-webkit-text-stroke-color:rgba(20,18,24,.7)}
+[data-mode=light] h2 em{-webkit-text-stroke:2px #0d0c10}
+[data-mode=light] section p,[data-mode=light] section li,[data-mode=light] .sub,[data-mode=light] .lbl,[data-mode=light] .chip,[data-mode=light] .tags span{font-weight:600}
 [data-mode=light] .giant{-webkit-text-stroke-color:rgba(20,18,24,.14)}
 [data-mode=light] .name{background-image:linear-gradient(180deg,#141218 30%,#bdb8c2)}
 [data-mode=light] .card:before{background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(20,18,24,.05),transparent 60%)}
@@ -341,7 +341,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   </div>
   <div class="h-bot fade" style="--d:1100ms">
    <div class="scr mono"><i></i>Scroll to scrub timeline<span id="fl" aria-live="polite"><i><b></b></i><span id="flt">Loading film 0%</span></span></div>
-   <div class="h-stats mono"><div><b>19+</b>Projects</div><div><b>6+</b>SaaS products</div><div><b>4+</b>Years coding</div></div>
+   <div class="h-stats mono"><div><b>19+</b>Projects</div><div><b>7+</b>SaaS products</div><div><b>4+</b>Years coding</div></div>
   </div>
  </div>
 </section>
@@ -366,7 +366,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   </div>
   <div class="cnt rv" style="--d:300ms">
    <div><b data-n="19">0</b><b><i>+</i></b><span class="mono">Projects built</span></div>
-   <div><b data-n="6">0</b><b><i>+</i></b><span class="mono">SaaS products</span></div>
+   <div><b data-n="7">0</b><b><i>+</i></b><span class="mono">SaaS products</span></div>
    <div><b data-n="4">0</b><b><i>+</i></b><span class="mono">Years coding</span></div>
   </div>
   <div class="now rv" style="--d:200ms"><div class="now-h mono"><span><i class="dot"></i>Now</span><span style="color:var(--dim)">Updated Nov 2026</span></div>
@@ -449,9 +449,9 @@ C("Utility","list-check","To-Do App","Elegant task management application with l
 C("Tool","calculator","Calculator","Modern calculator with advanced operations, memory functions, and keyboard support, with a clean, intuitive interface and smooth animations.",["HTML","CSS","JS"],0,[L("Live Demo","https://shahriar-evan.github.io/Calculator-App/",1,0,1),L("Code")])],
 saas:[C("SaaS","pen-nib","WritexNova","AI writing platform with Humanizer, AI Detector, Paraphraser, Grammar Checker, Summarizer, Article Rewriter, AI Translator, Citation Generator and PDF Chat, with multi-model support.",["Node.js","Firebase","OpenAI","Lemon Squeezy"],["check-circle|Live product","shield-halved|AI Humanizer","toolbox|10+ AI tools"],[L("Visit","https://writexnova.com",1,0,1),L("Case Study","writexnova-casestudy.html",0),L("Code")]),
 C("SaaS","wand-magic-sparkles","Promptly","The complete AI workspace: write, design and research with one prompt. Chat with GPT-5, Claude Sonnet 4.5 and Gemini 2.5, generate images with Nano Banana, and turn one line into blog posts, research briefs and pitch decks.",["Next.js","MongoDB","OpenAI","Lemon Squeezy"],["check-circle|Live product","layer-group|Multi-model chat","image|AI images"],[L("Visit","https://aixnova.vercel.app",1,0,1),L("Case Study","aixnova-casestudy.html",0),L("Code")]),
-C("SaaS","tv","LiveSports","Live sports & TV streaming: football, cricket, NBA, NHL, UFC and motorsport with live scores, plus 42+ TV channels and a TV Mode that flips through channels like a real TV. Categories, highlights, favorites and a Go Pro plan with no ads.",["Node.js","Express","HLS.js","Vercel"],["tower-broadcast|Live TV & sports","satellite-dish|42+ TV channels","crown|Go Pro plan"],[L("Visit","https://streamflix-orpin.vercel.app/",1,0,1),L("Code")]),
-C("SaaS","film","Anime Maker","AI anime studio: Text → Anime Image in 10 styles (Studio Ghibli, Makoto Shinkai, Cyberpunk, Chibi, Retro 90s and more), Photo → Anime that keeps your face, an Avatar Maker, and Free / Pro / Premium plans. Voice Studio, Anime Video and a 4K Upscaler are on the way.",["Next.js","React","Tailwind CSS","Vercel"],["check-circle|Live product","palette|10 anime styles","camera|Photo → Anime"],[L("Visit","https://anime-maker-three.vercel.app/",1,0,1),L("Code")])],
-saasMore:[C("Open Source","fire","Habit Tracker","Open-access habit tracker with streaks, a 7-day calendar view, focus timer, mood check-ins, dark mode and a SaaS-style landing page — no sign-up required.",["Node.js","Express","Firestore","Vanilla JS"],["check-circle|Live product","bolt|No login","chart-line|Streaks"],[L("Visit","https://habit-tracker-psi-three.vercel.app",1,0,1),L("Code")])],
+C("SaaS","tv","LiveSports","Live sports & TV streaming: football, cricket, NBA, NHL, UFC and motorsport with live scores, plus 42+ TV channels and a TV Mode that flips through channels like a real TV. Categories, highlights, favorites and a Go Pro plan with no ads.",["Node.js","Express","HLS.js","Vercel"],["tower-broadcast|Live TV & sports","satellite-dish|42+ TV channels","crown|Go Pro plan"],[L("Visit","https://streamflix-orpin.vercel.app/",1,0,1),L("Code")])],
+saasMore:[C("SaaS","film","Anime Maker","AI anime studio: Text → Anime Image in 10 styles (Studio Ghibli, Makoto Shinkai, Cyberpunk, Chibi, Retro 90s and more), Photo → Anime that keeps your face, an Avatar Maker, and Free / Pro / Premium plans. Voice Studio, Anime Video and a 4K Upscaler are on the way.",["Next.js","React","Tailwind CSS","Vercel"],["check-circle|Live product","palette|10 anime styles","camera|Photo → Anime"],[L("Visit","https://anime-maker-three.vercel.app/",1,0,1),L("Code")]),
+C("SaaS","seedling","Habits","A calm, focused habit tracker: one-tap check-ins, streaks that update instantly, a 7-day history and a live completion ring, plus focus timer, mood check-in and quick notes. No account needed, with Free, Plus and Pro plans.",["Node.js","Express","Firestore","Vanilla JS"],["check-circle|Live product","bolt|No sign-up","fire|Streaks & 7-day history"],[L("Visit","https://habit-tracker-psi-three.vercel.app",1,0,1),L("Code")])],
 client:[C("Client","shirt","Kyvro — কাইভ্রো","Fashion e-commerce platform for Bangladesh: a storefront with BDT pricing, bKash, Nagad and cash on delivery, a reseller platform where anyone can open their own shop, an AI help chat, and an admin portal with four roles.",["React","Vite","Tailwind CSS","Firebase","Vercel"],["check-circle|Live store","store|Reseller shops","robot|AI help chat"],[L("Visit","https://kyvro.store",1,0,1),L("Case Study","kyvro-casestudy.html",0),L("Code")]),
 C("Client","plane-departure","AirTicketHotel","Travel booking comparison site: search flights, hotels & homes, cars and airport transfers, one-way or round-trip, with a Flight + Hotel bundle, deals, trip ideas and popular routes. Live search through Travelpayouts is the next step.",["Next.js","React","Tailwind CSS"],["check-circle|Live site","plane|Flights · Hotels · Cars","layer-group|Bundle & save"],[L("Visit","https://airtickethotel.vercel.app/",1,0,1),L("Code")]),
 C("Client","scale-balanced","Tally","International price comparison: one search shows what Amazon, AliExpress, Daraz, Shopee and Lazada charge for the same product, adds delivery, and puts the cheapest real total first. 6 countries, 6 currencies, no account needed, with an admin panel and affiliate links.",["Next.js","React","Tailwind CSS","Vercel"],["globe|6 countries · 6 stores","truck|Delivery included","coins|6 currencies"],[L("Visit","https://tally-shahriar-evans-projects.vercel.app",1,0,1),L("Case Study","tally-casestudy.html",0),L("Code")]),
@@ -460,11 +460,11 @@ games:[C("Game","gamepad","Snake Game","Modern Snake game built with JavaScript 
 C("Puzzle","clone","Memory Match","Card-flipping memory game with 3 difficulty levels, 3D flip animations, a move counter and timer, and best scores saved on your device.",["JavaScript","CSS 3D","LocalStorage"],0,[L("Play","games/memory/",1),L("Code")]),
 C("Strategy","robot","Tic-Tac-Toe AI","Play against an unbeatable minimax AI, a relaxed easy mode, or a friend on the same screen — with a live scoreboard and winning-line highlights.",["JavaScript","Minimax AI","CSS"],0,[L("Play","games/tictactoe/",1),L("Code")]),
 C("Arcade","bolt","Neon Dodge","Fast canvas arcade game: dodge falling neon blocks, grab orbs for bonus points and survive as the speed ramps up. Keyboard, mouse and touch controls.",["Canvas API","JavaScript","Game Loop"],0,[L("Play","games/dodge/",1),L("Code")])],
-exp:[["2024 — Present","Indie SaaS Developer","Self-employed · Solo founder",["Built and deployed 6 SaaS products (WritexNova, Promptly, LiveSports, Anime Maker, Tally, Kyvro) from zero to production — solo","Integrated payments (Stripe, Lemon Squeezy), auth (Firebase, Google OAuth, JWT) and AI APIs (OpenAI, Gemini) into commercial products","Built full-stack apps with Next.js, Node.js, Express, MongoDB and Firebase — deployed on Vercel and Render","Designed admin dashboards, credit systems, referral programs and user management","Shipped to real users with real payments — continuously iterating on feedback"]],
+exp:[["2024 — Present","Indie SaaS Developer","Self-employed · Solo founder",["Built and deployed 7 SaaS products (WritexNova, Promptly, LiveSports, Anime Maker, Habits, Tally, Kyvro) from zero to production — solo","Integrated payments (Stripe, Lemon Squeezy), auth (Firebase, Google OAuth, JWT) and AI APIs (OpenAI, Gemini) into commercial products","Built full-stack apps with Next.js, Node.js, Express, MongoDB and Firebase — deployed on Vercel and Render","Designed admin dashboards, credit systems, referral programs and user management","Shipped to real users with real payments — continuously iterating on feedback"]],
 ["2024 — Present","Frontend Developer","Personal & open-source projects",["Built responsive web apps and tools with HTML, CSS and JavaScript, focused on clean UI and great UX","Developed a Weather App, To-Do App, Calculator, Notes App and a Firebase Auth system","Learned Git, GitHub and version control through real project management","Explored cybersecurity fundamentals, SEO and responsive design best practices"]],
 ["Ongoing","Bachelor of Computer Science","INTI International University, Malaysia",["Focus on web development, software engineering and modern technologies","Member of university technology clubs and communities","Taking part in coding challenges and hackathons"],"education"]]
 };
-var SHOT={"WritexNova":"writexnova","Promptly":"aixnova","LiveSports":"streamworld","Habit Tracker":"habit","Anime Maker":"animemaker","Kyvro — কাইভ্রো":"kyvro","Global Visa Connect":"visa","AirTicketHotel":"airtickethotel","Tally":"tally","Portfolio Website":"portfolio","Weather App":"weather","To-Do App":"todo","Calculator":"calc","Firebase Auth App":"auth","Notes App":"notes","Snake Game":"snake","Memory Match":"memory","Tic-Tac-Toe AI":"tictactoe","Neon Dodge":"dodge"};
+var SHOT={"WritexNova":"writexnova","Promptly":"aixnova","LiveSports":"streamworld","Habits":"habit","Anime Maker":"animemaker","Kyvro — কাইভ্রো":"kyvro","Global Visa Connect":"visa","AirTicketHotel":"airtickethotel","Tally":"tally","Portfolio Website":"portfolio","Weather App":"weather","To-Do App":"todo","Calculator":"calc","Firebase Auth App":"auth","Notes App":"notes","Snake Game":"snake","Memory Match":"memory","Tic-Tac-Toe AI":"tictactoe","Neon Dodge":"dodge"};
 var PRE={saas:"Product",client:"Client",projects:"Project",apps:"App",games:"Game"};
 function pad(n){return n<10?"0"+n:""+n}
 function card(c,i,k,off){var sh=SHOT[c.t],go=c.b.filter(function(l){return l[2]&&l[1]!="#"})[0],h='<article class="card rv" style="--d:'+(i%3)*90+'ms">';
