@@ -257,6 +257,21 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .proc{display:grid;grid-template-columns:repeat(4,1fr);margin-top:56px;border-top:1px solid var(--ln)}
 .ps{padding:26px 22px 0 0}.ps .mono{color:var(--ac)}.ps b{display:block;font-family:var(--disp);font-weight:700;font-size:1.15rem;margin:8px 0 6px}.ps p{color:var(--mu);font-size:.88rem}
 .svc-cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:54px}
+/* character art gallery */
+.gal{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:18px}
+.gi{position:relative;display:block;padding:0;border:1px solid var(--ln);border-radius:22px;overflow:hidden;background:#0b0912;cursor:zoom-in;font:inherit;color:#eeebe6}
+.gi.big{grid-row:span 2}
+.gi img{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.gi:hover img{transform:scale(1.05)}
+.gi:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.65));pointer-events:none}
+.gc{position:absolute;left:20px;bottom:18px;z-index:1;color:#eeebe6}
+#lb{position:fixed;inset:0;z-index:88;display:flex;align-items:center;justify-content:center;padding:70px 80px;background:rgba(4,4,6,.94);backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity .3s}
+#lb.on{opacity:1;pointer-events:auto}
+#lb img{max-width:100%;max-height:100%;border-radius:14px;box-shadow:0 40px 120px -30px rgba(0,0,0,.8)}
+#lb .pill{position:absolute;width:48px;height:48px;padding:0;justify-content:center;color:#eeebe6;border-color:rgba(255,255,255,.25)}
+#lb .pill:hover{background:#eeebe6;color:#060608}
+.lb-x{top:20px;right:20px}.lb-p{left:20px;top:50%;transform:translateY(-50%)}.lb-n{right:20px;top:50%;transform:translateY(-50%)}
+.lb-c{position:absolute;bottom:22px;left:0;right:0;text-align:center;color:#b9b3be}
 /* command palette */
 #ckb{gap:10px}#ckb .k{font-size:.62rem;color:var(--mu)}
 #cmdk{position:fixed;inset:0;z-index:85;display:flex;justify-content:center;align-items:flex-start;padding:14vh 16px 16px;background:rgba(6,6,8,.55);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .25s}
@@ -287,7 +302,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 
  .cols{grid-template-columns:1fr}.two{grid-template-columns:1fr}
  .box{padding:24px}
- .svc,.proc{grid-template-columns:1fr}#fl{display:none}#ckb .k,.ck-f{display:none}
+ .svc,.proc{grid-template-columns:1fr}.gal{grid-template-columns:1fr;grid-template-rows:none}.gi.big{grid-row:auto}#lb{padding:70px 12px}.lb-p,.lb-n{top:auto!important;bottom:14px;transform:none!important}#fl{display:none}#ckb .k,.ck-f{display:none}
 }
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.ln>span,.w>span{transform:none}.rv,.fade{opacity:1;transform:none}}
 </style>
@@ -312,6 +327,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
  <div class="nr"><button class="pill" id="ckb" aria-label="Open command menu"><i class="fas fa-magnifying-glass"></i><span class="k">⌘K</span></button><button class="pill" id="mode" aria-label="Switch to light mode"><i class="fas fa-sun"></i></button><button class="pill" id="burger" aria-label="Open menu" aria-expanded="false"><i class="fas fa-bars"></i></button></div>
 </nav>
 <div id="menu" aria-hidden="true"></div>
+<div id="lb" role="dialog" aria-modal="true" aria-label="Image viewer"><button class="lb-x pill" aria-label="Close"><i class="fas fa-xmark"></i></button><button class="lb-p pill" aria-label="Previous image"><i class="fas fa-arrow-left"></i></button><img alt=""><button class="lb-n pill" aria-label="Next image"><i class="fas fa-arrow-right"></i></button><span class="lb-c mono"></span></div>
 <div id="cmdk" role="dialog" aria-modal="true" aria-label="Command menu"><div class="ck-box"><div class="ck-in"><i class="fas fa-magnifying-glass"></i><input id="ckq" placeholder="Search sections, projects, actions…" aria-label="Search" autocomplete="off" spellcheck="false"><span class="mono">Esc</span></div><div id="ckl" role="listbox"></div><div class="ck-f"><span>↑ ↓ Navigate</span><span>↵ Open</span><span id="ckk">⌘K Toggle</span></div></div></div>
 
 <main>
@@ -379,6 +395,14 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 <section id="apps" class="work"><div class="sh"><span class="lbl rv">// My creations</span><h2 class="split">Applications</h2></div><div class="grid" id="g-apps"></div><div class="grid more" id="m-apps"></div><button class="pill xp" data-m="apps">View more apps</button></section>
 <section id="games" class="work"><div class="sh"><span class="lbl rv">// Just for fun</span><h2 class="split">Games</h2></div><div class="grid" id="g-games"></div></section>
 
+<section id="art"><div class="sh"><span class="lbl rv">// Character art</span><h2 class="split">Me, In <em>Vice</em> Mode</h2><p class="sub rv">My anime character in three neon, palm-lined scenes — designed and rendered in 4K.</p></div>
+ <div class="gal">
+  <button class="gi big rv" data-i="0" aria-label="View Neon City full size"><img src="media/art/neon-city-sm.webp" srcset="media/art/neon-city-sm.webp 1200w, media/art/neon-city.webp 2560w" sizes="(max-width:760px) 100vw, 66vw" alt="Evan's anime character in a neon city at night with Ocean Drive signs" width="1200" height="675" loading="lazy"><span class="gc mono">01 · Neon City</span></button>
+  <button class="gi rv" data-i="1" style="--d:100ms" aria-label="View Sunset Beach full size"><img src="media/art/sunset-beach-sm.webp" alt="Evan's anime character on a sunset beach with palm trees" width="1200" height="675" loading="lazy"><span class="gc mono">02 · Sunset Beach</span></button>
+  <button class="gi rv" data-i="2" style="--d:200ms" aria-label="View Palm Highway full size"><img src="media/art/palm-highway-sm.webp" alt="Evan's anime character beside a palm-lined highway at dusk" width="1200" height="675" loading="lazy"><span class="gc mono">03 · Palm Highway</span></button>
+ </div>
+</section>
+
 <section id="services"><div class="sh"><span class="lbl rv">// Services</span><h2 class="split">What I Can <em>Build</em> For You</h2><p class="sub rv">From idea to launch — design, development and deployment in one place.</p></div>
  <div class="svc">
   <div class="sv big rv"><div class="c-ic"><i class="fas fa-layer-group"></i></div><h3>SaaS &amp; Web Apps</h3><p>Full-stack products with sign-in, dashboards, payments and AI features — built to handle real users.</p><ul><li>Next.js / Node.js</li><li>Auth &amp; payments</li><li>Admin dashboards</li></ul></div>
@@ -425,7 +449,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 var $=function(s){return document.querySelector(s)},$$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))},RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
 /* ---------- DATA ---------- */
 var NAV=[["about","About"],["skills","Stack"],["saas","Work"],["services","Services"],["experience","Roadmap"],["contact","Contact"]];
-var WORK=["saas","client-work","projects","apps","games"];
+var WORK=["saas","client-work","projects","apps","games","art"];
 $("#nl").innerHTML=NAV.map(function(n){return'<li><a href="#'+n[0]+'" data-k="'+n[0]+'">'+n[1]+'</a></li>'}).join("");
 $("#menu").innerHTML=NAV.map(function(n,i){return'<a class="disp" href="#'+n[0]+'"><small>0'+(i+1)+'</small>'+n[1]+'</a>'}).join("");
 function C(tag,ic,t,d,tech,bd,b){return{tag:tag,ic:ic,t:t,d:d,tech:tech,bd:bd||[],b:b}}
@@ -501,7 +525,7 @@ if(!RM&&matchMedia("(hover:hover)").matches){
 /* ---------- FILM (scroll-scrubbed video) ---------- */
 var V=$("#film"),ST=$("#stage"),VE=$("#veil"),HW=$("#hw"),NV=$("#nav"),PG=$("#prog"),GI=$("#giant"),TL=$("#tl"),CT=$("#contact"),VG=$("#vig"),MOB=matchMedia("(max-width:760px)"),ready=false,cur=0,tgt=0,sh=0,shT=0,anc=[];
 /* film seconds + sideways shift (vw) for each section, when it is centred on screen */
-var PLAN=[["home",6,0],["about",15.5,24],["skills",23.5,0],["saas",29,-22],["client-work",31,-22],["projects",32.4,-22],["apps",32.7,-22],["games",32.7,-22],["services",32.7,-22],["experience",32.7,-22],["contact",32.7,0]];
+var PLAN=[["home",6,0],["about",15.5,24],["skills",23.5,0],["saas",29,-22],["client-work",31,-22],["projects",32.4,-22],["apps",32.7,-22],["games",32.7,-22],["art",32.7,-22],["services",32.7,-22],["experience",32.7,-22],["contact",32.7,0]];
 function meas(){var vh=innerHeight;anc=[[0,0,0]];PLAN.forEach(function(p){var e=$("#"+p[0]);anc.push([Math.max(1,e.offsetTop+e.offsetHeight/2-vh/2),p[1],p[2]])});
  for(var i=1;i<anc.length;i++)if(anc[i][0]<=anc[i-1][0])anc[i][0]=anc[i-1][0]+1}
 function upd(){var y=scrollY,a=anc,i=0;if(!a.length)return;
@@ -535,10 +559,19 @@ fetch(SRC).then(function(r){var tot=+r.headers.get("content-length")||0,rd=r.bod
  return rd.read().then(function pump(x){if(x.done)return new Blob(ch,{type:"video/mp4"});ch.push(x.value);got+=x.value.length;if(tot)filmProg(Math.min(99,Math.round(got/tot*100)));return rd.read().then(pump)})})
  .then(function(b){go(URL.createObjectURL(b))}).catch(function(){go(SRC)});
 document.addEventListener("touchstart",function(){V.play().then(function(){V.pause()}).catch(function(){})},{once:true});
+/* ---------- CHARACTER ART VIEWER ---------- */
+var ART=[["media/art/neon-city.webp","01 · Neon City"],["media/art/sunset-beach.webp","02 · Sunset Beach"],["media/art/palm-highway.webp","03 · Palm Highway"]],LB=$("#lb"),LI=LB.querySelector("img"),LC=LB.querySelector(".lb-c"),lbi=0,lbLast=null;
+function lbShow(i){lbi=(i+ART.length)%ART.length;LI.src=ART[lbi][0];LI.alt=$$(".gi img")[lbi].alt;LC.textContent=ART[lbi][1]+"  ·  "+(lbi+1)+" / "+ART.length}
+function lbOpen(i){lbLast=document.activeElement;lbShow(i);LB.classList.add("on");document.body.style.overflow="hidden";LB.querySelector(".lb-x").focus()}
+function lbClose(){LB.classList.remove("on");document.body.style.overflow="";lbLast&&lbLast.focus&&lbLast.focus()}
+$$(".gi").forEach(function(b){b.onclick=function(){lbOpen(+b.dataset.i)}});
+LB.querySelector(".lb-x").onclick=lbClose;LB.querySelector(".lb-p").onclick=function(){lbShow(lbi-1)};LB.querySelector(".lb-n").onclick=function(){lbShow(lbi+1)};
+LB.onclick=function(e){if(e.target==LB)lbClose()};
+document.addEventListener("keydown",function(e){if(!LB.classList.contains("on"))return;if(e.key=="Escape")lbClose();else if(e.key=="ArrowRight")lbShow(lbi+1);else if(e.key=="ArrowLeft")lbShow(lbi-1)});
 /* ---------- ⌘K COMMAND MENU ---------- */
 var CK=$("#cmdk"),CQ=$("#ckq"),CL=$("#ckl"),ML=$(".mail"),MAC=/Mac|iPhone|iPad/.test(navigator.platform||""),ckSel=0,ckRes=[],ckLast=null;
 if(!MAC){$("#ckb .k").textContent="Ctrl K";$("#ckk").textContent="Ctrl K Toggle"}
-var CMDS=[["Go to","About","user","#about"],["Go to","Stack","layer-group","#skills"],["Go to","Work","briefcase","#saas"],["Go to","Client work","handshake","#client-work"],["Go to","Games","gamepad","#games"],["Go to","Services","pen-ruler","#services"],["Go to","Roadmap","route","#experience"],["Go to","Contact","envelope","#contact"]];
+var CMDS=[["Go to","About","user","#about"],["Go to","Stack","layer-group","#skills"],["Go to","Work","briefcase","#saas"],["Go to","Client work","handshake","#client-work"],["Go to","Games","gamepad","#games"],["Go to","Character art","image","#art"],["Go to","Services","pen-ruler","#services"],["Go to","Roadmap","route","#experience"],["Go to","Contact","envelope","#contact"]];
 ["saas","saasMore","client","projects","projectsMore","apps","games"].forEach(function(k){D[k].forEach(function(c){var l=c.b.filter(function(x){return x[2]&&x[1]!="#"})[0];if(l)CMDS.push(["Projects",c.t,c.ic,l[1],l[4]])})});
 CMDS.push(["Actions","Switch dark / light mode","circle-half-stroke",function(){MB.click()}],["Actions","Download CV","file-arrow-down","Evan_CV.pdf"],["Actions","Copy email address","copy",function(){try{navigator.clipboard.writeText(ML.textContent)}catch(e){}}],["Actions","Send an email","paper-plane",function(){location.href=ML.href}],["Actions","Open LinkedIn","link","https://www.linkedin.com/in/tech-evan-b374382b6/",1],["Actions","Chat on WhatsApp","comment","https://wa.me/+8801770849168",1]);
 function ckRender(){var q=CQ.value.trim().toLowerCase(),g="";ckRes=CMDS.filter(function(c){return!q||(c[1]+" "+c[0]).toLowerCase().indexOf(q)>-1});if(ckSel>=ckRes.length)ckSel=0;
