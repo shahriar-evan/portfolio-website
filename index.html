@@ -265,6 +265,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .proc{display:grid;grid-template-columns:repeat(4,1fr);margin-top:56px;border-top:1px solid var(--ln)}
 .ps{padding:26px 22px 0 0}.ps .mono{color:var(--ac)}.ps b{display:block;font-family:var(--disp);font-weight:700;font-size:1.15rem;margin:8px 0 6px}.ps p{color:var(--mu);font-size:.88rem}
 .svc-cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:54px}
+#toast{position:fixed;left:50%;bottom:28px;z-index:95;transform:translate(-50%,20px);padding:12px 20px;border-radius:999px;background:#0d0c10;color:#fff;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;opacity:0;pointer-events:none;transition:opacity .3s,transform .4s var(--ease);box-shadow:0 20px 50px -20px rgba(0,0,0,.6)}
+#toast.on{opacity:1;transform:translate(-50%,0)}
 /* command palette */
 #ckb{gap:10px}#ckb .k{font-size:.62rem;color:var(--mu)}
 #cmdk{position:fixed;inset:0;z-index:85;display:flex;justify-content:center;align-items:flex-start;padding:14vh 16px 16px;background:rgba(6,6,8,.55);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .25s}
@@ -320,6 +322,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
  <div class="nr"><button class="pill" id="ckb" aria-label="Open command menu"><i class="fas fa-magnifying-glass"></i><span class="k">⌘K</span></button><button class="pill" id="mode" aria-label="Switch to light mode"><i class="fas fa-sun"></i></button><button class="pill" id="burger" aria-label="Open menu" aria-expanded="false"><i class="fas fa-bars"></i></button></div>
 </nav>
 <div id="menu" aria-hidden="true"></div>
+<div id="toast" role="status" aria-live="polite"></div>
 <div id="cmdk" role="dialog" aria-modal="true" aria-label="Command menu"><div class="ck-box"><div class="ck-in"><i class="fas fa-magnifying-glass"></i><input id="ckq" placeholder="Search sections, projects, actions…" aria-label="Search" autocomplete="off" spellcheck="false"><span class="mono">Esc</span></div><div id="ckl" role="listbox"></div><div class="ck-f"><span>↑ ↓ Navigate</span><span>↵ Open</span><span id="ckk">⌘K Toggle</span></div></div></div>
 
 <main>
@@ -414,8 +417,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
    <div class="rv" style="--d:200ms"><span class="mono">// Elsewhere</span><span class="lockd" title="GitHub is private"><i class="fas fa-lock"></i> GitHub</span><a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/tech-evan-b374382b6/">LinkedIn ↗</a><a target="_blank" rel="noopener noreferrer" href="https://wa.me/+8801770849168">WhatsApp ↗</a></div>
   </div>
   <div class="cform">
-   <div class="rv"><span class="lbl">// Say hello</span><h3>Have a project in mind? Let's build something great.</h3><p>Always open to new projects, creative ideas, or a role on a team building something real.</p><a class="mail" href="mailto:shahriarevan545@gmail.com">shahriarevan545@gmail.com</a>
-    <div class="soc"><span class="lockd" title="GitHub is private" aria-label="GitHub (private)"><i class="fas fa-lock"></i></span><a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/tech-evan-b374382b6/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a><a target="_blank" rel="noopener noreferrer" href="https://wa.me/+8801770849168" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a><a href="mailto:shahriarevan545@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a></div></div>
+   <div class="rv"><span class="lbl">// Say hello</span><h3>Have a project in mind? Let's build something great.</h3><p>Always open to new projects, creative ideas, or a role on a team building something real.</p><a class="mail em" href="mailto:shahriarevan545@gmail.com">shahriarevan545@gmail.com</a>
+    <div class="soc"><span class="lockd" title="GitHub is private" aria-label="GitHub (private)"><i class="fas fa-lock"></i></span><a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/tech-evan-b374382b6/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a><a target="_blank" rel="noopener noreferrer" href="https://wa.me/+8801770849168" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a><a class="em" href="mailto:shahriarevan545@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a></div></div>
    <form class="rv" style="--d:150ms" action="https://formspree.io/f/mbdqkjnr" method="POST">
     <div class="two"><div class="fl"><input id="fn" name="name" placeholder=" " required><label for="fn">Name</label></div><div class="fl"><input id="fe" type="email" name="email" placeholder=" " required><label for="fe">Email</label></div></div>
     <div class="fl"><textarea id="fm" name="message" rows="4" placeholder=" " required></textarea><label for="fm">Your message</label></div>
@@ -523,10 +526,10 @@ function loop(){var e=RM?1:.14,y=scrollY,vh=innerHeight;cur+=(tgt-cur)*e;sh+=(sh
  ST.style.transform="translateX("+sh+"vw)";
  /* hero text drifts up and fades; the film darkens behind the content sections */
  var hp=cl(y/(vh*.75));HW.style.opacity=1-hp;HW.style.transform="translateY("+(-y*.28)+"px)";
- var lt=RT.dataset.mode=="light",cr=CT.getBoundingClientRect(),ck=lt?0:cl(1-cr.top/vh-.6);
+ var lt=RT.dataset.mode=="light",cr=CT.getBoundingClientRect(),ck=cl(1-cr.top/vh-.6);
  /* past the hero the neon city photo fades in behind the content, dimmed for reading */
  var ka=cl((y-vh*.3)/(vh*.8));BA.style.opacity=ka.toFixed(3);
- var vo=ka*(lt?.82:.62)*(1-.4*ck);VE.style.opacity=vo.toFixed(3);
+ var vo=ka*(lt?.56:.62)*(1-(lt?.85:.4)*ck);VE.style.opacity=vo.toFixed(3);
  if(lt)VG.style.opacity=(1-ka).toFixed(3);else VG.style.opacity="";
  NV.classList.toggle("sc",y>40);
  var dh=document.documentElement.scrollHeight-vh;PG.style.transform="scaleX("+(dh>0?y/dh:0)+")";
@@ -545,12 +548,18 @@ fetch(SRC).then(function(r){var tot=+r.headers.get("content-length")||0,rd=r.bod
  return rd.read().then(function pump(x){if(x.done)return new Blob(ch,{type:"video/mp4"});ch.push(x.value);got+=x.value.length;if(tot)filmProg(Math.min(99,Math.round(got/tot*100)));return rd.read().then(pump)})})
  .then(function(b){go(URL.createObjectURL(b))}).catch(function(){go(SRC)});
 document.addEventListener("touchstart",function(){V.play().then(function(){V.pause()}).catch(function(){})},{once:true});
+/* ---------- EMAIL: copy + open Gmail compose ---------- */
+var TO=$("#toast"),toT;
+function toast(t){TO.textContent=t;TO.classList.add("on");clearTimeout(toT);toT=setTimeout(function(){TO.classList.remove("on")},2600)}
+function sendMail(){var a=$(".mail").textContent.trim();try{navigator.clipboard.writeText(a)}catch(e){}
+ window.open("https://mail.google.com/mail/?view=cm&fs=1&to="+encodeURIComponent(a),"_blank","noopener");toast("Email copied · opening Gmail")}
+$$("a.em").forEach(function(l){l.addEventListener("click",function(e){e.preventDefault();sendMail()})});
 /* ---------- ⌘K COMMAND MENU ---------- */
 var CK=$("#cmdk"),CQ=$("#ckq"),CL=$("#ckl"),ML=$(".mail"),MAC=/Mac|iPhone|iPad/.test(navigator.platform||""),ckSel=0,ckRes=[],ckLast=null;
 if(!MAC){$("#ckb .k").textContent="Ctrl K";$("#ckk").textContent="Ctrl K Toggle"}
 var CMDS=[["Go to","About","user","#about"],["Go to","Stack","layer-group","#skills"],["Go to","Work","briefcase","#saas"],["Go to","Client work","handshake","#client-work"],["Go to","Games","gamepad","#games"],["Go to","Services","pen-ruler","#services"],["Go to","Roadmap","route","#experience"],["Go to","Contact","envelope","#contact"]];
 ["saas","saasMore","client","projects","projectsMore","games"].forEach(function(k){D[k].forEach(function(c){var l=c.b.filter(function(x){return x[2]&&x[1]!="#"})[0];if(l)CMDS.push(["Projects",c.t,c.ic,l[1],l[4]])})});
-CMDS.push(["Actions","Switch dark / light mode","circle-half-stroke",function(){MB.click()}],["Actions","Download CV","file-arrow-down","Evan_CV.pdf"],["Actions","Copy email address","copy",function(){try{navigator.clipboard.writeText(ML.textContent)}catch(e){}}],["Actions","Send an email","paper-plane",function(){location.href=ML.href}],["Actions","Open LinkedIn","link","https://www.linkedin.com/in/tech-evan-b374382b6/",1],["Actions","Chat on WhatsApp","comment","https://wa.me/+8801770849168",1]);
+CMDS.push(["Actions","Switch dark / light mode","circle-half-stroke",function(){MB.click()}],["Actions","Download CV","file-arrow-down","Evan_CV.pdf"],["Actions","Copy email address","copy",function(){try{navigator.clipboard.writeText(ML.textContent)}catch(e){}}],["Actions","Send an email","paper-plane",function(){sendMail()}],["Actions","Open LinkedIn","link","https://www.linkedin.com/in/tech-evan-b374382b6/",1],["Actions","Chat on WhatsApp","comment","https://wa.me/+8801770849168",1]);
 function ckRender(){var q=CQ.value.trim().toLowerCase(),g="";ckRes=CMDS.filter(function(c){return!q||(c[1]+" "+c[0]).toLowerCase().indexOf(q)>-1});if(ckSel>=ckRes.length)ckSel=0;
  CL.innerHTML=ckRes.length?ckRes.map(function(c,i){var h=(c[0]!=g?'<div class="ck-g">'+c[0]+'</div>':"");g=c[0];return h+'<div class="ck-i'+(i==ckSel?' on':'')+'" role="option" aria-selected="'+(i==ckSel)+'" data-i="'+i+'"><i class="fas fa-'+c[2]+'"></i><span>'+c[1]+'</span><small>'+(typeof c[3]=="function"?"Run":c[4]?"↗":"↵")+'</small></div>'}).join(""):'<div class="ck-none">No results</div>';
  var on=CL.querySelector(".ck-i.on");on&&on.scrollIntoView({block:"nearest"})}
