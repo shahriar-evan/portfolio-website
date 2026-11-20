@@ -211,7 +211,12 @@ h2 em{font-style:normal;color:transparent;-webkit-text-stroke:1px rgba(238,235,2
 /* contact */
 #contact{max-width:none;padding:130px 0 0;overflow:hidden}
 .giant{font-size:clamp(6rem,22vw,22rem);white-space:nowrap;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.13);text-align:center;will-change:transform;margin-bottom:-2vw}
-.cw{max-width:1320px;margin:0 auto;padding:0 6vw}
+.cw{position:relative;z-index:2;max-width:1240px;width:calc(100% - 8vw);margin:0 auto;padding:10px 56px 56px;border-radius:28px;background:#fff;color:#0d0c10;box-shadow:0 50px 120px -40px rgba(0,0,0,.75);
+ --tx:#0d0c10;--mu:#1f1c24;--dim:#4a4552;--ok:#11823f;--ac:#d92b2b;--ln:rgba(13,12,16,.12);--ln2:rgba(13,12,16,.28);--bg:#fff}
+.cw p,.cw a,.cw h3,.cw label,.cw input,.cw textarea,.cw .lockd{font-weight:700}
+.cw .cols{border-top:0}
+.cw .cform{padding:56px 0 0}
+@media(max-width:760px){.cw{width:calc(100% - 32px);padding:4px 22px 30px;border-radius:22px}}
 .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;padding:40px 0;border-top:1px solid var(--ln);border-bottom:1px solid var(--ln)}
 .cols .mono{color:var(--dim);display:block;margin-bottom:14px}
 .cols p,.cols a{display:block;color:var(--tx);font-size:.95rem;line-height:1.9}
