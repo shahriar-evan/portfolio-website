@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tally — Case Study · Evan</title>
+<meta name="description" content="Case study: Tally, an international price comparison site that shows every store's delivery-included total for the same product, cheapest first.">
+<meta name="theme-color" content="#060608">
+<link rel="canonical" href="https://shahriarevan.com/tally-casestudy.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://shahriarevan.com/tally-casestudy.html">
+<meta property="og:title" content="Tally — Case Study by Md. Shahriar Nafiz Evan">
+<meta property="og:description" content="Every store, one total. Delivery-included prices from 6 stores across 6 countries.">
+<meta property="og:image" content="https://shahriarevan.com/media/shots/tally.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script>try{if(localStorage.getItem("mode")=="light")document.documentElement.dataset.mode="light"}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{--bg:#060608;--tx:#eeebe6;--mu:#97919d;--dim:#5f5a66;--ac:#ef4444;--k:#f0634b;--ok:#5cc48c;--okt:rgba(92,196,140,.12);--ln:rgba(255,255,255,.09);--ln2:rgba(255,255,255,.18);--card:rgba(17,15,21,.66);
+ --disp:"Archivo",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;--ease:cubic-bezier(.2,.75,.2,1)}
+[data-mode=light]{--bg:#f3f1ed;--tx:#141218;--mu:#5b5662;--dim:#8b8691;--k:#d63f27;--ok:#1e7a4c;--okt:#e3f0e8;--ln:rgba(20,18,24,.1);--ln2:rgba(20,18,24,.2);--card:rgba(255,255,255,.74)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:radial-gradient(ellipse 70% 50% at 80% 0%,rgba(240,99,75,.11),transparent 70%),radial-gradient(ellipse 60% 40% at 0% 30%,rgba(92,196,140,.07),transparent 70%),var(--bg);background-attachment:fixed;color:var(--tx);font:16.5px/1.7 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body:after{content:"";position:fixed;inset:-50%;z-index:70;pointer-events:none;opacity:.06;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--ac);color:#fff}
+code{font-family:var(--mono);font-size:.82em;padding:2px 6px;border-radius:5px;border:1px solid var(--ln);background:rgba(127,127,127,.08)}
+.mono{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase}
+#prog{position:fixed;top:0;left:0;right:0;height:2px;z-index:80;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--ok),var(--k))}
+nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;justify-content:space-between;align-items:center;padding:14px 4vw;background:rgba(6,6,8,.6);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);border-bottom:1px solid var(--ln)}
+[data-mode=light] nav{background:rgba(243,241,237,.75)}
+.logo{font-family:var(--disp);font-weight:800;font-size:1.3rem;letter-spacing:-.02em}.logo b{color:var(--ac)}
+.nr{display:flex;gap:10px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;border:1px solid var(--ln2);font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tx);background:rgba(127,127,127,.04);cursor:pointer;transition:background .35s,color .35s,border-color .35s}
+.pill:hover{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.pill.w{background:var(--tx);color:var(--bg);border-color:var(--tx)}.pill.w:hover{background:transparent;color:var(--tx)}
+#mode{width:40px;height:40px;padding:0;justify-content:center}
+.wrap{max-width:900px;margin:0 auto;padding:0 6vw}
+.wide{max-width:1240px}
+/* hero */
+.hero{padding:150px 0 70px}
+.brand{display:flex;align-items:center;gap:14px}
+.brand svg{width:54px;height:54px}
+.logo-bg{fill:var(--tx)}.logo-st{stroke:var(--bg)}
+.word{font-family:var(--disp);font-weight:800;font-size:2rem;letter-spacing:-.04em}.word span{color:var(--k)}
+.lbl{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--ln2);border-radius:999px;font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mu);background:rgba(127,127,127,.04)}
+.lbl:before{content:"";width:5px;height:5px;border-radius:50%;background:var(--k)}
+.hero .lbl{margin-top:44px}
+h1{font-family:var(--disp);font-stretch:108%;font-weight:800;font-size:clamp(2.3rem,6vw,4.6rem);letter-spacing:-.035em;line-height:1;margin-top:22px;max-width:16ch}
+h1 em{font-style:normal;color:transparent;-webkit-text-stroke:1.5px var(--k)}
+.lede{color:var(--mu);font-size:1.12rem;margin-top:26px;max-width:62ch}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin-top:50px;padding-top:26px;border-top:1px solid var(--ln)}
+.meta dt{color:var(--k)}.meta dd{margin-top:8px;font-size:.95rem}
+.meta a{border-bottom:1px solid var(--ln2)}.meta a:hover{color:var(--k);border-color:var(--k)}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:36px}
+.shot{margin-top:60px;border-radius:22px;overflow:hidden;border:1px solid var(--ln2);box-shadow:0 60px 120px -50px rgba(0,0,0,.8),0 0 120px -40px rgba(240,99,75,.35)}
+.shot img{display:block;width:100%;height:auto}
+.nums{margin-top:80px;border-top:1px solid var(--ln);border-bottom:1px solid var(--ln)}
+.nums ul{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.nums li{padding:30px 16px 30px 0}
+.nums b{display:block;font-family:var(--disp);font-weight:300;font-size:clamp(2rem,3.4vw,2.9rem);letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.nums span{display:block;margin-top:10px;color:var(--mu);font-size:.82rem;line-height:1.4}
+/* blocks */
+section{padding:110px 0 0}
+section .mono.k{color:var(--k);display:block;margin-bottom:14px}
+h2{font-family:var(--disp);font-stretch:106%;font-weight:800;font-size:clamp(1.8rem,3.8vw,2.9rem);letter-spacing:-.03em;line-height:1.05;margin-bottom:22px}
+section p{color:var(--mu);margin-bottom:16px;max-width:68ch}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:50px;align-items:center}
+/* receipt */
+.receipt{position:relative;border:1px solid var(--ln2);border-radius:20px;background:var(--card);backdrop-filter:blur(16px);font-size:.93rem}
+.receipt .tag{position:absolute;top:-11px;left:20px;background:var(--tx);color:var(--bg);font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;padding:4px 9px;border-radius:4px}
+.receipt .hd{padding:24px 22px 16px;border-bottom:1px dashed var(--ln2)}
+.receipt .hd .mono{color:var(--mu)}.receipt .hd p{color:var(--tx);margin:4px 0 0;font-weight:600}
+.receipt ol{list-style:none;padding:4px 22px}
+.receipt li{display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;gap:8px;padding:13px 0;border-bottom:1px solid var(--ln)}
+.receipt li:last-child{border-bottom:0}
+.receipt .r{font-family:var(--mono);font-size:.7rem;color:var(--dim)}
+.receipt .s small{color:var(--mu);margin-left:6px;font-size:.75rem}
+.receipt .t{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.receipt .t small{display:block;font-family:Manrope,sans-serif;font-size:.7rem;color:var(--mu)}
+.receipt li.best .s{font-weight:700}.receipt li.best .t{color:var(--ok);font-weight:600}
+.receipt li.worst .t>span{text-decoration:line-through;text-decoration-color:var(--k);color:var(--mu)}
+.receipt .sv{display:flex;justify-content:space-between;align-items:center;margin:4px 22px 22px;padding:13px 16px;background:var(--okt);border-radius:10px}
+.receipt .sv b{font-family:var(--mono);color:var(--ok)}
+/* cards */
+.parts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:14px}
+.parts.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.part{padding:28px 26px;border:1px solid var(--ln);border-radius:22px;background:var(--card);backdrop-filter:blur(16px);transition:border-color .4s,transform .6s var(--ease)}
+.part:hover{border-color:var(--ln2);transform:translateY(-5px)}
+.part .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;border:1px solid var(--ln);margin-bottom:20px;color:var(--k)}
+.part .who{color:var(--k)}.part h3{font-family:var(--disp);font-weight:750;font-size:1.35rem;letter-spacing:-.02em;margin:6px 0 14px}
+.part p{font-size:.92rem;margin:0}
+.part ul{list-style:none;display:grid;gap:9px}.part li{color:var(--mu);font-size:.92rem;padding-left:22px;position:relative}.part li:before{content:"→";position:absolute;left:0;color:var(--dim)}
+.part li b{color:var(--tx);font-weight:600}
+.prob{display:grid;grid-template-columns:90px minmax(0,1fr);gap:0 20px;padding:38px 0;border-top:1px solid var(--ln)}
+.prob:last-child{border-bottom:1px solid var(--ln)}
+.prob .n{font-family:var(--disp);font-weight:300;font-size:3rem;line-height:.9;letter-spacing:-.04em;color:var(--dim)}
+.prob h3{font-family:var(--disp);font-weight:750;font-size:clamp(1.25rem,2.4vw,1.6rem);letter-spacing:-.02em;line-height:1.2;margin-bottom:12px}
+.prob p{margin-bottom:0}
+.tbl{overflow-x:auto;border:1px solid var(--ln);border-radius:20px;background:var(--card);backdrop-filter:blur(16px);margin-top:10px}
+table{border-collapse:collapse;width:100%;min-width:34rem;font-size:.93rem}
+th,td{text-align:left;padding:16px 20px;border-bottom:1px solid var(--ln);vertical-align:top}
+tr:last-child td,tr:last-child th{border-bottom:0}
+th{font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--k);font-weight:500;white-space:nowrap;width:150px}
+td{color:var(--mu)}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.tags span{font-family:var(--mono);font-size:.7rem;letter-spacing:.04em;padding:8px 12px;border-radius:8px;border:1px solid var(--ln);background:rgba(127,127,127,.04);color:var(--tx)}
+.status{padding:30px 32px;border:1px solid var(--ln2);border-radius:22px;background:linear-gradient(135deg,rgba(240,99,75,.1),transparent 60%),var(--card);backdrop-filter:blur(16px)}
+.status .mono{display:inline-flex;gap:9px;align-items:center;color:var(--k);margin-bottom:14px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--k);box-shadow:0 0 0 0 rgba(240,99,75,.6);animation:ping 2s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 9px rgba(240,99,75,0)}100%{box-shadow:0 0 0 0 rgba(240,99,75,0)}}
+.lim{list-style:none;border-top:1px solid var(--ln)}
+.lim li{display:grid;grid-template-columns:190px minmax(0,1fr);gap:16px;padding:15px 0;border-bottom:1px solid var(--ln);color:var(--mu)}
+.lim li b{color:var(--tx);font-weight:600}
+.road{list-style:none;counter-reset:r;margin-top:10px}
+.road li{counter-increment:r;display:grid;grid-template-columns:50px minmax(0,1fr);gap:12px;padding:15px 0;border-bottom:1px solid var(--ln)}
+.road li:before{content:counter(r,decimal-leading-zero);font-family:var(--mono);font-size:.75rem;color:var(--dim);padding-top:4px}
+.road li:first-child:before{color:var(--k)}
+.road b{display:block;color:var(--tx);font-weight:600}.road span{color:var(--mu);font-size:.95rem}
+.first{font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;background:var(--k);color:#fff;border-radius:4px;padding:2px 7px;margin-left:8px;vertical-align:2px}
+.next{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:110px;padding:40px 0;border-top:1px solid var(--ln)}
+.next h3{font-family:var(--disp);font-weight:800;font-size:clamp(1.6rem,3.4vw,2.6rem);letter-spacing:-.03em;line-height:1.05}
+footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:28px 6vw 34px;color:var(--dim);border-top:1px solid var(--ln)}
+footer a{color:var(--mu)}footer a:hover{color:var(--tx)}
+.rv{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1.1s var(--ease);transition-delay:var(--d,0ms)}.rv.on{opacity:1;transform:none}
+a:focus-visible,button:focus-visible{outline:1px solid var(--k);outline-offset:4px}
+@media(max-width:1000px){.parts{grid-template-columns:1fr}.split{grid-template-columns:1fr}}
+@media(max-width:700px){.meta{grid-template-columns:1fr 1fr}.nums ul{grid-template-columns:repeat(2,minmax(0,1fr))}.prob{grid-template-columns:1fr}.prob .n{font-size:2rem;margin-bottom:10px}.hero{padding-top:120px}.parts.two{grid-template-columns:1fr}.lim li{grid-template-columns:1fr;gap:2px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<nav><a href="index.html" class="logo">Evan<b>.</b></a><div class="nr"><a href="index.html#client-work" class="pill"><i class="fas fa-arrow-left"></i> Portfolio</a><button class="pill" id="mode" aria-label="Switch to light mode"><i class="fas fa-sun"></i></button></div></nav>
+
+<main>
+<header class="hero">
+ <div class="wrap wide">
+  <div class="brand rv"><svg viewBox="0 0 32 32" aria-hidden="true"><rect class="logo-bg" width="32" height="32" rx="8"/><g class="logo-st" stroke-width="2.4" stroke-linecap="round" fill="none"><path d="M10 9.5v13"/><path d="M14 9.5v13"/><path d="M18 9.5v13"/><path d="M22 9.5v13"/></g><path d="M7 20.5 25 11.5" stroke="var(--k)" stroke-width="2.6" stroke-linecap="round" fill="none"/></svg><div class="word">tally<span>.</span></div></div>
+  <span class="lbl rv" style="--d:80ms">Case study · International price comparison</span>
+  <h1 class="rv" style="--d:140ms">Every store, <em>one total.</em></h1>
+  <p class="lede rv" style="--d:200ms">Tally shows what each store charges for the same product, adds delivery, and sorts the list so the cheapest real total is always first. One search replaces five open tabs.</p>
+  <dl class="meta rv" style="--d:260ms">
+   <div><dt class="mono">Role</dt><dd>Product, brand, design and full-stack development</dd></div>
+   <div><dt class="mono">Built</dt><dd>November 2026</dd></div>
+   <div><dt class="mono">Stack</dt><dd>Next.js, React, Tailwind CSS, Vercel</dd></div>
+   <div><dt class="mono">Live at</dt><dd><a href="https://tally-shahriar-evans-projects.vercel.app" target="_blank" rel="noopener noreferrer">tally on Vercel ↗</a></dd></div>
+  </dl>
+  <div class="cta rv" style="--d:300ms"><a class="pill w" href="https://tally-shahriar-evans-projects.vercel.app" target="_blank" rel="noopener noreferrer">Visit Tally <i class="fas fa-arrow-up-right-from-square"></i></a><span class="pill" style="cursor:not-allowed;color:var(--dim)" title="Source code is private"><i class="fas fa-lock"></i> Code</span></div>
+  <div class="shot rv" style="--d:200ms"><img src="media/shots/tally.webp" alt="Tally home page with a price comparison for one product across four stores" width="960" height="600"></div>
+  <div class="nums rv">
+   <ul>
+    <li><b>6</b><span>countries</span></li>
+    <li><b>6</b><span>major stores</span></li>
+    <li><b>6</b><span>currencies</span></li>
+    <li><b>0</b><span>accounts needed</span></li>
+   </ul>
+  </div>
+ </div>
+</header>
+
+<section>
+ <div class="wrap wide split">
+  <div class="rv">
+   <span class="mono k">// The problem</span>
+   <h2>Same product, five different prices</h2>
+   <p>Amazon has one price, AliExpress another, Daraz a third. Delivery is charged on top, and often in a different currency.</p>
+   <p>So shoppers open four or five store sites one by one, add each delivery fee themselves, and convert currencies by hand. Many give up and buy from the first store they saw, which usually means paying more than they needed to.</p>
+  </div>
+  <figure class="receipt rv" style="--d:120ms" aria-label="Example comparison from the Tally catalogue">
+   <span class="tag">From the catalogue</span>
+   <div class="hd"><span class="mono">Digital</span><p>Premium Resume Templates (50 designs)</p></div>
+   <ol>
+    <li class="best"><span class="r">01</span><span class="s">Amazon<small>US</small></span><span class="t">$13.50<small>free delivery</small></span></li>
+    <li><span class="r">02</span><span class="s">Daraz<small>PK</small></span><span class="t">$14.40<small>free delivery</small></span></li>
+    <li><span class="r">03</span><span class="s">AliExpress<small>CN</small></span><span class="t">$20.74<small>incl. $4.99 delivery</small></span></li>
+    <li class="worst"><span class="r">04</span><span class="s">Shopee<small>SG</small></span><span class="t"><span>$23.79</span><small>incl. $6.99 delivery</small></span></li>
+   </ol>
+   <div class="sv"><span>Cheapest vs. priciest</span><b>−$10.29</b></div>
+  </figure>
+ </div>
+</section>
+
+<section>
+ <div class="wrap wide">
+  <div class="rv"><span class="mono k">// The solution</span><h2>One search, one sorted list</h2><p>Tally answers four questions on one screen: which websites sell the product, what each one charges, what delivery costs, and what the total comes to. The number at the top is what the shopper actually pays.</p></div>
+  <div class="parts">
+   <div class="part rv"><div class="ic"><i class="fas fa-magnifying-glass"></i></div><span class="mono who">01</span><h3>Search once</h3><p>Type the product. Tally pulls every listing for it from every store in the network.</p></div>
+   <div class="part rv" style="--d:100ms"><div class="ic"><i class="fas fa-truck"></i></div><span class="mono who">02</span><h3>Delivery goes in</h3><p>Each row shows price plus delivery as one total, so a cheap price with costly shipping can't hide.</p></div>
+   <div class="part rv" style="--d:200ms"><div class="ic"><i class="fas fa-arrow-down-short-wide"></i></div><span class="mono who">03</span><h3>Cheapest on top</h3><p>Results are sorted by that total. Tap a store and its product page opens to buy.</p></div>
+  </div>
+ </div>
+</section>
+
+<section>
+ <div class="wrap rv">
+  <span class="mono k">// The brand</span>
+  <h2>Built to travel</h2>
+  <div class="tbl"><table><tbody>
+   <tr><th scope="row">Name</th><td>"Tally" means to count and match up. A short, plain English word that people anywhere can pronounce.</td></tr>
+   <tr><th scope="row">Countries</th><td>Six markets today.<div class="tags"><span>🇺🇸 US</span><span>🇨🇳 CN</span><span>🇧🇩 BD</span><span>🇵🇰 PK</span><span>🇸🇬 SG</span><span>🇲🇾 MY</span></div></td></tr>
+   <tr><th scope="row">Stores</th><td><div class="tags" style="margin-top:0"><span>Amazon</span><span>AliExpress</span><span>Daraz PK</span><span>Daraz BD</span><span>Shopee</span><span>Lazada</span></div></td></tr>
+   <tr><th scope="row">Currencies</th><td>One click shows every price on the site in the shopper's currency.<div class="tags"><span>USD</span><span>CNY</span><span>BDT</span><span>PKR</span><span>SGD</span><span>MYR</span></div></td></tr>
+   <tr><th scope="row">Design</th><td>Clean and plain. It doesn't lean on any one country's visual style, so it fits any market.</td></tr>
+   <tr><th scope="row">Logo</th><td>A tally mark: four strokes, with a fifth crossing them out. Every store counted, the best one picked. It reads without words.</td></tr>
+  </tbody></table></div>
+ </div>
+</section>
+
+<section>
+ <div class="wrap wide">
+  <div class="rv"><span class="mono k">// For shoppers</span><h2>What users get</h2></div>
+  <div class="parts two">
+   <div class="part rv"><div class="ic"><i class="fas fa-coins"></i></div><h3>Saves money</h3><ul><li>Every store's price <b>side by side</b> from one search</li><li>The <b>real total</b> with delivery included</li><li>The cheapest store marked with a green <b>Lowest</b> badge</li><li>The gap between cheapest and priciest shown on every product</li></ul></div>
+   <div class="part rv" style="--d:100ms"><div class="ic"><i class="fas fa-clock"></i></div><h3>Saves time</h3><ul><li>No visiting five websites</li><li>No manual maths or currency conversion</li><li><b>Buy</b> opens the store's product page directly</li></ul></div>
+   <div class="part rv"><div class="ic"><i class="fas fa-filter"></i></div><h3>Easy to find things</h3><ul><li><b>Categories:</b> Electronics, Fashion, Accessories, Digital</li><li><b>Filters:</b> country, category, store, price range</li><li><b>Sorting:</b> lowest price, best value, highest rating</li><li>Ratings, review counts and similar products on every page</li></ul></div>
+   <div class="part rv" style="--d:100ms"><div class="ic"><i class="fas fa-shield-halved"></i></div><h3>No hassle, no tricks</h3><ul><li><b>No account</b> and no browser extension</li><li>Works well on phones and <b>installs like an app</b></li><li>Light and dark mode</li><li>Referral fees <b>never change the order</b>. Cheapest total is always first</li></ul></div>
+  </div>
+ </div>
+</section>
+
+<section>
+ <div class="wrap wide">
+  <div class="rv"><span class="mono k">// Business model</span><h2>How Tally earns</h2></div>
+  <div class="parts">
+   <div class="part rv"><span class="mono who">Revenue</span><h3>Affiliate commission</h3><p>Every Buy link carries <code>?ref=tally</code>. When a shopper buys, the store pays a commission.</p></div>
+   <div class="part rv" style="--d:100ms"><span class="mono who">Insight</span><h3>Click tracking</h3><p>The admin panel shows how many clicks each product and store gets.</p></div>
+   <div class="part rv" style="--d:200ms"><span class="mono who">Operations</span><h3>Admin panel</h3><p>Add, edit and remove products, stores and offers from <code>/admin</code>.</p></div>
+  </div>
+ </div>
+</section>
+
+<section>
+ <div class="wrap rv">
+  <div class="status">
+   <span class="mono"><i class="dot"></i>Where it stands · November 2026</span>
+   <p style="color:var(--tx)">The site, brand and admin panel are built. Listed honestly, so nothing is overclaimed:</p>
+   <ul class="lim">
+    <li><b>Manual prices</b><span>Prices are entered in the admin panel, not pulled from stores automatically. The demo catalogue has 20 products.</span></li>
+    <li><b>Fixed exchange rates</b><span>Currency conversion uses a reference rate that isn't updated daily.</span></li>
+    <li><b>Database pending</b><span>The live site needs a cloud database connected before products appear.</span></li>
+    <li><b>No unproven claims</b><span>User numbers and store-vetting claims can't be backed up yet, so the site doesn't make them.</span></li>
+   </ul>
+  </div>
+ </div>
+</section>
+
+<section>
+ <div class="wrap rv">
+  <span class="mono k">// Roadmap · in priority order</span>
+  <h2>What comes next</h2>
+  <ol class="road">
+   <li><div><b>Live prices <span class="first">First</span></b><span>Pull prices automatically from the Amazon, AliExpress and Daraz affiliate APIs.</span></div></li>
+   <li><div><b>Price history</b><span>A chart showing whether a price has gone up or down over time.</span></div></li>
+   <li><div><b>Price drop alerts</b><span>An email or notification when a watched product gets cheaper.</span></div></li>
+   <li><div><b>Coupons and promo codes</b><span>Which discounts each store is running right now.</span></div></li>
+   <li><div><b>More markets</b><span>India (Flipkart), Indonesia (Tokopedia), the Middle East (Noon).</span></div></li>
+   <li><div><b>Live exchange rates</b><span>Daily rates instead of a fixed reference.</span></div></li>
+   <li><div><b>More languages</b><span>Including Bangla, Urdu and Malay.</span></div></li>
+   <li><div><b>Wishlist and side-by-side compare</b><span>Save products and compare two or more at once.</span></div></li>
+  </ol>
+  <div class="tags" style="margin-top:40px"><span>Next.js</span><span>React</span><span>Tailwind CSS</span><span>Vercel</span><span>Admin panel</span><span>Installable web app</span><span>Light / dark mode</span><span>Multi-currency</span><span>Affiliate links</span></div>
+ </div>
+</section>
+
+<div class="wrap wide">
+ <div class="next rv"><div><span class="mono" style="color:var(--dim)">Want something like this?</span><h3>Let's build your product.</h3></div><div class="cta" style="margin:0"><a class="pill w" href="index.html#contact">Start a project <i class="fas fa-arrow-right"></i></a><a class="pill" href="index.html#client-work">See more work</a></div></div>
+</div>
+</main>
+<footer class="mono"><span>Tally · Every store, one total.</span><span>Case study by <a href="index.html">Md. Shahriar Nafiz Evan</a></span></footer>
+<script>
+var RT=document.documentElement,MB=document.getElementById("mode"),PG=document.getElementById("prog");
+function setMode(m){RT.dataset.mode=m;MB.innerHTML='<i class="fas fa-'+(m=="light"?"moon":"sun")+'"></i>';MB.setAttribute("aria-label","Switch to "+(m=="light"?"dark":"light")+" mode");document.querySelector('meta[name="theme-color"]').content=m=="light"?"#f3f1ed":"#060608";try{localStorage.setItem("mode",m)}catch(e){}}
+setMode(RT.dataset.mode=="light"?"light":"dark");MB.onclick=function(){setMode(RT.dataset.mode=="light"?"dark":"light")};
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll(".rv").forEach(function(e){io.observe(e)});
+addEventListener("scroll",function(){var d=document.documentElement.scrollHeight-innerHeight;PG.style.transform="scaleX("+(d>0?scrollY/d:0)+")"},{passive:true});
+</script>
+</body>
+</html>
