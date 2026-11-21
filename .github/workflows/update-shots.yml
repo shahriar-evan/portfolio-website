@@ -1,0 +1,48 @@
+name: Update project screenshots
+
+on:
+  schedule:
+    - cron: "0 2 * * *"   # every day 08:00 Bangladesh time
+  workflow_dispatch:       # "Run workflow" button on GitHub → update right now
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-shots
+  cancel-in-progress: false
+
+jobs:
+  shots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: .github/shots/package-lock.json
+
+      - name: Install
+        working-directory: .github/shots
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+
+      - name: Take screenshots
+        working-directory: .github/shots
+        run: node update-shots.mjs
+
+      - name: Commit new photos
+        run: |
+          git add media/shots
+          if git diff --cached --quiet; then
+            echo "No design changes."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Auto-update project screenshots"
+            git push
+          fi

@@ -1,0 +1,80 @@
+{
+  "_help": "Each site: file = media/shots/<file>.webp, url = live site. Optional: wait (ms after load), skip (true = never auto-update), actions (run before the photo): {\"press\":\"Escape\"}, {\"click\":\"css selector\"}, {\"clickAt\":[x,y]}, {\"hide\":\"css selector\"}, {\"wait\":ms}. change = how different (avg pixel 0-255) the new photo must be before it replaces the old one (default 6).",
+  "sites": [
+    {
+      "file": "writexnova",
+      "url": "https://writexnova.com"
+    },
+    {
+      "file": "aixnova",
+      "url": "https://aixnova.vercel.app"
+    },
+    {
+      "file": "streamworld",
+      "url": "https://streamflix-orpin.vercel.app/",
+      "wait": 6000,
+      "change": 12
+    },
+    {
+      "file": "animemaker",
+      "url": "https://anime-maker-three.vercel.app/"
+    },
+    {
+      "file": "habit",
+      "url": "https://habit-tracker-psi-three.vercel.app"
+    },
+    {
+      "file": "drama",
+      "url": "https://dramaseries-3ru.pages.dev",
+      "wait": 10000,
+      "actions": [
+        {
+          "press": "Escape",
+          "wait": 1500
+        }
+      ]
+    },
+    {
+      "file": "kyvro",
+      "url": "https://kyvro.store",
+      "skip": true
+    },
+    {
+      "file": "airtickethotel",
+      "url": "https://airtickethotel.vercel.app/"
+    },
+    {
+      "file": "tally",
+      "url": "https://tally-shahriar-evans-projects.vercel.app",
+      "skip": true
+    },
+    {
+      "file": "visa",
+      "url": "https://global-visa-connect-psi.vercel.app"
+    },
+    {
+      "file": "weather",
+      "url": "https://shahriar-evan.github.io/weather-app"
+    },
+    {
+      "file": "auth",
+      "url": "https://shahriar-evan.github.io/firebase-login-system/"
+    },
+    {
+      "file": "notes",
+      "url": "https://shahriar-evan.github.io/notes-app/"
+    },
+    {
+      "file": "todo",
+      "url": "https://shahriar-evan.github.io/To-Do-App/"
+    },
+    {
+      "file": "calc",
+      "url": "https://shahriar-evan.github.io/Calculator-App/"
+    },
+    {
+      "file": "snake",
+      "url": "https://shahriar-evan.github.io/snake-game/"
+    }
+  ]
+}

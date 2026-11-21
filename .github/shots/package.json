@@ -1,0 +1,10 @@
+{
+  "name": "portfolio-shots",
+  "private": true,
+  "type": "module",
+  "scripts": { "shots": "node update-shots.mjs" },
+  "dependencies": {
+    "playwright": "1.49.1",
+    "sharp": "0.33.5"
+  }
+}
