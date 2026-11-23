@@ -40,6 +40,17 @@
       "skip": true
     },
     {
+      "file": "zuvo",
+      "url": "https://zuvo-live.vercel.app",
+      "wait": 5000,
+      "actions": [
+        {
+          "click": "button[aria-label=\"Close\"]",
+          "wait": 1000
+        }
+      ]
+    },
+    {
       "file": "airtickethotel",
       "url": "https://airtickethotel.vercel.app/"
     },

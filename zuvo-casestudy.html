@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zuvo Live — Case Study · Evan</title>
+<meta name="description" content="Case study: Zuvo Live, a live-streaming and 1-on-1 video calling app with real-time call ringing, secure video rooms and three languages.">
+<meta name="theme-color" content="#060608">
+<link rel="canonical" href="https://shahriarevan.com/zuvo-casestudy.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://shahriarevan.com/zuvo-casestudy.html">
+<meta property="og:title" content="Zuvo Live — Case Study by Md. Shahriar Nafiz Evan">
+<meta property="og:description" content="Go live, meet real, be you. Live streaming and 1-on-1 video calls built with Next.js, LiveKit and Supabase.">
+<meta property="og:image" content="https://shahriarevan.com/media/shots/zuvo.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{--bg:#060608;--tx:#eeebe6;--mu:#97919d;--dim:#5f5a66;--ac:#ef4444;--k:#ec4899;--ok:#5cc48c;--okt:rgba(92,196,140,.12);--ln:rgba(255,255,255,.09);--ln2:rgba(255,255,255,.18);--card:rgba(17,15,21,.66);
+ --disp:"Archivo",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;--ease:cubic-bezier(.2,.75,.2,1)}
+[data-mode=light]{--bg:#f3f1ed;--tx:#141218;--mu:#1f1c24;--dim:#3d3944;--k:#c0267a;--ok:#1e7a4c;--okt:#e3f0e8;--ln:rgba(20,18,24,.1);--ln2:rgba(20,18,24,.2);--card:rgba(255,255,255,.74)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:radial-gradient(ellipse 70% 50% at 80% 0%,rgba(236,72,153,.13),transparent 70%),radial-gradient(ellipse 60% 40% at 0% 30%,rgba(139,92,246,.10),transparent 70%),var(--bg);background-attachment:fixed;color:var(--tx);font:16.5px/1.7 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body:after{content:"";position:fixed;inset:-50%;z-index:70;pointer-events:none;opacity:.06;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--ac);color:#fff}
+code{font-family:var(--mono);font-size:.82em;padding:2px 6px;border-radius:5px;border:1px solid var(--ln);background:rgba(127,127,127,.08)}
+.mono{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase}
+#prog{position:fixed;top:0;left:0;right:0;height:2px;z-index:80;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#8b5cf6,var(--k))}
+nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;justify-content:space-between;align-items:center;padding:14px 4vw;background:rgba(6,6,8,.6);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);border-bottom:1px solid var(--ln)}
+[data-mode=light] nav{background:rgba(243,241,237,.75)}
+.logo{font-family:var(--disp);font-weight:800;font-size:1.3rem;letter-spacing:-.02em}.logo b{color:var(--ac)}
+.nr{display:flex;gap:10px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;border:1px solid var(--ln2);font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tx);background:rgba(127,127,127,.04);cursor:pointer;transition:background .35s,color .35s,border-color .35s}
+.pill:hover{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.pill.w{background:var(--tx);color:var(--bg);border-color:var(--tx)}.pill.w:hover{background:transparent;color:var(--tx)}
+#mode{width:40px;height:40px;padding:0;justify-content:center}
+.wrap{max-width:900px;margin:0 auto;padding:0 6vw}
+.wide{max-width:1240px}
+/* hero */
+.hero{padding:150px 0 70px}
+.brand{display:flex;align-items:center;gap:14px}
+.brand svg{width:54px;height:54px}
+.logo-bg{fill:var(--tx)}.logo-st{stroke:var(--bg)}
+.word{font-family:var(--disp);font-weight:800;font-size:2rem;letter-spacing:-.04em}.word span{background:linear-gradient(90deg,#ec4899,#a855f7);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lbl{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--ln2);border-radius:999px;font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mu);background:rgba(127,127,127,.04)}
+.lbl:before{content:"";width:5px;height:5px;border-radius:50%;background:var(--k)}
+.hero .lbl{margin-top:44px}
+h1{font-family:var(--disp);font-stretch:108%;font-weight:800;font-size:clamp(2.3rem,6vw,4.6rem);letter-spacing:-.035em;line-height:1;margin-top:22px;max-width:16ch}
+h1 em{font-style:normal;color:transparent;-webkit-text-stroke:1.5px var(--k)}
+.lede{color:var(--mu);font-size:1.12rem;margin-top:26px;max-width:62ch}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin-top:50px;padding-top:26px;border-top:1px solid var(--ln)}
+.meta dt{color:var(--k)}.meta dd{margin-top:8px;font-size:.95rem}
+.meta a{border-bottom:1px solid var(--ln2)}.meta a:hover{color:var(--k);border-color:var(--k)}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:36px}
+.shot{margin-top:60px;border-radius:22px;overflow:hidden;border:1px solid var(--ln2);box-shadow:0 60px 120px -50px rgba(0,0,0,.8),0 0 120px -40px rgba(236,72,153,.35)}
+.shot img{display:block;width:100%;height:auto}
+.nums{margin-top:80px;border-top:1px solid var(--ln);border-bottom:1px solid var(--ln)}
+.nums ul{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.nums li{padding:30px 16px 30px 0}
+.nums b{display:block;font-family:var(--disp);font-weight:300;font-size:clamp(2rem,3.4vw,2.9rem);letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.nums span{display:block;margin-top:10px;color:var(--mu);font-size:.82rem;line-height:1.4}
+/* blocks */
+section{padding:110px 0 0}
+section .mono.k{color:var(--k);display:block;margin-bottom:14px}
+h2{font-family:var(--disp);font-stretch:106%;font-weight:800;font-size:clamp(1.8rem,3.8vw,2.9rem);letter-spacing:-.03em;line-height:1.05;margin-bottom:22px}
+section p{color:var(--mu);margin-bottom:16px;max-width:68ch}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:50px;align-items:center}
+/* receipt */
+.receipt{position:relative;border:1px solid var(--ln2);border-radius:20px;background:var(--card);backdrop-filter:blur(16px);font-size:.93rem}
+.receipt .tag{position:absolute;top:-11px;left:20px;background:var(--tx);color:var(--bg);font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;padding:4px 9px;border-radius:4px}
+.receipt .hd{padding:24px 22px 16px;border-bottom:1px dashed var(--ln2)}
+.receipt .hd .mono{color:var(--mu)}.receipt .hd p{color:var(--tx);margin:4px 0 0;font-weight:600}
+.receipt ol{list-style:none;padding:4px 22px}
+.receipt li{display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;gap:8px;padding:13px 0;border-bottom:1px solid var(--ln)}
+.receipt li:last-child{border-bottom:0}
+.receipt .r{font-family:var(--mono);font-size:.7rem;color:var(--dim)}
+.receipt .s small{color:var(--mu);margin-left:6px;font-size:.75rem}
+.receipt .t{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.receipt .t small{display:block;font-family:Manrope,sans-serif;font-size:.7rem;color:var(--mu)}
+.receipt li.best .s{font-weight:700}.receipt li.best .t{color:var(--ok);font-weight:600}
+.receipt li.worst .t>span{text-decoration:line-through;text-decoration-color:var(--k);color:var(--mu)}
+.receipt .sv{display:flex;justify-content:space-between;align-items:center;margin:4px 22px 22px;padding:13px 16px;background:var(--okt);border-radius:10px}
+.receipt .sv b{font-family:var(--mono);color:var(--ok)}
+/* cards */
+.parts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:14px}
+.parts.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.part{padding:28px 26px;border:1px solid var(--ln);border-radius:22px;background:var(--card);backdrop-filter:blur(16px);transition:border-color .4s,transform .6s var(--ease)}
+.part:hover{border-color:var(--ln2);transform:translateY(-5px)}
+.part .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;border:1px solid var(--ln);margin-bottom:20px;color:var(--k)}
+.part .who{color:var(--k)}.part h3{font-family:var(--disp);font-weight:750;font-size:1.35rem;letter-spacing:-.02em;margin:6px 0 14px}
+.part p{font-size:.92rem;margin:0}
+.part ul{list-style:none;display:grid;gap:9px}.part li{color:var(--mu);font-size:.92rem;padding-left:22px;position:relative}.part li:before{content:"→";position:absolute;left:0;color:var(--dim)}
+.part li b{color:var(--tx);font-weight:600}
+.prob{display:grid;grid-template-columns:90px minmax(0,1fr);gap:0 20px;padding:38px 0;border-top:1px solid var(--ln)}
+.prob:last-child{border-bottom:1px solid var(--ln)}
+.prob .n{font-family:var(--disp);font-weight:300;font-size:3rem;line-height:.9;letter-spacing:-.04em;color:var(--dim)}
+.prob h3{font-family:var(--disp);font-weight:750;font-size:clamp(1.25rem,2.4vw,1.6rem);letter-spacing:-.02em;line-height:1.2;margin-bottom:12px}
+.prob p{margin-bottom:0}
+.tbl{overflow-x:auto;border:1px solid var(--ln);border-radius:20px;background:var(--card);backdrop-filter:blur(16px);margin-top:10px}
+table{border-collapse:collapse;width:100%;min-width:34rem;font-size:.93rem}
+th,td{text-align:left;padding:16px 20px;border-bottom:1px solid var(--ln);vertical-align:top}
+tr:last-child td,tr:last-child th{border-bottom:0}
+th{font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--k);font-weight:500;white-space:nowrap;width:150px}
+td{color:var(--mu)}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.tags span{font-family:var(--mono);font-size:.7rem;letter-spacing:.04em;padding:8px 12px;border-radius:8px;border:1px solid var(--ln);background:rgba(127,127,127,.04);color:var(--tx)}
+.status{padding:30px 32px;border:1px solid var(--ln2);border-radius:22px;background:linear-gradient(135deg,rgba(236,72,153,.1),transparent 60%),var(--card);backdrop-filter:blur(16px)}
+.status .mono{display:inline-flex;gap:9px;align-items:center;color:var(--k);margin-bottom:14px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--k);box-shadow:0 0 0 0 rgba(236,72,153,.6);animation:ping 2s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 9px rgba(236,72,153,0)}100%{box-shadow:0 0 0 0 rgba(236,72,153,0)}}
+.lim{list-style:none;border-top:1px solid var(--ln)}
+.lim li{display:grid;grid-template-columns:230px minmax(0,1fr);gap:16px;padding:15px 0;border-bottom:1px solid var(--ln);color:var(--mu)}
+.lim li b{color:var(--tx);font-weight:600}
+.road{list-style:none;counter-reset:r;margin-top:10px}
+.road li{counter-increment:r;display:grid;grid-template-columns:50px minmax(0,1fr);gap:12px;padding:15px 0;border-bottom:1px solid var(--ln)}
+.road li:before{content:counter(r,decimal-leading-zero);font-family:var(--mono);font-size:.75rem;color:var(--dim);padding-top:4px}
+.road li:first-child:before{color:var(--k)}
+.road b{display:block;color:var(--tx);font-weight:600}.road span{color:var(--mu);font-size:.95rem}
+.first{font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;background:var(--k);color:#fff;border-radius:4px;padding:2px 7px;margin-left:8px;vertical-align:2px}
+.next{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:110px;padding:40px 0;border-top:1px solid var(--ln)}
+.next h3{font-family:var(--disp);font-weight:800;font-size:clamp(1.6rem,3.4vw,2.6rem);letter-spacing:-.03em;line-height:1.05}
+footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:28px 6vw 34px;color:var(--dim);border-top:1px solid var(--ln)}
+footer a{color:var(--mu)}footer a:hover{color:var(--tx)}
+.rv{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1.1s var(--ease);transition-delay:var(--d,0ms)}.rv.on{opacity:1;transform:none}
+a:focus-visible,button:focus-visible{outline:1px solid var(--k);outline-offset:4px}
+@media(max-width:1000px){.parts{grid-template-columns:1fr}.split{grid-template-columns:1fr}}
+@media(max-width:700px){.meta{grid-template-columns:1fr 1fr}.nums ul{grid-template-columns:repeat(2,minmax(0,1fr))}.prob{grid-template-columns:1fr}.prob .n{font-size:2rem;margin-bottom:10px}.hero{padding-top:120px}.parts.two{grid-template-columns:1fr}.lim li{grid-template-columns:1fr;gap:2px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<nav><a href="index.html" class="logo">Evan<b>.</b></a><div class="nr"><a href="index.html#saas" class="pill"><i class="fas fa-arrow-left"></i> Portfolio</a><button class="pill" id="mode" aria-label="Switch to light mode"><i class="fas fa-sun"></i></button></div></nav>
+
+<main>
+<header class="hero">
+ <div class="wrap wide">
+  <div class="brand rv"><svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="zg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ec4899"/><stop offset="1" stop-color="#a855f7"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#zg)"/><path d="M16 8.5c-4.7 0-8.3 3.2-8.3 7.3 0 2 .9 3.8 2.4 5.1l-.7 3.1 3.3-1.6c1 .4 2.1.6 3.3.6 4.7 0 8.3-3.2 8.3-7.3S20.7 8.5 16 8.5z" fill="#fff"/><path d="M14.2 12.9v5.8l4.8-2.9z" fill="#c026d3"/><circle cx="22.6" cy="9.6" r="2.3" fill="#fff" stroke="#c026d3" stroke-width="1.2"/></svg><div class="word">Zuvo <span>Live</span></div></div>
+  <span class="lbl rv" style="--d:80ms">Case study · Live streaming &amp; 1-on-1 video calls</span>
+  <h1 class="rv" style="--d:140ms">Go live. <em>Meet real.</em> Be you.</h1>
+  <p class="lede rv" style="--d:200ms">I designed and built Zuvo Live, a live-streaming and 1-on-1 video calling app, from an idea to a live product, with real login, real-time call ringing and secure video rooms.</p>
+  <dl class="meta rv" style="--d:260ms">
+   <div><dt class="mono">Role</dt><dd>Idea, brand, UI design, front-end, back-end, database, security and deployment</dd></div>
+   <div><dt class="mono">Built</dt><dd>November 2026</dd></div>
+   <div><dt class="mono">Stack</dt><dd>Next.js, TypeScript, LiveKit, Supabase, Vercel</dd></div>
+   <div><dt class="mono">Live at</dt><dd><a href="https://zuvo-live.vercel.app" target="_blank" rel="noopener noreferrer">zuvo-live.vercel.app ↗</a></dd></div>
+  </dl>
+  <div class="cta rv" style="--d:300ms"><a class="pill w" href="https://zuvo-live.vercel.app" target="_blank" rel="noopener noreferrer">Visit Zuvo Live <i class="fas fa-arrow-up-right-from-square"></i></a><span class="pill" style="cursor:not-allowed;color:var(--dim)" title="Source code is private"><i class="fas fa-lock"></i> Code</span></div>
+  <div class="shot rv" style="--d:200ms"><img src="media/shots/zuvo.webp" alt="Zuvo Live home page with the Start Video Chat panel and a wall of people online" width="960" height="600"></div>
+  <div class="nums rv">
+   <ul>
+    <li><b>7</b><span>working features</span></li>
+    <li><b>12/12</b><span>end-to-end checks passed</span></li>
+    <li><b>3</b><span>languages: English, Bangla, Hindi</span></li>
+    <li><b>2</b><span>layouts from one codebase</span></li>
+   </ul>
+  </div>
+ </div>
+</header>
+
+<section>
+ <div class="wrap wide">
+  <div class="rv">
+   <span class="mono k">// The challenge</span>
+   <h2>Face-to-face, built for South Asia first</h2>
+   <p>I wanted a social video app where people can go live, meet new friends and talk face to face, built for South Asian users first but usable anywhere. Most apps in this space are mobile-only, English-only, and feel the same.</p>
+  </div>
+  <div class="parts two">
+   <div class="part rv"><div class="ic"><i class="fas fa-phone-volume"></i></div><h3>Real conversations, not a mock-up</h3><p>Actual video calls that ring the other person, not a demo screen.</p></div>
+   <div class="part rv" style="--d:100ms"><div class="ic"><i class="fas fa-display"></i></div><h3>One product, two experiences</h3><p>A full website on laptops and an app-style experience on phones.</p></div>
+   <div class="part rv"><div class="ic"><i class="fas fa-language"></i></div><h3>Local by default, global by choice</h3><p>English first, with Bangla and Hindi one tap away.</p></div>
+   <div class="part rv" style="--d:100ms"><div class="ic"><i class="fas fa-shield-halved"></i></div><h3>Safe from day one</h3><p>Only the right people can join a call, and nobody can tamper with coins.</p></div>
+  </div>
+ </div>
+</section>
+
+<section>
+ <div class="wrap rv">
+  <span class="mono k">// My role and timeline</span>
+  <h2>Idea to live URL, end to end</h2>
+  <p>I owned the whole product: idea, naming, brand, UI design, front-end, back-end, database, security, testing and deployment. I worked AI-assisted, directing every decision and reviewing each step in the browser. The first working version went from an empty folder to a live URL in a single day.</p>
+  <div class="tbl"><table><tbody>
+   <tr><th scope="row">Concept</th><td>Studied popular live-video apps, picked the core flows, named the product Zuvo Live</td></tr>
+   <tr><th scope="row">Design</th><td>Dark neon UI, original logo, mobile app screens and a desktop website</td></tr>
+   <tr><th scope="row">Build</th><td>Video rooms, login, profiles, call ringing, chat, Go Live, languages</td></tr>
+   <tr><th scope="row">Secure</th><td>Database rules, server-checked video tokens, secrets kept out of code</td></tr>
+   <tr><th scope="row">Ship</th><td>12/12 end-to-end checks passed, live on Vercel</td></tr>
+  </tbody></table></div>
+ </div>
+</section>
+
+<section>
+ <div class="wrap rv">
+  <span class="mono k">// What I built</span>
+  <h2>Seven working features, not placeholders</h2>
+  <div class="tbl"><table><tbody>
+   <tr><th scope="row">1-on-1 video calls</th><td>Tap Video Call; the other person's screen rings with a ringtone; Accept joins both into a private video room. <b style="color:var(--ok)">Live</b></td></tr>
+   <tr><th scope="row">Go Live</th><td>Start a camera stream; viewers watch, comment and send hearts in real time. <b style="color:var(--ok)">Live</b></td></tr>
+   <tr><th scope="row">Discover</th><td>Hot / Live / Party / Match tabs, real users with a green Online badge. <b style="color:var(--ok)">Live</b></td></tr>
+   <tr><th scope="row">Chat</th><td>Private messages delivered instantly and saved to the database. <b style="color:var(--ok)">Live</b></td></tr>
+   <tr><th scope="row">Accounts</th><td>Email sign-up and login, editable profile, host mode, 100 starter coins. <b style="color:var(--ok)">Live</b></td></tr>
+   <tr><th scope="row">Languages</th><td>English by default; Bangla and Hindi via a picker after first login. <b style="color:var(--ok)">Live</b></td></tr>
+   <tr><th scope="row">Coins &amp; VIP</th><td>Coin packs (৳99–৳2,399) and a ৳299/month VIP plan on the pricing page. <b style="color:var(--k)">Designed; payments next</b></td></tr>
+  </tbody></table></div>
+ </div>
+</section>
+
+<section>
+ <div class="wrap wide">
+  <div class="rv"><span class="mono k">// Design decisions</span><h2>Why it looks and works this way</h2></div>
+  <div class="parts two">
+   <div class="part rv"><span class="mono who">Brand</span><h3>An original brand</h3><p>Zuvo Live is short and easy to say in any language, with the tagline “Go live · Meet real · Be you”. The logo is a chat bubble with a play button and a live dot, drawn as SVG so it stays sharp from favicon to splash screen.</p></div>
+   <div class="part rv" style="--d:100ms"><span class="mono who">Look</span><h3>Dark neon</h3><p>A deep purple background with a pink-to-violet gradient and soft glows, so faces and video stand out. Generic “AI sparkle” icons were replaced with meaningful ones: music, mic, coffee, handshake.</p></div>
+   <div class="part rv"><span class="mono who">Layout</span><h3>Right layout for each screen</h3><ul><li>On phones it is an <b>app</b>: bottom navigation, a floating Go Live button, full-screen calls</li><li>On laptops it is a <b>website</b>: a hero with “Start Video Chat”, a live wall of online people, features, pricing and FAQs</li></ul></div>
+   <div class="part rv" style="--d:100ms"><span class="mono who">Language</span><h3>A first-class feature</h3><p>Every screen reads from one translation file. English is the default; after first login users pick their language, and can switch any time from the globe button or their profile.</p></div>
+  </div>
+ </div>
+</section>
+
+<section>
+ <div class="wrap rv">
+  <span class="mono k">// How a call works</span>
+  <h2>One call in five steps</h2>
+  <p>A call is a row in the database that both phones watch: the caller creates it, the other person's screen rings, and only after Accept does the server hand each of them a key to the same private video room.</p>
+  <ol class="road">
+   <li><div><b>Caller taps Video Call</b><span>A call record is created with the status “ringing”.</span></div></li>
+   <li><div><b>The other phone rings</b><span>Supabase Realtime pushes the record to the callee, who sees the incoming call with a ringtone.</span></div></li>
+   <li><div><b>Accept or decline</b><span>The status moves to accepted, declined, or missed after 30 seconds with no answer.</span></div></li>
+   <li><div><b>Server hands out keys</b><span>Only a logged-in caller or callee of an accepted call gets a LiveKit video token.</span></div></li>
+   <li><div><b>Both join one private room</b><span>LiveKit's WebRTC server connects the two cameras; nobody else can join.</span></div></li>
+  </ol>
+ </div>
+</section>
+
+<section>
+ <div class="wrap rv">
+  <span class="mono k">// Tech stack</span>
+  <h2>What it runs on</h2>
+  <div class="tbl"><table><tbody>
+   <tr><th scope="row">Front-end</th><td>Next.js 16, React 19, TypeScript, Tailwind CSS 4. One codebase for the website and the app screens.</td></tr>
+   <tr><th scope="row">Video</th><td>LiveKit Cloud (WebRTC SFU). Scales from 1-on-1 calls to one-to-many live streams.</td></tr>
+   <tr><th scope="row">Auth &amp; database</th><td>Supabase (Postgres + row-level security). Login, data and security rules in one place.</td></tr>
+   <tr><th scope="row">Real-time</th><td>Supabase Realtime + Presence. Instant call ringing, accept/decline, chat, online status.</td></tr>
+   <tr><th scope="row">Hosting</th><td>Vercel. HTTPS (needed for cameras on phones) and auto-deploy on every push.</td></tr>
+   <tr><th scope="row">Code</th><td>Git version control, with no secrets in the code.</td></tr>
+  </tbody></table></div>
+ </div>
+</section>
+
+<section>
+ <div class="wrap wide">
+  <div class="rv"><span class="mono k">// Challenges I solved</span><h2>Problems and fixes</h2></div>
+  <div class="rv">
+   <div class="prob"><div class="n">01</div><div><h3>A call has to ring the other phone, not just share a room link</h3><p>Built call signaling: a call record moves ringing → accepted / declined / missed, pushed live to both sides. 30 seconds with no answer ends as “No answer”.</p></div></div>
+   <div class="prob"><div class="n">02</div><div><h3>Anyone with a room name could join a video call</h3><p>The server issues a video token only to a logged-in user who is the caller or callee of an accepted call.</p></div></div>
+   <div class="prob"><div class="n">03</div><div><h3>Users could edit their own coin balance from the browser</h3><p>Database rules block any self-edit of coins; only server-side logic will change them.</p></div></div>
+   <div class="prob"><div class="n">04</div><div><h3>The page crashed when the browser blocked the camera</h3><p>The call now keeps running and shows clear steps to allow camera and mic.</p></div></div>
+   <div class="prob"><div class="n">05</div><div><h3>Cameras don't work on phones without HTTPS</h3><p>Deployed on Vercel so the live site runs on HTTPS.</p></div></div>
+   <div class="prob"><div class="n">06</div><div><h3>Hosting storage was almost full (9.6 of 10 GB)</h3><p>Cleaned up 514 old deployments of another project, keeping its live site online the whole time.</p></div></div>
+   <div class="prob"><div class="n">07</div><div><h3>Keys must never leak into the code</h3><p>Keys live only in local env files and Vercel settings, and the code was checked before and after every push.</p></div></div>
+  </div>
+ </div>
+</section>
+
+<section>
+ <div class="wrap rv">
+  <div class="status">
+   <span class="mono"><i class="dot"></i>Where it stands · November 2026</span>
+   <p style="color:var(--tx)">Zuvo Live is live and tested. <b>12 of 12</b> end-to-end checks passed with two test accounts: login, auto-created profiles, coin protection, live ringing, accept, video tokens, blocked strangers and chat.</p>
+  </div>
+ </div>
+</section>
+
+<section>
+ <div class="wrap rv">
+  <span class="mono k">// Roadmap · in priority order</span>
+  <h2>What comes next</h2>
+  <ol class="road">
+   <li><div><b>Coin payments <span class="first">First</span></b><span>bKash / SSLCommerz and per-minute billing during calls.</span></div></li>
+   <li><div><b>Push notifications</b><span>So calls ring even when the app is closed.</span></div></li>
+   <li><div><b>Party Rooms and Match</b><span>Real group rooms and random matching.</span></div></li>
+   <li><div><b>Report and block</b><span>Safety tools for every user.</span></div></li>
+   <li><div><b>Android app</b><span>On Google Play, wrapping the same web app.</span></div></li>
+  </ol>
+  <div class="tags" style="margin-top:40px"><span>Next.js</span><span>React</span><span>TypeScript</span><span>Tailwind CSS</span><span>LiveKit</span><span>WebRTC</span><span>Supabase</span><span>Realtime</span><span>Row-level security</span><span>Vercel</span></div>
+ </div>
+</section>
+
+<div class="wrap wide">
+ <div class="next rv"><div><span class="mono" style="color:var(--dim)">Want something like this?</span><h3>Let's build your product.</h3></div><div class="cta" style="margin:0"><a class="pill w" href="index.html#contact">Start a project <i class="fas fa-arrow-right"></i></a><a class="pill" href="index.html#saas">See more work</a></div></div>
+</div>
+</main>
+<footer class="mono"><span>Zuvo Live · Go live · Meet real · Be you</span><span>Case study by <a href="index.html">Md. Shahriar Nafiz Evan</a></span></footer>
+<script>
+var RT=document.documentElement,MB=document.getElementById("mode"),PG=document.getElementById("prog");
+function setMode(m){RT.dataset.mode=m;MB.innerHTML='<i class="fas fa-'+(m=="light"?"moon":"sun")+'"></i>';MB.setAttribute("aria-label","Switch to "+(m=="light"?"dark":"light")+" mode");document.querySelector('meta[name="theme-color"]').content=m=="light"?"#f3f1ed":"#060608";try{localStorage.setItem("mode",m)}catch(e){}}
+setMode(RT.dataset.mode=="light"?"light":"dark");MB.onclick=function(){setMode(RT.dataset.mode=="light"?"dark":"light")};
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll(".rv").forEach(function(e){io.observe(e)});
+addEventListener("scroll",function(){var d=document.documentElement.scrollHeight-innerHeight;PG.style.transform="scaleX("+(d>0?scrollY/d:0)+")"},{passive:true});
+</script>
+</body>
+</html>
