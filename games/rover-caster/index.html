@@ -265,6 +265,11 @@ var $ = function (s) { return document.querySelector(s); };
 });
 
 function startDemo() {
+  // On phones the framed demo is small, so open the game full screen instead.
+  if (window.matchMedia("(max-width: 900px)").matches) {
+    location.href = "play/";
+    return;
+  }
   var screen = $("#screen");
   if (!screen.querySelector("iframe")) {
     var f = document.createElement("iframe");
