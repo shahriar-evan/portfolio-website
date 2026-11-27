@@ -86,6 +86,11 @@
     {
       "file": "snake",
       "url": "https://shahriar-evan.github.io/snake-game/"
+    },
+    {
+      "file": "rovercaster",
+      "url": "https://shahriarevan.com/games/rover-caster/",
+      "wait": 3000
     }
   ]
 }

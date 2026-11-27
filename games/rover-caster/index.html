@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rover Caster — Draw-a-line physics puzzle game · Evan</title>
+<meta name="description" content="Rover Caster is a physics puzzle game: draw one line to build a bridge or ramp and guide your car to the flag. Play the demo in your browser; Android app coming to Google Play.">
+<meta name="theme-color" content="#060608">
+<link rel="canonical" href="https://shahriarevan.com/games/rover-caster/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://shahriarevan.com/games/rover-caster/">
+<meta property="og:title" content="Rover Caster — Draw one line. Drive to the flag.">
+<meta property="og:description" content="A chalkboard physics puzzle game for Android, built with Flutter and Box2D. Play the demo in your browser.">
+<meta property="og:image" content="https://shahriarevan.com/games/rover-caster/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{--bg:#060608;--tx:#eeebe6;--mu:#97919d;--dim:#5f5a66;--ac:#ef4444;--ac2:#a78bfa;--chalk:#9fe2bf;--gold:#ffe27a;--ln:rgba(255,255,255,.09);--ln2:rgba(255,255,255,.18);--card:rgba(17,15,21,.85)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font:16px/1.6 "Manrope",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.mono{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+:focus-visible{outline:1px solid var(--ac);outline-offset:3px}
+
+/* top bar */
+.bar{position:sticky;top:0;z-index:5;backdrop-filter:blur(12px);background:rgba(6,6,8,.72);border-bottom:1px solid var(--ln)}
+.bar .wrap{display:flex;justify-content:space-between;align-items:center;height:64px}
+.bar a{color:var(--mu);transition:color .2s}.bar a:hover{color:var(--tx)}
+.logo{font-family:"Archivo";font-weight:800;font-size:1.35rem;color:var(--tx)!important;letter-spacing:-.02em}
+.logo b{color:var(--ac)}
+
+/* hero */
+.hero{position:relative;padding:72px 0 56px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-20% -10% auto;height:120%;background:radial-gradient(60% 50% at 70% 40%,rgba(159,226,191,.12),transparent 70%),radial-gradient(40% 40% at 10% 10%,rgba(167,139,250,.12),transparent 70%);pointer-events:none}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.kicker{display:inline-flex;gap:10px;align-items:center;padding:8px 16px;border:1px solid var(--ln2);border-radius:999px;color:var(--mu)}
+.kicker i{width:7px;height:7px;border-radius:50%;background:var(--ac);display:inline-block}
+h1{font-family:"Archivo";font-stretch:112%;font-weight:850;font-size:clamp(3rem,8vw,6rem);line-height:.88;letter-spacing:-.035em;text-transform:uppercase;margin:22px 0 22px}
+h1 span{color:transparent;-webkit-text-stroke:1.5px var(--tx)}
+.lead{font-size:1.15rem;color:var(--mu);max-width:520px}
+.lead strong{color:var(--tx);font-weight:600}
+.cta{display:flex;flex-wrap:wrap;gap:14px;margin:32px 0 22px}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:999px;border:1px solid var(--tx);background:var(--tx);color:var(--bg);font-family:"JetBrains Mono",monospace;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s}
+.pill:hover{background:transparent;color:var(--tx)}
+.pill.ghost{background:transparent;color:var(--tx);border-color:var(--ln2)}
+.pill.ghost:hover{border-color:var(--tx)}
+.gp{display:inline-flex;align-items:center;gap:12px;padding:10px 22px 10px 18px;border-radius:14px;border:1px solid var(--ln2);background:#000;color:var(--tx);min-height:52px}
+.gp i{font-size:1.6rem;color:var(--chalk)}
+.gp small{display:block;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);line-height:1.2}
+.gp b{display:block;font-family:"Archivo";font-weight:700;font-size:1.05rem;line-height:1.2}
+.gp.soon{cursor:default;opacity:.8}
+.gp.live:hover{border-color:var(--tx)}
+.meta{display:flex;flex-wrap:wrap;gap:18px;color:var(--dim)}
+.meta span{display:flex;gap:8px;align-items:center}
+.meta i{color:var(--mu)}
+
+/* phone with live demo */
+.phone{justify-self:center;width:min(340px,100%);aspect-ratio:9/19;border-radius:44px;padding:12px;background:linear-gradient(160deg,#2a2730,#0d0c10);border:1px solid var(--ln2);box-shadow:0 40px 80px -30px rgba(0,0,0,.8),0 0 0 6px rgba(255,255,255,.02)}
+.screen{position:relative;width:100%;height:100%;border-radius:34px;overflow:hidden;background:#142a24}
+.screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.poster{position:absolute;inset:0;background:url(img/01_draw.webp) center/cover;display:grid;place-items:center;cursor:pointer}
+.poster::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,6,8,.05),rgba(6,6,8,.55))}
+.poster button{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:12px;background:none;border:0;color:var(--tx);cursor:pointer}
+.poster .play{width:78px;height:78px;border-radius:50%;background:var(--tx);color:var(--bg);display:grid;place-items:center;font-size:1.6rem;box-shadow:0 0 0 10px rgba(238,235,230,.15);transition:transform .2s}
+.poster:hover .play{transform:scale(1.07)}
+.phone-note{text-align:center;color:var(--dim);margin-top:14px}
+.phone-note a{color:var(--mu);text-decoration:underline;text-underline-offset:3px}
+
+/* sections */
+section{padding:72px 0;border-top:1px solid var(--ln)}
+.sh{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:34px;flex-wrap:wrap}
+.sh .mono{color:var(--ac2)}
+h2{font-family:"Archivo";font-stretch:108%;font-weight:800;font-size:clamp(2rem,4.5vw,3.2rem);letter-spacing:-.03em;line-height:1;margin-top:10px}
+.sh p{color:var(--mu);max-width:420px}
+
+.shots{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px;scrollbar-width:thin}
+.shots img{flex:0 0 auto;width:220px;border-radius:22px;border:1px solid var(--ln2);scroll-snap-align:start}
+
+.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.f{padding:26px;border:1px solid var(--ln);border-radius:22px;background:var(--card)}
+.f i{font-size:1.2rem;color:var(--chalk);width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(159,226,191,.08);margin-bottom:18px}
+.f h3{font-family:"Archivo";font-weight:700;font-size:1.15rem;margin-bottom:6px}
+.f p{color:var(--mu);font-size:.95rem}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:s}
+.st{padding:26px;border-radius:22px;border:1px dashed var(--ln2)}
+.st::before{counter-increment:s;content:"0" counter(s);font-family:"JetBrains Mono";color:var(--gold);font-size:.8rem;letter-spacing:.14em}
+.st h3{font-family:"Archivo";font-weight:700;margin:10px 0 6px}
+.st p{color:var(--mu);font-size:.95rem}
+
+.tech{display:flex;flex-wrap:wrap;gap:10px}
+.tech span{padding:9px 14px;border:1px solid var(--ln2);border-radius:10px;font-family:"JetBrains Mono";font-size:.78rem;color:var(--mu)}
+
+.final{text-align:center}
+.final h2{margin:10px auto 14px;max-width:700px}
+.final p{color:var(--mu);margin-bottom:28px}
+.final .cta{justify-content:center}
+
+footer{border-top:1px solid var(--ln);padding:28px 0;color:var(--dim)}
+footer .wrap{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+footer a{color:var(--mu)}footer a:hover{color:var(--tx)}
+
+@media (max-width:900px){
+  .hero{padding-top:48px}
+  .hero .wrap{grid-template-columns:1fr;gap:44px}
+  .feat,.steps{grid-template-columns:1fr 1fr}
+}
+@media (max-width:600px){
+  .feat,.steps{grid-template-columns:1fr}
+  .shots img{width:180px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="logo" href="/">Evan<b>.</b></a>
+    <a class="mono" href="/#games">← All games</a>
+  </div>
+</header>
+
+<main>
+<section class="hero" style="border-top:0">
+  <div class="wrap">
+    <div>
+      <span class="kicker mono"><i></i>Game 01 · Puzzle · Android</span>
+      <h1>Rover<br><span>Caster</span></h1>
+      <p class="lead"><strong>Draw one line. Drive to the flag.</strong> A chalkboard physics puzzle where every gap, cliff and spinning saw needs a different idea. Your line falls with real physics — will your bridge hold?</p>
+      <div class="cta">
+        <button class="pill" id="playBtn"><i class="fas fa-play"></i>Play in browser</button>
+        <a class="gp soon" id="gpBtn" aria-disabled="true">
+          <i class="fab fa-google-play"></i>
+          <span><small id="gpSmall">Coming soon on</small><b>Google Play</b></span>
+        </a>
+      </div>
+      <div class="meta mono">
+        <span><i class="fas fa-layer-group"></i>300+ levels</span>
+        <span><i class="fas fa-car-side"></i>6 cars</span>
+        <span><i class="fas fa-wifi"></i>Plays offline</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="phone">
+        <div class="screen" id="screen">
+          <div class="poster" id="poster">
+            <button type="button" aria-label="Start the Rover Caster demo">
+              <span class="play"><i class="fas fa-play"></i></span>
+              <span class="mono">Tap to play demo</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <p class="phone-note mono">Browser demo · no ads · <a href="play/" target="_blank" rel="noopener">open full screen ↗</a></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sh">
+      <div><span class="mono">// Screenshots</span><h2>See it in action</h2></div>
+      <p>Hand-drawn chalk art, real physics and a new puzzle in every level.</p>
+    </div>
+    <div class="shots">
+      <img src="img/01_draw.webp" width="540" height="960" alt="Drawing a chalk line over a gap with a saw below" loading="lazy">
+      <img src="img/02_drive.webp" width="540" height="960" alt="A taxi driving across a drawn bridge" loading="lazy">
+      <img src="img/03_saws.webp" width="540" height="960" alt="A police car on a V-shaped bridge under a spinning saw" loading="lazy">
+      <img src="img/04_ramps.webp" width="540" height="960" alt="A jeep climbing a drawn ramp up a cliff" loading="lazy">
+      <img src="img/05_cars.webp" width="540" height="960" alt="Six unlockable cars in the shop" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sh">
+      <div><span class="mono">// How to play</span><h2>Three steps, endless ideas</h2></div>
+    </div>
+    <div class="steps">
+      <div class="st"><h3>Look</h3><p>Study the gap, the wall or the saw between your car and the flag.</p></div>
+      <div class="st"><h3>Draw</h3><p>Drag your finger to draw a single chalk line — a bridge, a ramp or a shield.</p></div>
+      <div class="st"><h3>Drive</h3><p>Let go. The line drops with real physics and the car drives. Use less chalk for 3 stars.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sh">
+      <div><span class="mono">// Features</span><h2>Small game, lots inside</h2></div>
+    </div>
+    <div class="feat">
+      <div class="f"><i class="fas fa-atom"></i><h3>Real physics</h3><p>Box2D simulation — lines fall, tilt and balance, so every solution is your own.</p></div>
+      <div class="f"><i class="fas fa-infinity"></i><h3>300+ levels</h3><p>Hand-made puzzles, then endless generated levels — every one tested to be solvable.</p></div>
+      <div class="f"><i class="fas fa-gear"></i><h3>Traps & obstacles</h3><p>Spinning and moving saws, deep pits, tall cliffs and floating islands.</p></div>
+      <div class="f"><i class="fas fa-car-side"></i><h3>6 cars to unlock</h3><p>Taxi, Patrol, Bubble Van, Trail Jeep, Rocket Racer and the classic buggy.</p></div>
+      <div class="f"><i class="fas fa-lightbulb"></i><h3>Hints & skips</h3><p>Stuck? See where to draw, or skip the level with coins or a short video.</p></div>
+      <div class="f"><i class="fas fa-music"></i><h3>Chalkboard vibe</h3><p>Hand-drawn look, relaxing music and sound effects — all made from code.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sh">
+      <div><span class="mono">// Built with</span><h2>Under the hood</h2></div>
+      <p>Built solo: game design, physics, art, sound and monetisation.</p>
+    </div>
+    <div class="tech">
+      <span>Flutter</span><span>Dart</span><span>Box2D (forge2d)</span><span>CustomPainter</span>
+      <span>Google AdMob</span><span>Google Play Billing</span><span>Procedural audio</span><span>Automated level tests</span>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <span class="mono" style="color:var(--ac2)">// Ready?</span>
+    <h2>Grab your chalk and start drawing.</h2>
+    <p>Play the demo now — the full Android game is coming to Google Play.</p>
+    <div class="cta">
+      <a class="pill" href="#top" id="playBtn2"><i class="fas fa-play"></i>Play in browser</a>
+      <a class="gp soon" id="gpBtn2" aria-disabled="true">
+        <i class="fab fa-google-play"></i>
+        <span><small class="gpSmall">Coming soon on</small><b>Google Play</b></span>
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap mono">
+    <span>© Evan Studio · Rover Caster</span>
+    <span><a href="/rover-caster/privacy-policy/">Privacy policy</a> · <a href="mailto:evanstudio.support@gmail.com">Support</a> · <a href="/">Portfolio</a></span>
+  </div>
+</footer>
+
+<script>
+// When the game is live on Google Play, set this to its store URL — the buttons switch on automatically.
+var PLAY_URL = "";
+
+var $ = function (s) { return document.querySelector(s); };
+
+["#gpBtn", "#gpBtn2"].forEach(function (id) {
+  var a = $(id);
+  if (!PLAY_URL) return;
+  a.href = PLAY_URL;
+  a.target = "_blank";
+  a.rel = "noopener";
+  a.classList.remove("soon");
+  a.classList.add("live");
+  a.removeAttribute("aria-disabled");
+  a.querySelector("small").textContent = "Get it on";
+});
+
+function startDemo() {
+  var screen = $("#screen");
+  if (!screen.querySelector("iframe")) {
+    var f = document.createElement("iframe");
+    f.src = "play/";
+    f.title = "Rover Caster playable demo";
+    f.allow = "autoplay; fullscreen";
+    screen.innerHTML = "";
+    screen.appendChild(f);
+  }
+  screen.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+$("#poster").addEventListener("click", startDemo);
+$("#playBtn").addEventListener("click", startDemo);
+$("#playBtn2").addEventListener("click", function (e) { e.preventDefault(); startDemo(); });
+</script>
+</body>
+</html>
