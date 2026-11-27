@@ -136,7 +136,7 @@ footer a{color:var(--mu)}footer a:hover{color:var(--tx)}
       <h1>Rover<br><span>Caster</span></h1>
       <p class="lead"><strong>Draw one line. Drive to the flag.</strong> A chalkboard physics puzzle where every gap, cliff and spinning saw needs a different idea. Your line falls with real physics — will your bridge hold?</p>
       <div class="cta">
-        <button class="pill" id="playBtn"><i class="fas fa-play"></i>Play in browser</button>
+        <a class="pill" href="play/" target="_blank" rel="noopener" id="playBtn"><i class="fas fa-play"></i>Play in browser</a>
         <a class="gp soon" id="gpBtn" aria-disabled="true">
           <i class="fab fa-google-play"></i>
           <span><small id="gpSmall">Coming soon on</small><b>Google Play</b></span>
@@ -229,7 +229,7 @@ footer a{color:var(--mu)}footer a:hover{color:var(--tx)}
     <h2>Grab your chalk and start drawing.</h2>
     <p>Play the demo now — the full Android game is coming to Google Play.</p>
     <div class="cta">
-      <a class="pill" href="#top" id="playBtn2"><i class="fas fa-play"></i>Play in browser</a>
+      <a class="pill" href="play/" target="_blank" rel="noopener" id="playBtn2"><i class="fas fa-play"></i>Play in browser</a>
       <a class="gp soon" id="gpBtn2" aria-disabled="true">
         <i class="fab fa-google-play"></i>
         <span><small class="gpSmall">Coming soon on</small><b>Google Play</b></span>
@@ -282,8 +282,7 @@ function startDemo() {
   screen.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 $("#poster").addEventListener("click", startDemo);
-$("#playBtn").addEventListener("click", startDemo);
-$("#playBtn2").addEventListener("click", function (e) { e.preventDefault(); startDemo(); });
+// "Play in browser" links open the full-screen game in a new tab (plain links).
 </script>
 </body>
 </html>
